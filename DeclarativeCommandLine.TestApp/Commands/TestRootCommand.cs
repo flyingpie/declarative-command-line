@@ -1,6 +1,6 @@
-﻿namespace DeclarativeCommandLine.TestApp.Commands;
+﻿//namespace DeclarativeCommandLine.TestApp.Commands;
 
-[RootCommand]
-public class TestRootCommand
-{
-}
+//[RootCommand]
+//public class TestRootCommand
+//{
+//}

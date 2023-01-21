@@ -24,17 +24,34 @@ public class DeclarativeCommandLineFactory
 			throw new ArgumentException("At least 1 assemblies is required.", nameof(assemblies));
 		}
 
-		var cmdTypes = assemblies
-			.SelectMany(ass => ass.GetTypes())
+		return BuildRootCommand(assemblies.SelectMany(ass => ass.GetTypes()).ToArray());
+	}
+
+	public RootCommand BuildRootCommand(params Type[] types)
+	{
+		if (types == null || types.Length == 0)
+		{
+			throw new ArgumentException("At least 1 type is required.", nameof(types));
+		}
+
+		var cmdTypes = types
 			.Select(type => CommandDescriptor.TryCreate(type, out var cmdDescr) ? cmdDescr : null)
 			.Where(cmdDescr => cmdDescr != null)
 			.Select(cmdDescr => cmdDescr!)
 			.ToList();
 
 		var roots = cmdTypes.Where(c => c.IsRoot).ToList();
-		if (roots.Count == 0)
+		var root = roots.FirstOrDefault();
+
+		if (root == null)
 		{
-			throw new InvalidOperationException($"No root command found. Please define a command and decorate it with the '{nameof(RootCommand)}' attribute.");
+			//throw new InvalidOperationException($"No root command found. Please define a command and decorate it with the '{nameof(RootCommand)}' attribute.");
+
+			root = new CommandDescriptor(
+				typeof(DefaultRootCommand),
+				new RootCommandAttribute()
+				{
+				});
 		}
 
 		if (roots.Count > 1)
@@ -42,7 +59,14 @@ public class DeclarativeCommandLineFactory
 			throw new InvalidOperationException($"Multiple root commands found: {string.Join(", ", roots.Select(c => c.Type))}.");
 		}
 
-		var root = roots.First();
+		// Relate non-root commands without a parent command to the root command.
+		foreach (var cmdType in cmdTypes)
+		{
+			if (!cmdType.IsRoot && cmdType.ParentType == null)
+			{
+				cmdType.ParentType = root.Type;
+			}
+		}
 
 		var rootCmd = BuildCommandTree(cmdTypes, root);
 

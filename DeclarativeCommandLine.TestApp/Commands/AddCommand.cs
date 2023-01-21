@@ -1,17 +1,17 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands;
 
-[Command<TestRootCommand>]
+[Command]
 public class AddCommand
 {
-	[Option(Alias = "-a", IsRequired = true)]
-	public int ValueA { get; set; }
+	[Option]
+	public int NumberA { get; set; }
 
-	[Option(Alias = "-b", IsRequired = true)]
-	public int ValueB { get; set; }
+	[Option]
+	public int NumberB { get; set; }
 
 	[CommandHandler]
 	public void Handle()
 	{
-		Console.WriteLine($"{ValueA} + {ValueB} = {ValueA + ValueB}");
+		Console.WriteLine($"{NumberA} + {NumberB} = {NumberA + NumberB}");
 	}
 }
