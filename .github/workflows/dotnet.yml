@@ -4,8 +4,8 @@
 name: .NET
 
 on:
-#  push:
-#    branches: [ "master", "build-1" ]
+  push:
+    branches: [ "master", "build" ]
 
 #  pull_request:
 #    branches: [ "master", "build-1" ]
