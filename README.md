@@ -25,19 +25,133 @@ public class AddNumbersCommand
 }
 ```
 
-## Command Hierarchy
+## Contents
 
-### Root Command
+- [Commands](#commands)
+- [Arguments](#arguments)
+- [Options](#options)
+- [Command Handlers](#command-handlers)
+- [Command Builders](#command-builders)
+- [Command Inheritance](#command-inheritance)
+- [Dependency Injection](#dependency-injection)
+- [Root Command](#root-command)
+- [Command Hierarchy](#command-hierarchy)
+- [Automatic Naming](#automatic-naming)
+
+## Commands
+
+TODO:
+- Name
+- Aliases
+- Description
+- IsHidden
+- Parent
+- TreatUnmatchedTokensAsErrors
+
+```cs
+public class MyCommand
+{
+
+}
+```
+
+## Arguments
+
+```cs
+[Command]
+public class MyCommand
+{
+	[Argument]
+	public string MyArgument { get; set; }
+}
+```
+
+TODO:
+- Name
+- Description
+- DefaultValue
+- ArgumentArity Arity
+- Completions
+- FromAmong
+- HelpName
+- IsHidden
+- LegalFileNamesOnly
+- LegalFilePathsOnly
+
+## Options
+
+```cs
+[Command]
+public class MyCommand
+{
+	[Option]
+	public string MyOption { get; set; }
+}
+```
+
+TODO:
+- Name
+- Aliases
+- DefaultValue
+- Description
+- ArgumentHelpName
+- AllowMultipleArgumentsPerToken
+- ArgumentArity Arity
+- Completions
+- FromAmong
+- IsRequired
+- IsGlobal
+- IsHidden
+- LegalFileNamesOnly
+- LegalFilePathsOnly
+
+## Command Handlers
+
+TODO
+
+```cs
+[RootCommand]
+public class AppRootCommand
+{
+	[CommandHandler]
+	public void Handle()
+	{
+	}
+}
+```
+
+## Command Builders
+
+TODO
+
+```cs
+[RootCommand]
+public class AppRootCommand
+{
+	[CommandBuilder]
+	public void Handle(System.CommandLine.Command command)
+	{
+	}
+}
+```
+
+## Command Inheritance
+
+TODO
+
+## Dependency Injection
+
+TODO
+
+## Root Command
 Generally, an app has exactly 1 "root command", which handles the case where no explicit command is specified.
 
-For example:
-
-Argument:
+For example, with an argument:
 ```
 my-app.exe C:/path/to/file.txt
 ```
 
-Option:
+With an option:
 ```
 my-app.exe --verbose
 ```
@@ -58,18 +172,16 @@ public class AppRootCommand
 }
 ```
 
-### Hierarchy
+## Command Hierarchy
 
 Commands can be arranged in a hierarchy, to add structure and share arguments and options.
 
-Here's a couple commands that illustrate the concept.
+Here's a couple example commands that illustrate the concept.
 
-Create a file named "my-file.txt"
 ```
 my-app.exe file create my-file.txt
 ```
 
-Create a directory named "my-dir"
 ```
 my-app.exe dir create my-dir
 ```
@@ -81,7 +193,9 @@ We could define the commands as:
 public class FileCommand
 {
 }
+```
 
+```cs
 [Command("create", Parent = typeof(FileCommand))]
 public class CreateFileCommand
 {
@@ -96,14 +210,14 @@ public class CreateFileCommand
 }
 ```
 
-And:
-
 ```cs
 [Command("dir")]
 public class DirCommand
 {
 }
+```
 
+```cs
 [Command("create", Parent = typeof(DirCommand))]
 public class CreateDirCommand
 {
@@ -117,3 +231,26 @@ public class CreateDirCommand
 	}
 }
 ```
+
+We can now add more commands under these, for example:
+
+```cs
+[Command("current", Parent = typeof(DirCommand))]
+public class CurrentDirCommand
+{
+	[CommandHandler]
+	public void Handle()
+	{
+		Console.WriteLine($"CURRENT: {Directory.GetCurrentDirectory()}");
+	}
+}
+```
+
+```
+my-app.exe dir current
+CURRENT: C:\path\to\net6.0
+```
+
+## Automatic Naming
+
+TODO
