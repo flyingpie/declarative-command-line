@@ -4,8 +4,9 @@
 name: .NET
 
 on:
-#  push:
-#    branches: [ "master", "build-1" ]
+  push:
+    branches: [ "master", "build-1" ]
+
 #  pull_request:
 #    branches: [ "master", "build-1" ]
 
@@ -13,7 +14,7 @@ on:
     inputs:
       isPreRelease:
         description: 'Is Pre-Release?'     
-        required: true
+        required: false
         default: true
 
 jobs:
@@ -23,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0
+        fetch-depth: 0 # A shallow clone breaks the GitVersion task in the Cake build
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -37,4 +38,4 @@ jobs:
         arguments: |
           target: Push
           nugetApiKey: ${{ secrets.NUGET_API_KEY }}
-          isPreRelease: ${{ github.event.inputs.isPreRelease }}
+          isPreRelease: ${{ github.event.inputs.isPreRelease != "false" }}
