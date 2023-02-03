@@ -44,9 +44,4 @@
 	<ItemGroup>
 		<AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json" />
 	</ItemGroup>
-
-	<PropertyGroup Condition="$(Configuration) == 'Debug'">
-		<DebugType>full</DebugType>
-		<DebugSymbols>true</DebugSymbols>
-	</PropertyGroup>
 </Project>
