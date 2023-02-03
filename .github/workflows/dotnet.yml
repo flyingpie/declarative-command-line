@@ -38,4 +38,4 @@ jobs:
         arguments: |
           target: Push
           nugetApiKey: ${{ secrets.NUGET_API_KEY }}
-          isPreRelease: ${{ github.event.inputs.isPreRelease != "false" }}
+          isPreRelease: ${{ github.event.inputs.isPreRelease != false }}
