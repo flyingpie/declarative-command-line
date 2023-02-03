@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       isPreRelease:
-        description: 'Is Pre-Release?'     
+        description: 'Is Pre-Release?'
         required: false
-        default: true
+        default: 'true'
 
 jobs:
   build:
@@ -36,6 +36,5 @@ jobs:
       with:
         target: Default
         arguments: |
-          target: Push
           nugetApiKey: ${{ secrets.NUGET_API_KEY }}
-          isPreRelease: ${{ github.event.inputs.isPreRelease != false }}
+          isPreRelease: ${{ inputs.isPreRelease != 'false' }}
