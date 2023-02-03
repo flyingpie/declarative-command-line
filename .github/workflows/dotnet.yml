@@ -1,0 +1,27 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "master", "build" ]
+  pull_request:
+    branches: [ "master", "build" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Cake Action
+      # You may pin to the exact commit or the version.
+      # uses: cake-build/cake-action@a6eb054329257c9e70a6c6bf01747ad6e1d9d52b
+      uses: cake-build/cake-action@v1.4.1
+      with:
+        target: Default
