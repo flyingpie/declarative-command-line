@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Build", "00 - Build", 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		build.cake = build.cake
+		Directory.Build.props = Directory.Build.props
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
