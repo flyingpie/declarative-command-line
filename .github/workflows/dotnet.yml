@@ -29,3 +29,5 @@ jobs:
       uses: cake-build/cake-action@v1.4.1
       with:
         target: Default
+        arguments: |
+          nugetApiKey: ${{ secrets.NUGET_API_KEY }}
