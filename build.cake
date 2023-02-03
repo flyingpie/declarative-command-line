@@ -61,7 +61,7 @@ Task("Artifact.NuGet")
 	});
 
 Task("Push")
-//	.IsDependentOn("Artifact.NuGet")
+	.IsDependentOn("Artifact.NuGet")
 	.Does(() =>
 	{
 		var package = GetFiles(nupkgs).FirstOrDefault()
