@@ -3,8 +3,6 @@
 		<LangVersion>11.0</LangVersion>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-		<ServerGarbageCollection>false</ServerGarbageCollection>
 	</PropertyGroup>
 
 	<!-- Regular Projects -->
@@ -46,9 +44,4 @@
 	<ItemGroup>
 		<AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json" />
 	</ItemGroup>
-
-	<PropertyGroup Condition="$(Configuration) == 'Debug'">
-		<DebugType>full</DebugType>
-		<DebugSymbols>true</DebugSymbols>
-	</PropertyGroup>
 </Project>
