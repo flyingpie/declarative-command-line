@@ -1,6 +1,6 @@
 # Declarative Command Line
 
-[![.NET](https://github.com/flyingpie/declarative-command-line/actions/workflows/dotnet.yml/badge.svg)](https://github.com/flyingpie/declarative-command-line/actions/workflows/dotnet.yml)
+[![GitHub Actions](https://github.com/flyingpie/declarative-command-line/actions/workflows/dotnet.yml/badge.svg)](https://github.com/flyingpie/declarative-command-line/actions/workflows/dotnet.yml)
 
 Attribute-driven layer on top of System.CommandLine to make the most common use cases easier to set up.
 
