@@ -2,6 +2,8 @@
 
 [![GitHub Actions](https://github.com/flyingpie/declarative-command-line/actions/workflows/dotnet.yml/badge.svg)](https://github.com/flyingpie/declarative-command-line/actions/workflows/dotnet.yml)
 
+[![NuGet latest release](https://img.shields.io/nuget/v/DeclarativeCommandLine.svg)]([https://www.nuget.org/packages/Docker.DotNet](https://www.nuget.org/packages/DeclarativeCommandLine))
+
 Attribute-driven layer on top of System.CommandLine to make the most common use cases easier to set up.
 
 ## Minimalistic Example
