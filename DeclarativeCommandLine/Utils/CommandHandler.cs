@@ -5,17 +5,15 @@ namespace DeclarativeCommandLine.Utils;
 internal class CommandHandler
 {
 	private readonly CommandDescriptor _cmdDescr;
-	private readonly MethodInfo _methodInfo;
-	private readonly IServiceProvider _serviceProvider;
+	//private readonly MethodInfo _methodInfo;
+	//private readonly IServiceProvider _serviceProvider;
 
 	public CommandHandler(
-		CommandDescriptor cmdDescr,
-		MethodInfo methodInfo,
-		IServiceProvider serviceProvider)
+		CommandDescriptor cmdDescr)
 	{
 		_cmdDescr = cmdDescr ?? throw new ArgumentNullException(nameof(cmdDescr));
-		_methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
-		_serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+		//_methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
+		//_serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 	}
 
 	public async Task<int> HandlerAsync(InvocationContext ctx)
@@ -25,7 +23,7 @@ internal class CommandHandler
 			throw new ArgumentNullException(nameof(ctx));
 		}
 
-		var methodParams = _methodInfo.GetParameters();
+		//var methodParams = _methodInfo.GetParameters();
 
 		// Arguments
 		HandleArguments(ctx);
@@ -33,40 +31,57 @@ internal class CommandHandler
 		// Options
 		HandleOptions(ctx);
 
-		var methodParamValues = CreateParameterValues(ctx, methodParams);
+		if (_cmdDescr.Instance is ICommand cmd)
+		{
+			// TODO: Try catch here or somewhere else?
+			cmd.Execute();
+			return 0;
+		}
+
+		if (_cmdDescr.Instance is IAsyncCommand asyncCmd)
+		{
+			await asyncCmd.ExecuteAsync();
+			return 0;
+		}
+
+		throw new DeclarativeCommandLineException($"Type '{_cmdDescr.Type.FullName}' does not inherit from interface '{typeof(IAsyncCommand).FullName}'.");
+
+		return 0;
+
+		//var methodParamValues = CreateParameterValues(ctx, methodParams);
 
 		// Return value
 		// TODO: Check that this actually works, and doesn't override any
 		// explicitly set return codes (through InvocationContext).
-		var result = _methodInfo.Invoke(_cmdDescr.Instance, methodParamValues.ToArray());
+		//var result = _methodInfo.Invoke(_cmdDescr.Instance, methodParamValues.ToArray());
 
-		return await HandleReturnValueAsync(result).ConfigureAwait(false);
+		//return await HandleReturnValueAsync(result).ConfigureAwait(false);
 	}
 
-	private List<object> CreateParameterValues(
-		InvocationContext ctx,
-		ParameterInfo[] methodParams)
-	{
-		var mp = new List<object?>();
-		foreach (var methodP in methodParams)
-		{
-			var fromServicesAttr = methodP.GetCustomAttribute<FromServicesAttribute>();
+	//private List<object> CreateParameterValues(
+	//	InvocationContext ctx,
+	//	ParameterInfo[] methodParams)
+	//{
+	//	var mp = new List<object?>();
+	//	foreach (var methodP in methodParams)
+	//	{
+	//		var fromServicesAttr = methodP.GetCustomAttribute<FromServicesAttribute>();
 
-			if (methodP.ParameterType == typeof(InvocationContext))
-			{
-				mp.Add(ctx);
-			}
-			else
-			{
-				var inst = _serviceProvider.GetService(methodP.ParameterType)
-					?? throw new ServiceResolverException($"Could not resolved instance of type '{methodP.ParameterType}'");
+	//		if (methodP.ParameterType == typeof(InvocationContext))
+	//		{
+	//			mp.Add(ctx);
+	//		}
+	//		else
+	//		{
+	//			var inst = _serviceProvider.GetService(methodP.ParameterType)
+	//				?? throw new ServiceResolverException($"Could not resolved instance of type '{methodP.ParameterType}'");
 
-				mp.Add(inst);
-			}
-		}
+	//			mp.Add(inst);
+	//		}
+	//	}
 
-		return mp;
-	}
+	//	return mp;
+	//}
 
 	private void HandleArguments(InvocationContext ctx)
 	{

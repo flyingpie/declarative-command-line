@@ -18,7 +18,7 @@ var branch = gv.BranchName;
 if (branch.Contains("/")) branch = branch.Substring(branch.LastIndexOf('/') + 1);
 
 var version = XmlPeek(GetFiles("**/*.csproj").First(), "//Version");
-var versionPkg = !isPreRelease ? version : $"{version}-{branch}-{DateTime.Now:MMddHHmm}";
+var versionPkg = !isPreRelease ? version : $"{version}-{branch}-{DateTime.Now:yyyyMMddHHmm}";
 
 Task("Clean")
 	.Does(() =>

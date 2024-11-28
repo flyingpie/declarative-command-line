@@ -14,7 +14,7 @@ The very smallest a command can be:
 using DeclarativeCommandLine;
 
 [Command]
-public class AddNumbersCommand
+public class AddNumbersCommand : ICommand
 {
 	[Option]
 	public int NumberA { get; set; }
@@ -22,8 +22,7 @@ public class AddNumbersCommand
 	[Option]
 	public int NumberB { get; set; }
 
-	[CommandHandler]
-	public void Handle()
+	public void Execute()
 	{
 		Console.WriteLine($"{NumberA} + {NumberB} = {NumberA + NumberB}");
 	}

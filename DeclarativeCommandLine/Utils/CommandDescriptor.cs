@@ -31,11 +31,25 @@ public class CommandDescriptor
 
 	public Type Type { get; }
 
+	public bool IsExecutable
+	{
+		get
+		{
+			var t = new[]
+			{
+				typeof(ICommand),
+				typeof(IAsyncCommand),
+			};
+
+			return t.Any(tt => tt.IsAssignableFrom(Type));
+		}
+	}
+
 	public BaseCommandAttribute CommandAttribute { get; }
 
 	public bool IsRoot { get; }
 
-	public object Instance { get; set; }
+	public object? Instance { get; set; }
 
 	public CommandDescriptor Parent { get; set; }
 

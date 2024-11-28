@@ -1,16 +1,20 @@
-﻿namespace DeclarativeCommandLine.TestApp.Commands;
+﻿using System.CommandLine.Invocation;
+
+namespace DeclarativeCommandLine.TestApp.Commands;
 
 [Command]
-public class AddCommand
+public class AddCommand : ICommand
 {
-	[Option]
+	[Option(IsRequired = true)]
 	public int NumberA { get; set; }
 
-	[Option]
+	[Option(IsRequired = true)]
 	public int NumberB { get; set; }
 
-	[CommandHandler]
-	public void Handle()
+	//[InvocationContext]
+	//public InvocationContext Context { get; set; }
+
+	public void Execute()
 	{
 		Console.WriteLine($"{NumberA} + {NumberB} = {NumberA + NumberB}");
 	}

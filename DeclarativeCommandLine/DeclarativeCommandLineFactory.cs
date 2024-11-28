@@ -1,46 +1,45 @@
-﻿using DeclarativeCommandLine.Utils;
+﻿using DeclarativeCommandLine.Exceptions;
+using DeclarativeCommandLine.Utils;
 
 namespace DeclarativeCommandLine;
 
-public class DeclarativeCommandLineFactory
+public class DeclarativeCommandLineFactory(
+	ICommandFactory commandFactory,
+	IServiceProvider serviceProvider,
+	IEnumerable<CommandDescriptor> commandDescriptors)
 {
-	private readonly ICommandFactory _commandFactory = new ActivatorCommandFactory();
-	private readonly IServiceProvider _serviceProvider;
+	private readonly ICommandFactory _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
+	//private readonly IServiceProvider _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
-	public DeclarativeCommandLineFactory()
-		: this(new NonConfiguredServiceProvider())
+	private readonly IEnumerable<CommandDescriptor> _commandDescriptors = commandDescriptors ?? throw new ArgumentNullException(nameof(commandDescriptors));
+
+	//public RootCommand BuildRootCommand(params Assembly[] assemblies)
+	//{
+	//	if (assemblies == null || assemblies.Length == 0)
+	//	{
+	//		throw new ArgumentException("At least 1 assemblies is required.", nameof(assemblies));
+	//	}
+
+	//	return BuildRootCommand(assemblies.SelectMany(ass => ass.GetTypes()).ToArray());
+	//}
+
+	//public RootCommand BuildRootCommand(params Type[] types)
+	//{
+	//	if (types == null || types.Length == 0)
+	//	{
+	//		throw new ArgumentException("At least 1 type is required.", nameof(types));
+	//	}
+
+	//var cmdTypes = types
+	//	.Select(type => CommandDescriptor.TryCreate(type, out var cmdDescr) ? cmdDescr : null)
+	//	.Where(cmdDescr => cmdDescr != null)
+	//	.Select(cmdDescr => cmdDescr!)
+	//	.ToList();
+
+	// TODO: Add IAsyncCommand? (DI now done through constructor).
+	public RootCommand BuildRootCommand()
 	{
-	}
-
-	public DeclarativeCommandLineFactory(IServiceProvider serviceProvider)
-	{
-		_serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-	}
-
-	public RootCommand BuildRootCommand(params Assembly[] assemblies)
-	{
-		if (assemblies == null || assemblies.Length == 0)
-		{
-			throw new ArgumentException("At least 1 assemblies is required.", nameof(assemblies));
-		}
-
-		return BuildRootCommand(assemblies.SelectMany(ass => ass.GetTypes()).ToArray());
-	}
-
-	public RootCommand BuildRootCommand(params Type[] types)
-	{
-		if (types == null || types.Length == 0)
-		{
-			throw new ArgumentException("At least 1 type is required.", nameof(types));
-		}
-
-		var cmdTypes = types
-			.Select(type => CommandDescriptor.TryCreate(type, out var cmdDescr) ? cmdDescr : null)
-			.Where(cmdDescr => cmdDescr != null)
-			.Select(cmdDescr => cmdDescr!)
-			.ToList();
-
-		var roots = cmdTypes.Where(c => c.IsRoot).ToList();
+		var roots = _commandDescriptors.Where(c => c.IsRoot).ToList();
 		var root = roots.FirstOrDefault();
 
 		if (root == null)
@@ -60,7 +59,7 @@ public class DeclarativeCommandLineFactory
 		}
 
 		// Relate non-root commands without a parent command to the root command.
-		foreach (var cmdType in cmdTypes)
+		foreach (var cmdType in _commandDescriptors)
 		{
 			if (!cmdType.IsRoot && cmdType.ParentType == null)
 			{
@@ -68,7 +67,7 @@ public class DeclarativeCommandLineFactory
 			}
 		}
 
-		var rootCmd = BuildCommandTree(cmdTypes, root);
+		var rootCmd = BuildCommandTree(_commandDescriptors, root);
 
 		if (rootCmd is not RootCommand rootc)
 		{
@@ -80,13 +79,14 @@ public class DeclarativeCommandLineFactory
 
 	public async Task<int> InvokeAsync(string[] args)
 	{
-		return await InvokeAsync(args, Assembly.GetEntryAssembly()).ConfigureAwait(false);
+		//return await InvokeAsync(args, Assembly.GetEntryAssembly()).ConfigureAwait(false);
+		return await BuildRootCommand().InvokeAsync(args).ConfigureAwait(false);
 	}
 
-	public async Task<int> InvokeAsync(string[] args, params Assembly[] assemblies)
-	{
-		return await BuildRootCommand(assemblies).InvokeAsync(args).ConfigureAwait(false);
-	}
+	//public async Task<int> InvokeAsync(string[] args, params Assembly[] assemblies)
+	//{
+	//	return await BuildRootCommand(assemblies).InvokeAsync(args).ConfigureAwait(false);
+	//}
 
 	private Command BuildCommandTree(IEnumerable<CommandDescriptor> cmdDescrs, CommandDescriptor cmdDescr)
 	{
@@ -134,27 +134,35 @@ public class DeclarativeCommandLineFactory
 			}
 		}
 
-		// Methods
-		foreach (var method in methods)
+		//// Methods
+		//foreach (var method in methods)
+		//{
+		//	// Command builder
+		//	var cmdBuilderAttr = method.GetCustomAttribute<CommandBuilderAttribute>();
+		//	if (cmdBuilderAttr != null)
+		//	{
+		//		method.Invoke(cmdDescr.Instance, new object?[] { cmdDescr.Command });
+		//	}
+
+		//	// Command handler
+		//	var handlerAttr = method.GetCustomAttribute<CommandHandlerAttribute>();
+		//	if (handlerAttr != null)
+		//	{
+		//		cmdDescr.Command.SetHandler(new Func<InvocationContext, Task<int>>(async ctx =>
+		//		{
+		//			return await new CommandHandler(cmdDescr, method, _serviceProvider).HandlerAsync(ctx).ConfigureAwait(false);
+		//		}));
+		//	}
+
+		//	// TODO: Validators
+		//}
+
+		if (cmdDescr.IsExecutable)
 		{
-			// Command builder
-			var cmdBuilderAttr = method.GetCustomAttribute<CommandBuilderAttribute>();
-			if (cmdBuilderAttr != null)
+			cmdDescr.Command.SetHandler(new Func<InvocationContext, Task<int>>(async ctx =>
 			{
-				method.Invoke(cmdDescr.Instance, new object?[] { cmdDescr.Command });
-			}
-
-			// Command handler
-			var handlerAttr = method.GetCustomAttribute<CommandHandlerAttribute>();
-			if (handlerAttr != null)
-			{
-				cmdDescr.Command.SetHandler(new Func<InvocationContext, Task<int>>(async ctx =>
-				{
-					return await new CommandHandler(cmdDescr, method, _serviceProvider).HandlerAsync(ctx).ConfigureAwait(false);
-				}));
-			}
-
-			// TODO: Validators
+				return await new CommandHandler(cmdDescr).HandlerAsync(ctx).ConfigureAwait(false);
+			}));
 		}
 
 		// Child commands

@@ -1,7 +1,7 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands;
 
 [Command]
-public class SubtractCommand
+public class SubtractCommand : ICommand
 {
 	[Argument]
 	public int ValueA { get; set; }
@@ -9,8 +9,7 @@ public class SubtractCommand
 	[Argument]
 	public int ValueB { get; set; }
 
-	[CommandHandler]
-	public void Handle()
+	public void Execute()
 	{
 		Console.WriteLine($"{ValueA} - {ValueB} = {ValueA - ValueB}");
 	}
