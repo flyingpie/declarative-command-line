@@ -1,7 +1,7 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands;
 
 [Command]
-public class AddCommand : ICommand
+public class DivideCommand : ICommand
 {
 	[Option(IsRequired = true)]
 	public int NumberA { get; set; }

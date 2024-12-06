@@ -11,7 +11,7 @@ public abstract class BaseCommandAttribute : Attribute
 		{
 			if (value != null)
 			{
-				Aliases = new[] { value };
+				Aliases = [value];
 			}
 		}
 	}

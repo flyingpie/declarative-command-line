@@ -10,8 +10,10 @@ public static class Program
 	{
 		return await new ServiceCollection()
 			.AddDeclarativeCommandLine()
-			.AddCommand<AddCommand>()
-			.AddCommand<SubtractCommand>()
+			// .AddCommand<AddCommand>()
+			// .AddCommand<SubtractCommand>()
+			// .AddCommand<DivideCommand>()
+			.AddAllCommandsFromAssemblies<TestRootCommand>()
 
 			.BuildServiceProvider()
 
