@@ -16,7 +16,7 @@ internal class CommandHandler
 		//_serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 	}
 
-	public async Task<int> HandlerAsync(InvocationContext ctx)
+	public async Task<int> HandlerAsync(object cmdInst, InvocationContext ctx)
 	{
 		if (ctx == null)
 		{
@@ -26,19 +26,19 @@ internal class CommandHandler
 		//var methodParams = _methodInfo.GetParameters();
 
 		// Arguments
-		HandleArguments(ctx);
+		HandleArguments(cmdInst, ctx);
 
 		// Options
-		HandleOptions(ctx);
+		HandleOptions(cmdInst, ctx);
 
-		if (_cmdDescr.Instance is ICommand cmd)
+		if (cmdInst is ICommand cmd)
 		{
 			// TODO: Try catch here or somewhere else?
 			cmd.Execute();
 			return 0;
 		}
 
-		if (_cmdDescr.Instance is IAsyncCommand asyncCmd)
+		if (cmdInst is IAsyncCommand asyncCmd)
 		{
 			await asyncCmd.ExecuteAsync();
 			return 0;
@@ -83,21 +83,21 @@ internal class CommandHandler
 	//	return mp;
 	//}
 
-	private void HandleArguments(InvocationContext ctx)
+	private void HandleArguments(object cmdInst, InvocationContext ctx)
 	{
 		foreach (var arg in _cmdDescr.Arguments)
 		{
 			var argVal = ctx.ParseResult.GetValueForArgument(arg.Argument);
-			arg.Property.SetValue(_cmdDescr.Instance, argVal);
+			arg.Property.SetValue(cmdInst, argVal);
 		}
 	}
 
-	private void HandleOptions(InvocationContext ctx)
+	private void HandleOptions(object cmdInst, InvocationContext ctx)
 	{
 		foreach (var opt1 in _cmdDescr.Options)
 		{
 			var optVal = ctx.ParseResult.GetValueForOption(opt1.Option);
-			opt1.Property.SetValue(_cmdDescr.Instance, optVal);
+			opt1.Property.SetValue(cmdInst, optVal);
 		}
 	}
 

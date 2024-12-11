@@ -3,6 +3,11 @@
 [Command]
 public class DivideCommand : ICommand
 {
+	public DivideCommand()
+	{
+		Console.WriteLine($"new {GetType().FullName}()");
+	}
+
 	[Option(IsRequired = true)]
 	public int NumberA { get; set; }
 

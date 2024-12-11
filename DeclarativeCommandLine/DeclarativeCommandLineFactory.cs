@@ -90,10 +90,10 @@ public class DeclarativeCommandLineFactory(
 
 	private Command BuildCommandTree(IEnumerable<CommandDescriptor> cmdDescrs, CommandDescriptor cmdDescr)
 	{
-		var cmdInst = _commandFactory.CreateCommand(cmdDescr.Type)
-			?? throw new InvalidOperationException($"Could not create an instance of type '{cmdDescr.Type}'");
+		// var cmdInst = _commandFactory.CreateCommand(cmdDescr.Type)
+		// 	?? throw new InvalidOperationException($"Could not create an instance of type '{cmdDescr.Type}'");
 
-		cmdDescr.Instance = cmdInst;
+		// cmdDescr.Instance = cmdInst;
 
 		var cmd = cmdDescr.IsRoot
 			? new RootCommand()
@@ -112,7 +112,7 @@ public class DeclarativeCommandLineFactory(
 
 		// TODO: Aliases, Arguments, Subcommands, Handler, IsHidden, Name, TreatUnmatchedTokensAsErrors
 		// Options
-		var props = cmdInst.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+		var props = cmdDescr.Type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
 		var methods = cmdDescr.Type.GetMethods(BindingFlags.Instance | BindingFlags.Public);
 
@@ -161,7 +161,10 @@ public class DeclarativeCommandLineFactory(
 		{
 			cmdDescr.Command.SetHandler(new Func<InvocationContext, Task<int>>(async ctx =>
 			{
-				return await new CommandHandler(cmdDescr).HandlerAsync(ctx).ConfigureAwait(false);
+				var cmdInst = _commandFactory.CreateCommand(cmdDescr.Type)
+					?? throw new InvalidOperationException($"Could not create an instance of type '{cmdDescr.Type}'");
+
+				return await new CommandHandler(cmdDescr).HandlerAsync(cmdInst, ctx).ConfigureAwait(false);
 			}));
 		}
 

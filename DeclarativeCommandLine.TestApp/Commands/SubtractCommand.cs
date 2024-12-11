@@ -3,6 +3,11 @@
 [Command]
 public class SubtractCommand : ICommand
 {
+	public SubtractCommand()
+	{
+		Console.WriteLine($"new {GetType().FullName}()");
+	}
+
 	[Argument]
 	public int ValueA { get; set; }
 

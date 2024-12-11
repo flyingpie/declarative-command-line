@@ -49,7 +49,7 @@ public class CommandDescriptor
 
 	public bool IsRoot { get; }
 
-	public object? Instance { get; set; }
+	private object? Instance { get; set; }
 
 	public CommandDescriptor Parent { get; set; }
 

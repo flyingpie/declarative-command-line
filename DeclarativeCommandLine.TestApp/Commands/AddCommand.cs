@@ -3,6 +3,11 @@
 [Command]
 public class AddCommand : ICommand
 {
+	public AddCommand()
+	{
+		Console.WriteLine($"new {GetType().FullName}()");
+	}
+
 	[Option(IsRequired = true)]
 	public int NumberA { get; set; }
 

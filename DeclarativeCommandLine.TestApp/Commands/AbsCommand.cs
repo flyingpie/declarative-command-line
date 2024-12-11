@@ -3,6 +3,11 @@
 [Command]
 public class AbsCommand : ICommand
 {
+	public AbsCommand()
+	{
+		Console.WriteLine($"new {GetType().FullName}()");
+	}
+
 	[Option(IsRequired = true)]
 	public int NumberA { get; set; }
 
