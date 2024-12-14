@@ -4,6 +4,7 @@
 		<RootNamespace>DeclarativeCommandLine.TestApp</RootNamespace>
 
 		<OutputType>Exe</OutputType>
+		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -11,6 +12,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DeclarativeCommandLine\DeclarativeCommandLine.csproj"/>
+		<ProjectReference Include="..\..\10-Lib\DeclarativeCommandLine\DeclarativeCommandLine.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,10 +1,5 @@
 ﻿namespace DeclarativeCommandLine;
 
-public interface ICommandFactory
-{
-	object? CreateCommand(Type commandType);
-}
-
 public class DelegatingCommandFactory : ICommandFactory
 {
 	private readonly Func<Type, object> _factory;

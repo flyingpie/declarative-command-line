@@ -2,7 +2,7 @@
 	"profiles": {
 		"DeclarativeCommandLine.TestApp": {
 			"commandName": "Project",
-			"commandLineArgs": "add --number-a 1 --number-b 2"
+			"commandLineArgs": ""
 		}
 	}
 }

@@ -1,6 +1,6 @@
-﻿namespace DeclarativeCommandLine.TestApp.Commands;
+﻿namespace DeclarativeCommandLine.TestApp.Commands.Math;
 
-[Command]
+[Command<MathCommand>]
 public class DivideCommand : ICommand
 {
 	public DivideCommand()

@@ -1,8 +1,6 @@
-﻿using DeclarativeCommandLine.Attributes;
+﻿namespace DeclarativeCommandLine.TestApp.Commands.Math;
 
-namespace DeclarativeCommandLine.TestApp.Commands;
-
-[Command]
+[Command<MathCommand>]
 public class SubtractCommand : ICommand
 {
 	public SubtractCommand()

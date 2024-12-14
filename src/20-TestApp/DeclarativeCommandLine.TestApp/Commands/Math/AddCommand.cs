@@ -1,9 +1,9 @@
-﻿namespace DeclarativeCommandLine.TestApp.Commands;
+﻿namespace DeclarativeCommandLine.TestApp.Commands.Math;
 
-[Command]
-public class AbsCommand : ICommand
+[Command<MathCommand>]
+public class AddCommand : ICommand
 {
-	public AbsCommand()
+	public AddCommand()
 	{
 		Console.WriteLine($"new {GetType().FullName}()");
 	}
@@ -20,7 +20,5 @@ public class AbsCommand : ICommand
 	public void Execute()
 	{
 		Console.WriteLine($"{NumberA} + {NumberB} = {NumberA + NumberB}");
-
-		throw new Exception("Bleh");
 	}
 }
