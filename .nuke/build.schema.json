@@ -118,7 +118,12 @@
         },
         "NuGetApiKey": {
           "type": "string",
-          "description": "NuGet API key"
+          "description": "NuGet API Key",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+        },
+        "NuGetSource": {
+          "type": "string",
+          "description": "NuGet Source"
         },
         "Solution": {
           "type": "string",
