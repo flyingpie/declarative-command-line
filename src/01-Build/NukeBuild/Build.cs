@@ -23,21 +23,24 @@ public sealed class Build : NukeBuild
 {
 	public static int Main() => Execute<Build>(x => x.PublishDebug);
 
-	[Nuke.Common.Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
 	private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
 	[Required]
 	[GitRepository]
 	private readonly GitRepository GitRepository;
 
-	[Nuke.Common.Parameter("GitHub Token")]
+	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
+
+	[Parameter("Whether to build a prerelease NuGet package.")]
+	public bool IsPreRelease { get; set; } = true;
 
 	private AbsolutePath VersionFile => RootDirectory / "VERSION";
 
-	private AbsolutePath OutputDirectory => RootDirectory / "_output";
+	private AbsolutePath OutputDirectory => RootDirectory / "artifacts";
 
-	private AbsolutePath ArtifactsDirectory => OutputDirectory / "artifacts";
+	private AbsolutePath ArtifactsDirectory => OutputDirectory / "artifacts2";
 
 	[Solution(GenerateProjects = true, SuppressBuildProjectCheck = true)]
 	private readonly Solution Solution;
@@ -82,15 +85,17 @@ public sealed class Build : NukeBuild
 	/// </summary>
 	private Target Publish => _ => _
 		.DependsOn(Clean)
-//		.Produces(PathToLinux64SelfContainedZip)
+		.Produces(ArtifactsDirectory)
 		.Executes(() =>
 		{
-			DotNetPublish(_ => _
+			DotNetPack(_ => _
 				.SetAssemblyVersion(AssemblyVersion)
 				.SetInformationalVersion(InformationalVersion)
 				.SetConfiguration(Configuration)
 				.SetProject(Solution._0_Lib.DeclarativeCommandLine)
-				.SetOutput(ArtifactsDirectory));
+				.SetVersionPrefix(SemVerVersion)
+				.SetVersionSuffix(IsPreRelease ? $"{GitRepository.Branch}-{DateTime.UtcNow:yyyy-MM-dd-HHmm}" : "")
+				.SetOutputDirectory(ArtifactsDirectory));
 		});
 
 	private Target PublishDebug => _ => _
