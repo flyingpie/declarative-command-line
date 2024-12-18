@@ -2,9 +2,9 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 
-		<BaseOutputPath>$(MSBuildThisFileDirectory)\..\_output\build</BaseOutputPath>
-		<BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)\..\_output\build\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
-		<OutputPath>$(MSBuildThisFileDirectory)\..\_output\build\bin\$(MSBuildProjectName)</OutputPath>
+		<BaseOutputPath>$(MSBuildThisFileDirectory)\..\artifacts\build\bin\$(MSBuildProjectName)</BaseOutputPath>
+		<BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)\..\artifacts\build\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+		<OutputPath>$(MSBuildThisFileDirectory)\..\artifacts\build\bin\$(MSBuildProjectName)</OutputPath>
 
 		<DebugType>embedded</DebugType>
 		<DebugSymbols>true</DebugSymbols>

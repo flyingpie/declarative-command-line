@@ -12,6 +12,19 @@ public class DeclarativeCommandLineFactory(
 
 	private readonly IEnumerable<CommandDescriptor> _commandDescriptors = commandDescriptors ?? throw new ArgumentNullException(nameof(commandDescriptors));
 
+	//public RootCommand BuildRootCommand(params Type[] types)
+	//{
+	//	if (types == null || types.Length == 0)
+	//	{
+	//		throw new ArgumentException("At least 1 type is required.", nameof(types));
+	//	}
+
+	//var cmdTypes = types
+	//	.Select(type => CommandDescriptor.TryCreate(type, out var cmdDescr) ? cmdDescr : null)
+	//	.Where(cmdDescr => cmdDescr != null)
+	//	.Select(cmdDescr => cmdDescr!)
+	//	.ToList();
+
 	// TODO: Add IAsyncCommand? (DI now done through constructor).
 	public RootCommand BuildRootCommand()
 	{
@@ -53,8 +66,14 @@ public class DeclarativeCommandLineFactory(
 
 	public async Task<int> InvokeAsync(string[] args)
 	{
+		//return await InvokeAsync(args, Assembly.GetEntryAssembly()).ConfigureAwait(false);
 		return await BuildRootCommand().InvokeAsync(args).ConfigureAwait(false);
 	}
+
+	//public async Task<int> InvokeAsync(string[] args, params Assembly[] assemblies)
+	//{
+	//	return await BuildRootCommand(assemblies).InvokeAsync(args).ConfigureAwait(false);
+	//}
 
 	private Command BuildCommandTree(IEnumerable<CommandDescriptor> cmdDescrs, CommandDescriptor cmdDescr)
 	{

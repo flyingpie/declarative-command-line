@@ -1,16 +1,16 @@
 ﻿namespace DeclarativeCommandLine.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class CommandAttribute : BaseCommandAttribute
+public sealed class CommandAttribute<TParentCommand> : CommandAttribute
 {
 	public CommandAttribute()
 	{
+		Parent = typeof(TParentCommand);
 	}
 
 	public CommandAttribute(string name)
+		: base(name)
 	{
-		Name = name;
+		Parent = typeof(TParentCommand);
 	}
-
-	public Type Parent { get; set; }
 }
