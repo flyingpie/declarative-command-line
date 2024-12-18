@@ -20,7 +20,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 	OnWorkflowDispatchOptionalInputs = ["name"],
 	EnableGitHubToken = true,
 	ImportSecrets = ["NUGET_API_KEY"],
-	InvokedTargets = [nameof(PublishRelease)])]
+	InvokedTargets = [nameof(PublishDebug)])]
 [SuppressMessage("Major Bug", "S3903:Types should be defined in named namespaces", Justification = "MvdO: Build script.")]
 public sealed class Build : NukeBuild
 {
