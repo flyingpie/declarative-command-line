@@ -23,34 +23,32 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 [SuppressMessage("Major Bug", "S3903:Types should be defined in named namespaces", Justification = "MvdO: Build script.")]
 public sealed class Build : NukeBuild
 {
-	private string _suffix = "";
+	[CanBeNull]
+	private string _suffix;
 
 	#region Parameters
 
 	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
 	private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-	[Required]
-	[GitRepository]
+	[Required] [GitRepository]
 	private readonly GitRepository GitRepository;
 
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
 
-	[Parameter("NuGet API key")]
-	[Required]
-	[CanBeNull]
+	[Parameter("NuGet API key")] [CanBeNull]
 	private readonly string NuGetApiKey;
 
 	#endregion
 
-	public static int Main() => Execute<Build>(x => x.PublishRelease);
+	public static int Main() => Execute<Build>(x => x.PublishDebug);
 
 	private AbsolutePath VersionFile => RootDirectory / "VERSION";
 
 	private AbsolutePath OutputDirectory => RootDirectory / "artifacts";
 
-	private AbsolutePath ArtifactsDirectory => OutputDirectory / "artifacts2";
+	private AbsolutePath ArtifactsDirectory => OutputDirectory / "nupkg";
 
 	[Solution(GenerateProjects = true, SuppressBuildProjectCheck = true)]
 	private readonly Solution Solution;
@@ -94,6 +92,7 @@ public sealed class Build : NukeBuild
 	/// Set version suffix for prereleases.
 	/// </summary>
 	private Target SetVersionSuffix => _ => _
+		.Before(Clean)
 		.Executes(() =>
 		{
 			_suffix = $"{GitRepository.Branch}-{DateTime.UtcNow:yyyy-MM-dd-HHmm}";
@@ -107,14 +106,23 @@ public sealed class Build : NukeBuild
 		.Produces(ArtifactsDirectory)
 		.Executes(() =>
 		{
-			DotNetPack(_ => _
-				.SetAssemblyVersion(AssemblyVersion)
-				.SetInformationalVersion(InformationalVersion)
-				.SetConfiguration(Configuration)
-				.SetProject(Solution._0_Lib.DeclarativeCommandLine)
-				.SetVersionPrefix(SemVerVersion)
-				.SetVersionSuffix(_suffix)
-				.SetOutputDirectory(ArtifactsDirectory));
+			DotNetPack(_ =>
+			{
+				var p = _
+					.SetAssemblyVersion(AssemblyVersion)
+					.SetInformationalVersion(InformationalVersion)
+					.SetConfiguration(Configuration)
+					.SetProject(Solution._0_Lib.DeclarativeCommandLine)
+					.SetVersionPrefix(SemVerVersion)
+					.SetOutputDirectory(ArtifactsDirectory);
+
+				if (_suffix != null)
+				{
+					p = p.SetVersionSuffix(_suffix);
+				}
+
+				return p;
+			});
 		});
 
 	/// <summary>
@@ -133,8 +141,8 @@ public sealed class Build : NukeBuild
 		});
 
 	private Target PublishDebug => _ => _
-		.DependsOn(Push)
 		.DependsOn(SetVersionSuffix)
+		.DependsOn(Push)
 		.Executes();
 
 	// [SuppressMessage("Major Code Smell", "S1144:Unused private types or members should be removed", Justification = "MvdO: Invoked manually.")]

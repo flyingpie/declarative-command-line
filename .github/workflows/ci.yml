@@ -46,8 +46,8 @@ jobs:
         env:
           name: ${{ github.event.inputs.name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Publish: artifacts2'
+      - name: 'Publish: nupkg'
         uses: actions/upload-artifact@v4
         with:
-          name: artifacts2
-          path: artifacts/artifacts2
+          name: nupkg
+          path: artifacts/nupkg
