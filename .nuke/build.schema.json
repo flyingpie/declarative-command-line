@@ -25,10 +25,12 @@
       "type": "string",
       "enum": [
         "Clean",
-        "Publish",
+        "Pack",
         "PublishDebug",
         "PublishRelease",
-        "ReportInfo"
+        "Push",
+        "ReportInfo",
+        "SetVersionSuffix"
       ]
     },
     "Verbosity": {
@@ -114,9 +116,9 @@
           "type": "string",
           "description": "GitHub Token"
         },
-        "IsPreRelease": {
-          "type": "boolean",
-          "description": "Whether to build a prerelease NuGet package"
+        "NuGetApiKey": {
+          "type": "string",
+          "description": "NuGet API key"
         },
         "Solution": {
           "type": "string",

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
@@ -8,6 +9,7 @@ using Serilog;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions(
@@ -15,13 +17,15 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 	GitHubActionsImage.WindowsLatest,
 	FetchDepth = 0,
 	OnPushBranches = ["master"],
-	OnWorkflowDispatchOptionalInputs = [ "name" ],
+	OnWorkflowDispatchOptionalInputs = ["name"],
 	EnableGitHubToken = true,
-	InvokedTargets = [nameof(PublishRelease)])]	
+	InvokedTargets = [nameof(PublishRelease)])]
 [SuppressMessage("Major Bug", "S3903:Types should be defined in named namespaces", Justification = "MvdO: Build script.")]
 public sealed class Build : NukeBuild
 {
-	public static int Main() => Execute<Build>(x => x.PublishDebug);
+	private string _suffix = "";
+
+	#region Parameters
 
 	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
 	private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -33,8 +37,14 @@ public sealed class Build : NukeBuild
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
 
-	[Parameter("Whether to build a prerelease NuGet package.")]
-	public bool IsPreRelease { get; set; } = true;
+	[Parameter("NuGet API key")]
+	[Required]
+	[CanBeNull]
+	private readonly string NuGetApiKey;
+
+	#endregion
+
+	public static int Main() => Execute<Build>(x => x.PublishRelease);
 
 	private AbsolutePath VersionFile => RootDirectory / "VERSION";
 
@@ -81,9 +91,18 @@ public sealed class Build : NukeBuild
 		});
 
 	/// <summary>
-	/// Windows x64 self contained.
+	/// Set version suffix for prereleases.
 	/// </summary>
-	private Target Publish => _ => _
+	private Target SetVersionSuffix => _ => _
+		.Executes(() =>
+		{
+			_suffix = $"{GitRepository.Branch}-{DateTime.UtcNow:yyyy-MM-dd-HHmm}";
+		});
+
+	/// <summary>
+	/// Build NuGet package.
+	/// </summary>
+	private Target Pack => _ => _
 		.DependsOn(Clean)
 		.Produces(ArtifactsDirectory)
 		.Executes(() =>
@@ -94,19 +113,32 @@ public sealed class Build : NukeBuild
 				.SetConfiguration(Configuration)
 				.SetProject(Solution._0_Lib.DeclarativeCommandLine)
 				.SetVersionPrefix(SemVerVersion)
-				.SetVersionSuffix(IsPreRelease ? $"{GitRepository.Branch}-{DateTime.UtcNow:yyyy-MM-dd-HHmm}" : "")
+				.SetVersionSuffix(_suffix)
 				.SetOutputDirectory(ArtifactsDirectory));
 		});
 
+	/// <summary>
+	/// Push NuGet package.
+	/// </summary>
+	private Target Push => _ => _
+		.DependsOn(Pack)
+		.Produces(ArtifactsDirectory)
+		.Executes(() =>
+		{
+			DotNetNuGetPush(p => p
+				.SetApiKey(NuGetApiKey)
+				.SetSource("nuget.org")
+				.SetTargetPath(ArtifactsDirectory.GlobFiles("*.nupkg").First())
+			);
+		});
+
 	private Target PublishDebug => _ => _
-		.DependsOn(Clean)
-		.DependsOn(Publish)
+		.DependsOn(Push)
+		.DependsOn(SetVersionSuffix)
 		.Executes();
 
-	[SuppressMessage("Major Code Smell", "S1144:Unused private types or members should be removed", Justification = "MvdO: Invoked manually.")]
+	// [SuppressMessage("Major Code Smell", "S1144:Unused private types or members should be removed", Justification = "MvdO: Invoked manually.")]
 	private Target PublishRelease => _ => _
-		.DependsOn(Clean)
-		.DependsOn(Publish)
-		// TODO: Nuget push
+		.DependsOn(Push)
 		.Executes();
 }
