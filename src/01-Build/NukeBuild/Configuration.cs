@@ -1,5 +1,5 @@
-using Nuke.Common.Tooling;
 using System.ComponentModel;
+using Nuke.Common.Tooling;
 
 [TypeConverter(typeof(TypeConverter<Configuration>))]
 #pragma warning disable S3903 // Types should be defined in named namespaces // MvdO: NukeBuild convention.

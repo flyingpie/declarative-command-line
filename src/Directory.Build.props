@@ -11,7 +11,6 @@
 
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>
 
@@ -28,11 +27,6 @@
 		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
 	</PropertyGroup>
 
-	<!-- Stylecop -->
-	<ItemGroup>
-		<AdditionalFiles Include="$(MSBuildThisFileDirectory)\stylecop.json" Link="stylecop.json" />
-	</ItemGroup>
-
 	<!-- Unit Test Projects -->
 	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Test'))">
 		<EnableNETAnalyzers>false</EnableNETAnalyzers>
@@ -41,15 +35,15 @@
 
 	<!-- Analyzers (non-test projects only -->
 	<ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Test'))">
+		<PackageReference Include="CSharpier.MsBuild">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="SonarAnalyzer.CSharp">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="StyleCop.Analyzers.Unstable">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

@@ -6,7 +6,7 @@ public class CommandDescriptor
 {
 	public static bool TryCreate(Type type, out CommandDescriptor? cmdDescr)
 	{
-		if (type == null) throw new ArgumentNullException(nameof(type));
+		ArgumentNullException.ThrowIfNull(type);
 
 		cmdDescr = null;
 
@@ -37,11 +37,7 @@ public class CommandDescriptor
 	{
 		get
 		{
-			var t = new[]
-			{
-				typeof(ICommand),
-				typeof(IAsyncCommand),
-			};
+			var t = new[] { typeof(ICommand), typeof(IAsyncCommand) };
 
 			return t.Any(tt => tt.IsAssignableFrom(Type));
 		}

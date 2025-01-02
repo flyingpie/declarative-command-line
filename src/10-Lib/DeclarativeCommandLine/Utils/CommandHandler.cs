@@ -2,10 +2,10 @@
 
 namespace DeclarativeCommandLine.Utils;
 
-internal class CommandHandler(
-	CommandDescriptor cmdDescr)
+internal class CommandHandler(CommandDescriptor cmdDescr)
 {
-	private readonly CommandDescriptor _cmdDescr = cmdDescr ?? throw new ArgumentNullException(nameof(cmdDescr));
+	private readonly CommandDescriptor _cmdDescr =
+		cmdDescr ?? throw new ArgumentNullException(nameof(cmdDescr));
 
 	public async Task<int> HandlerAsync(object cmdInst, InvocationContext ctx)
 	{
@@ -30,7 +30,9 @@ internal class CommandHandler(
 			return 0;
 		}
 
-		throw new DeclarativeCommandLineException($"Type '{_cmdDescr.Type.FullName}' does not inherit from interface '{typeof(IAsyncCommand).FullName}'.");
+		throw new DeclarativeCommandLineException(
+			$"Type '{_cmdDescr.Type.FullName}' does not inherit from interface '{typeof(IAsyncCommand).FullName}'."
+		);
 	}
 
 	private void HandleArguments(object cmdInst, InvocationContext ctx)

@@ -2,11 +2,12 @@
 	"version": 1,
 	"isRoot": true,
 	"tools": {
-		"cake.tool": {
-			"version": "3.0.0",
+		"csharpier": {
+			"version": "0.30.3",
 			"commands": [
-				"dotnet-cake"
-			]
+				"dotnet-csharpier"
+			],
+			"rollForward": false
 		}
 	}
 }
