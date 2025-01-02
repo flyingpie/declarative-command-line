@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 using Nuke.Common.Tooling;
 using System.ComponentModel;
+=======
+using System.ComponentModel;
+using Nuke.Common.Tooling;
+>>>>>>> @{-1}
 
 [TypeConverter(typeof(TypeConverter<Configuration>))]
 #pragma warning disable S3903 // Types should be defined in named namespaces // MvdO: NukeBuild convention.
@@ -13,4 +18,8 @@ public class Configuration : Enumeration
 	{
 		return configuration.Value;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> @{-1}
