@@ -3,9 +3,7 @@
 [AttributeUsage(AttributeTargets.Class)]
 public class CommandAttribute : BaseCommandAttribute
 {
-	public CommandAttribute()
-	{
-	}
+	public CommandAttribute() { }
 
 	public CommandAttribute(string name)
 	{
