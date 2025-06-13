@@ -1,4 +1,6 @@
-﻿using DeclarativeCommandLine.Attributes;
+﻿using System.CommandLine.Builder;
+using System.CommandLine.Parsing;
+using DeclarativeCommandLine.Attributes;
 using DeclarativeCommandLine.Utils;
 
 namespace DeclarativeCommandLine;
@@ -70,8 +72,22 @@ public class DeclarativeCommandLineFactory(
 
 	public async Task<int> InvokeAsync(string[] args)
 	{
-		//return await InvokeAsync(args, Assembly.GetEntryAssembly()).ConfigureAwait(false);
-		return await BuildRootCommand().InvokeAsync(args).ConfigureAwait(false);
+		var rootCmd = BuildRootCommand();
+
+		var parser = new CommandLineBuilder(rootCmd)
+			.UseVersionOption()
+			.UseHelp()
+			.UseEnvironmentVariableDirective()
+			.UseParseDirective()
+			.UseSuggestDirective()
+			.RegisterWithDotnetSuggest()
+			.UseTypoCorrections()
+			.UseParseErrorReporting()
+			// .UseExceptionHandler() // Turned off so that exceptions are bubbled up
+			.CancelOnProcessTermination()
+			.Build();
+
+		return await parser.Parse(args).InvokeAsync().ConfigureAwait(false);
 	}
 
 	//public async Task<int> InvokeAsync(string[] args, params Assembly[] assemblies)

@@ -12,6 +12,7 @@
 		<PackageTags>command line parsing declarative attributes</PackageTags>
 		<Description>Abstraction layer on top of the System.CommandLine library, that allows definining commands in a declarative way, using attributes.</Description>
 		<PackageReleaseNotes>
+			1.1.0 Bubble up exceptions
 			1.0.0 Initial release
 		</PackageReleaseNotes>
 	</PropertyGroup>
