@@ -1,6 +1,6 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands;
 
-[RootCommand]
+[Command(Root = true)]
 public class TestRootCommand
 {
 	public TestRootCommand()

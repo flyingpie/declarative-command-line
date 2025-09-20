@@ -1,6 +1,7 @@
 <Project>
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+<!--		<TargetFramework>netstandard2.0</TargetFramework>-->
+		<LangVersion>13</LangVersion>
 
 		<!-- Some features we use require a documentation file, like analyzers, and the docs manifest generation -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>

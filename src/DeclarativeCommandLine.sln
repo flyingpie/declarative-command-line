@@ -24,13 +24,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10-Lib", "10-Lib", "{99D3C8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20-TestApp", "20-TestApp", "{B84A79C5-19CB-48CE-8914-3B5E83F83A1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine", "10-Lib\DeclarativeCommandLine\DeclarativeCommandLine.csproj", "{A97779FE-07E1-4A86-9F70-1C65B2EFBB7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine.Abstractions", "10-Lib\DeclarativeCommandLine.Abstractions\DeclarativeCommandLine.Abstractions.csproj", "{A97779FE-07E1-4A86-9F70-1C65B2EFBB7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine.UnitTest", "10-Lib\DeclarativeCommandLine.UnitTest\DeclarativeCommandLine.UnitTest.csproj", "{0DF3CFA3-BCE8-4505-93C6-60F5090C08CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine.TestApp", "20-TestApp\DeclarativeCommandLine.TestApp\DeclarativeCommandLine.TestApp.csproj", "{0E0677D6-1C4C-4213-BD2B-5F31B334B1CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NukeBuild", "01-Build\NukeBuild\NukeBuild.csproj", "{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine.Generator", "10-Lib\DeclarativeCommandLine.Generator\DeclarativeCommandLine.Generator.csproj", "{E119BFB2-AD94-472B-BCFC-A367F655163E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 		{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +72,6 @@ Global
 		{0DF3CFA3-BCE8-4505-93C6-60F5090C08CC} = {99D3C865-48C1-4931-B248-7E9B26FF1FF8}
 		{0E0677D6-1C4C-4213-BD2B-5F31B334B1CB} = {B84A79C5-19CB-48CE-8914-3B5E83F83A1B}
 		{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6} = {BF8B0D75-A2E1-4A91-8581-6C218FE73FC0}
+		{E119BFB2-AD94-472B-BCFC-A367F655163E} = {99D3C865-48C1-4931-B248-7E9B26FF1FF8}
 	EndGlobalSection
 EndGlobal

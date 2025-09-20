@@ -1,6 +1,6 @@
 namespace DeclarativeCommandLine.TestApp.Commands.Strings;
 
-[Command<StringsCommand>]
+[Command(Parent = typeof(StringsCommand))]
 public class ConcatCommand : ICommand
 {
 	public void Execute()

@@ -1,4 +1,4 @@
-﻿namespace DeclarativeCommandLine.Attributes;
+﻿namespace DeclarativeCommandLine;
 
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ArgumentAttribute : Attribute

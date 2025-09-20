@@ -1,6 +1,6 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands.Math;
 
-[Command<MathCommand>]
+[Command(Parent = typeof(MathCommand))]
 public class SubtractCommand : ICommand
 {
 	public SubtractCommand()

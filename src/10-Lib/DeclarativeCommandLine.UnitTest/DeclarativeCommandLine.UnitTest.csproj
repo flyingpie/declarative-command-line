@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyName>DeclarativeCommandLine.UnitTest</AssemblyName>
-		<RootNamespace>DeclarativeCommandLine.UnitTest</RootNamespace>
+		<AssemblyName>DeclarativeCommandLine.Abstractions.UnitTest</AssemblyName>
+		<RootNamespace>DeclarativeCommandLine.Abstractions.UnitTest</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DeclarativeCommandLine\DeclarativeCommandLine.csproj"/>
+		<ProjectReference Include="..\DeclarativeCommandLine.Abstractions\DeclarativeCommandLine.Abstractions.csproj"/>
 	</ItemGroup>
 </Project>

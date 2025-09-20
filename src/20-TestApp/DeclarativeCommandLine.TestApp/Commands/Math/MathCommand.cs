@@ -1,6 +1,6 @@
 namespace DeclarativeCommandLine.TestApp.Commands.Math;
 
-[Command<TestRootCommand>]
+[Command(Parent = typeof(TestRootCommand))]
 public class MathCommand
 {
 }

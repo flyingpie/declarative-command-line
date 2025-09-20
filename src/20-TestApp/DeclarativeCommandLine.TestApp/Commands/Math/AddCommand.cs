@@ -1,6 +1,6 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands.Math;
 
-[Command<MathCommand>]
+[Command(Name = "add", Parent = typeof(MathCommand))]
 public class AddCommand : ICommand
 {
 	public AddCommand()
@@ -8,7 +8,7 @@ public class AddCommand : ICommand
 		Console.WriteLine($"new {GetType().FullName}()");
 	}
 
-	[Option(Required = true)]
+	[Option("--number-a", Required = true)]
 	public int NumberA { get; set; }
 
 	[Option(Required = true)]

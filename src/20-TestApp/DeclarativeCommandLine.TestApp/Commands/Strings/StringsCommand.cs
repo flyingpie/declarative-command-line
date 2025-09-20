@@ -1,6 +1,6 @@
 namespace DeclarativeCommandLine.TestApp.Commands.Strings;
 
-[Command<TestRootCommand>]
+[Command(Parent = typeof(TestRootCommand))]
 public class StringsCommand
 {
 	[Option("a-global", Recursive = true)]
