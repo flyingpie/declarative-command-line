@@ -1,7 +1,6 @@
 ﻿namespace DeclarativeCommandLine;
 
 [AttributeUsage(AttributeTargets.Class)]
-[SuppressMessage("Performance", "CA1813:Avoid unsealed attributes", Justification = "MvdO: We have a generic version that inherits from this.")]
 public sealed class CommandAttribute : Attribute
 {
 	public CommandAttribute()
@@ -12,7 +11,6 @@ public sealed class CommandAttribute : Attribute
 	{
 		Name = name;
 	}
-
 
 	public string[]? Aliases { get; set; }
 
@@ -25,6 +23,4 @@ public sealed class CommandAttribute : Attribute
 	public Type? Parent { get; set; }
 
 	public bool TreatUnmatchedTokensAsErrors { get; set; }
-
-	// public bool Root { get; set; }
 }

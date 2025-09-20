@@ -38,9 +38,9 @@ public class MyGenerator : IIncrementalGenerator
 			sb.AppendLine("");
 			sb.AppendLine("namespace DeclarativeCommandLine.Generated");
 			sb.AppendLine("{");
-			sb.AppendLine("    public class CommandFactory");
+			sb.AppendLine("    public class CommandBuilder");
 			sb.AppendLine("    {");
-			sb.AppendLine("        public RootCommand Parse(IServiceProvider serviceProvider, string[] args)");
+			sb.AppendLine("        public RootCommand Build(IServiceProvider serviceProvider)");
 			sb.AppendLine("        {");
 
 			var cmds = typeDecls
@@ -66,41 +66,23 @@ public class MyGenerator : IIncrementalGenerator
 
 			WriteCommand(sb, cmds, rootCmd, null, 12);
 
-			// sb.AppendLine($"            // {rootCmd.FullName}");
-			// sb.AppendLine($"            var parentCmd = new RootCommand();");
-			//
-			//
-			// foreach (var cmd in cmds.Where(c => c.CmdParent?.EqualsNamedSymbol(rootCmd.Symbol) ?? false))
-			// {
-			// 	sb.AppendLine($"            // {cmd.FullName}");
-			// 	sb.AppendLine($"            var cmd = new Command(\"the-cmd\");");
-			// 	sb.AppendLine($"            {{");
-			// 	sb.AppendLine($"                parentCmd.Add(cmd);");
-			// 	sb.AppendLine($"            }}");
-			// 	sb.AppendLine();
-			// }
-			//
-			// sb.AppendLine();
-
 			var dbg = 2;
 
-			sb.AppendLine("            return null;");
+			sb.AppendLine($"            return cmd{rootCmd.Index};");
 			sb.AppendLine("        }");
 			sb.AppendLine("    }");
 			sb.AppendLine("}");
 
-			spc.AddSource("CommandFactory.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+			spc.AddSource("CommandBuilder.g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
 		});
 	}
 
 	private static void WriteCommand(StringBuilder sb, List<CommandView> cmds, CommandView cmd, CommandView? parent, int indent)
 	{
 		var tab = new string(' ', indent);
-
-		var hasParent = cmd.CmdParent != null;
 		var cmdVar = $"cmd{cmd.Index}";
 
-		sb.AppendLine($"{tab}// {cmd.FullName}");
+		// sb.AppendLine($"{tab}// {cmd.FullName}");
 		if (parent == null)
 		{
 			// Root command
@@ -110,45 +92,89 @@ public class MyGenerator : IIncrementalGenerator
 		{
 			// Child command
 			sb.AppendLine($"{tab}var {cmdVar} = new Command(\"{cmd.CmdName}\");");
-			sb.AppendLine($"{tab}{cmdVar}.Add(cmd{parent.Index});");
-			sb.AppendLine(
-				$$"""
-				{{tab}}{{cmdVar}}.SetAction(async (parseResult, ct) =>
-				{{tab}}{
-				{{tab}}    Console.WriteLine("Hello Math.Add!");
-				{{tab}}
-				{{tab}}    var {{cmdVar}}Inst = serviceProvider.GetRequiredService<{{cmd.FullName}}>();
-				{{tab}}
-				{{tab}}    if ({{cmdVar}}Inst is IAsyncCommandWithParseResult {{cmdVar}}001)
-				{{tab}}    {
-				{{tab}}        await {{cmdVar}}001.ExecuteAsync(parseResult, ct).ConfigureAwait(false);
-				{{tab}}    }
-				{{tab}}
-				{{tab}}    if ({{cmdVar}} is IAsyncCommand {{cmdVar}}002)
-				{{tab}}    {
-				{{tab}}        await {{cmdVar}}002.ExecuteAsync(ct).ConfigureAwait(false);
-				{{tab}}    }
-				{{tab}}
-				{{tab}}    if ({{cmdVar}} is ICommand {{cmdVar}}003)
-				{{tab}}    {
-				{{tab}}        {{cmdVar}}003.Execute();
-				{{tab}}    }
-				{{tab}}});
+			sb.AppendLine($"{tab}cmd{parent.Index}.Add({cmdVar});");
 
-				""");
+			foreach (var opt in cmd.Properties)
+			{
+				var optVar = $"opt{opt.Index}";
+
+				if (opt.ArgumentAttribute != null)
+				{
+					sb.AppendLine($"{tab}// Argument {opt.OptName}");
+					sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
+					sb.AppendLine($"{tab}{{");
+					sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+					sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+					sb.AppendLine($"{tab}}}");
+				}
+
+				if (opt.OptionAttribute != null)
+				{
+					sb.AppendLine($"{tab}// Option {opt.OptName}");
+					sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
+					sb.AppendLine($"{tab}{{");
+					sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+					sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+					sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToString().ToLowerInvariant()};");
+					sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToString().ToLowerInvariant()};");
+					sb.AppendLine($"{tab}}}");
+				}
+
+			}
+
+			// sb.AppendLine($"{tab}{cmdVar}.Add(cmd{parent.Index});");
+
+			if (cmd.IsExecutable)
+			{
+				sb.AppendLine(
+					$$"""
+					{{tab}}{{cmdVar}}.SetAction(async (parseResult, ct) =>
+					{{tab}}{
+					{{tab}}    Console.WriteLine("Hello Math.Add!");
+					{{tab}}
+					{{tab}}    var {{cmdVar}}Inst = serviceProvider.GetRequiredService<{{cmd.FullName}}>();
+					""");
+
+				foreach (var opt in cmd.Properties)
+				{
+					var optVar = $"opt{opt.Index}";
+					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
+				}
+
+				sb.AppendLine();
+
+				sb.AppendLine(
+					$$"""
+					{{tab}}    if ({{cmdVar}}Inst is IAsyncCommandWithParseResult {{cmdVar}}001)
+					{{tab}}    {
+					{{tab}}        await {{cmdVar}}001.ExecuteAsync(parseResult, ct).ConfigureAwait(false);
+					{{tab}}    }
+					{{tab}}
+					{{tab}}    if ({{cmdVar}} is IAsyncCommand {{cmdVar}}002)
+					{{tab}}    {
+					{{tab}}        await {{cmdVar}}002.ExecuteAsync(ct).ConfigureAwait(false);
+					{{tab}}    }
+					{{tab}}
+					{{tab}}    if ({{cmdVar}} is ICommand {{cmdVar}}003)
+					{{tab}}    {
+					{{tab}}        {{cmdVar}}003.Execute();
+					{{tab}}    }
+					{{tab}}});
+
+					""");
+			}
 		}
 
 		var children = cmds.Where(c => c.CmdParent?.EqualsNamedSymbol(cmd.Symbol) ?? false).ToList();
 		if (children.Count > 0)
 		{
-			sb.AppendLine($"{tab}{{");
-
 			foreach (var cCmd in children)
 			{
+				sb.AppendLine($"{tab}// {cCmd.FullName}");
+				sb.AppendLine($"{tab}{{");
 				WriteCommand(sb, cmds, cCmd, cmd, indent + 4);
+				sb.AppendLine($"{tab}}}");
 			}
-
-			sb.AppendLine($"{tab}}}");
 		}
 	}
 

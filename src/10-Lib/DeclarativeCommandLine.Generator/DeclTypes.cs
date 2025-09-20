@@ -2,15 +2,45 @@ using Microsoft.CodeAnalysis;
 
 namespace DeclarativeCommandLine.Generator;
 
-public class DeclTypes(Compilation compilation)
+public class DeclTypes
 {
-	public const string CommandTypeName = "DeclarativeCommandLine.CommandAttribute";
-	public const string ArgumentTypeName = "DeclarativeCommandLine.ArgumentAttribute";
-	public const string OptionTypeName = "DeclarativeCommandLine.OptionAttribute";
+	public DeclTypes(Compilation compilation)
+	{
+		ICommand = compilation.GetTypeByMetadataName(ICommandTypeName)!;
+		IAsyncCommand = compilation.GetTypeByMetadataName(IAsyncCommandTypeName)!;
+		IAsyncCommandWithParseResult = compilation.GetTypeByMetadataName(IAsyncCommandWithParseResultTypeName)!;
+		ExecutableCommandTypeNames =
+		[
+			ICommand,
+			IAsyncCommand,
+			IAsyncCommandWithParseResult,
+		];
 
-	public INamedTypeSymbol CommandAttribute { get; set; } = compilation.GetTypeByMetadataName(CommandTypeName)!;
+		CommandAttribute = compilation.GetTypeByMetadataName(CommandAttributeTypeName)!;
+		ArgumentAttribute = compilation.GetTypeByMetadataName(ArgumentAttributeTypeName)!;
+		OptionAttribute = compilation.GetTypeByMetadataName(OptionAttributeTypeName)!;
+	}
 
-	public INamedTypeSymbol ArgumentAttribute { get; set; } = compilation.GetTypeByMetadataName(ArgumentTypeName)!;
+	public const string ICommandTypeName = "DeclarativeCommandLine.ICommand";
+	public const string IAsyncCommandTypeName = "DeclarativeCommandLine.IAsyncCommand";
+	public const string IAsyncCommandWithParseResultTypeName = "DeclarativeCommandLine.IAsyncCommandWithParseResult";
 
-	public INamedTypeSymbol OptionAttribute { get; set; } = compilation.GetTypeByMetadataName(OptionTypeName)!;
+
+	public const string CommandAttributeTypeName = "DeclarativeCommandLine.CommandAttribute";
+	public const string ArgumentAttributeTypeName = "DeclarativeCommandLine.ArgumentAttribute";
+	public const string OptionAttributeTypeName = "DeclarativeCommandLine.OptionAttribute";
+
+	public INamedTypeSymbol ICommand { get; set; }
+
+	public INamedTypeSymbol IAsyncCommand { get; set; }
+
+	public INamedTypeSymbol IAsyncCommandWithParseResult { get; set; }
+
+	public INamedTypeSymbol[] ExecutableCommandTypeNames { get; }
+
+	public INamedTypeSymbol CommandAttribute { get; set; }
+
+	public INamedTypeSymbol ArgumentAttribute { get; set; }
+
+	public INamedTypeSymbol OptionAttribute { get; set; }
 }

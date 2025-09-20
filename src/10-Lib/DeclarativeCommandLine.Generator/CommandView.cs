@@ -2,21 +2,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace DeclarativeCommandLine.Generator;
-
-public static class Counter
-{
-	public static int _num;
-
-	public static int Next()
-	{
-		Interlocked.Increment(ref _num);
-
-		return _num;
-	}
-}
 
 public class CommandView
 {
@@ -35,6 +22,8 @@ public class CommandView
 	public string CmdName { get; set; }
 
 	public INamedTypeSymbol? CmdParent { get; set; }
+
+	public bool IsExecutable { get; set; }
 
 	public static bool TryParse(DeclContext ctx, TypeDeclarationSyntax decl, out CommandView? view)
 	{
@@ -57,9 +46,6 @@ public class CommandView
 			return false;
 		}
 
-		var typeName = symbol.ToDisplayString(); // fully qualified
-		var safeName = symbol.Name; // class name only
-
 		view = new()
 		{
 			Attribute = cmdAttr,
@@ -73,6 +59,8 @@ public class CommandView
 					.Where(p => p != null)
 					.Select(p => p!)
 			],
+			IsExecutable = namedSymbol.Interfaces
+				.Any(i => ctx.Types.ExecutableCommandTypeNames.Any(ex => i.OriginalDefinition.EqualsNamedSymbol(ex))),
 		};
 
 		view.CmdName = cmdAttr.ConstructorArguments.FirstOrDefault().Value as string;
@@ -113,12 +101,6 @@ public class CommandView
 						view.CmdParent = constrArg.Value.Value as INamedTypeSymbol;
 						break;
 					}
-
-				// case "Root":
-				// 	{
-				// 		var dbg3 = 3;
-				// 		break;
-				// 	}
 
 				default:
 					break;

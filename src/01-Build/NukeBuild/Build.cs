@@ -98,6 +98,14 @@ public sealed class Build : NukeBuild
 				.SetProject(Solution._0_Lib.DeclarativeCommandLine)
 				.SetOutputDirectory(PackageDirectory).SetProperty("PublicRelease", PublicReleaseStr)
 			);
+		})
+		.Executes(() =>
+		{
+			DotNetPack(_ => _
+				.SetConfiguration(Configuration)
+				.SetProject(Solution._0_Lib.DeclarativeCommandLine_Generator)
+				.SetOutputDirectory(PackageDirectory).SetProperty("PublicRelease", PublicReleaseStr)
+			);
 		});
 
 	/// <summary>

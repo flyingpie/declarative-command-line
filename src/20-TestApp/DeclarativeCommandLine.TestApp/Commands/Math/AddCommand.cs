@@ -8,7 +8,7 @@ public class AddCommand : ICommand
 		Console.WriteLine($"new {GetType().FullName}()");
 	}
 
-	[Option("--number-a", Required = true)]
+	[Option("--number-a", Description = "The first value.", Required = true)]
 	public int NumberA { get; set; }
 
 	[Option(Required = true)]

@@ -1,14 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<AssemblyName>DeclarativeCommandLine</AssemblyName>
+		<RootNamespace>DeclarativeCommandLine</RootNamespace>
+
 		<TargetFramework>netstandard2.0</TargetFramework>
 
-		<RootNamespace>DeclarativeCommandLine.Abstractions</RootNamespace>
-
-		<IncludeBuildOutput>false</IncludeBuildOutput>
-
-		<PackageId>DeclarativeCommandLine.Abstractions</PackageId>
-
-		<!--
 		<Authors>Marco van den Oever</Authors>
 		<PackageId>DeclarativeCommandLine</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -18,11 +14,9 @@
 		<PackageTags>command line parsing declarative attributes</PackageTags>
 		<Description>Abstraction layer on top of the System.CommandLine library, that allows definining commands in a declarative way, using attributes.</Description>
 		<PackageReleaseNotes>
+			2.0.0 Refactor to use a source generator
 			1.0.0 Initial release
 		</PackageReleaseNotes>
-
-		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-		-->
 	</PropertyGroup>
 
 	<ItemGroup>

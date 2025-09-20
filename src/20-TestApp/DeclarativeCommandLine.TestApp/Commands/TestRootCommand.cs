@@ -1,6 +1,6 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands;
 
-[Command(Root = true)]
+[Command(Description = "Test app root command.")]
 public class TestRootCommand
 {
 	public TestRootCommand()
@@ -8,6 +8,6 @@ public class TestRootCommand
 		Console.WriteLine($"new {GetType().FullName}()");
 	}
 
-	[Option("global", Recursive = true)]
+	[Option("global", Description = "Some global option", Recursive = true)]
 	public string SomeGlobalOption { get; set; }
 }

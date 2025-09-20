@@ -21,6 +21,23 @@ public static class NameFormatter
 
 		return kebabName;
 	}
+	
+	public static string PropertyNameToOptionName(string propertyName)
+	{
+		// ArgumentNullException.ThrowIfNull(type);
+
+		var kebabName = ToKebabCase(propertyName);
+
+		// if (kebabName.EndsWith("command", StringComparison.OrdinalIgnoreCase))
+		// {
+		// 	// kebabName = kebabName[..^"command".Length];
+		// 	kebabName = kebabName.Substring(0, kebabName.Length - "command".Length);
+		// }
+
+		kebabName = kebabName.Trim('-');
+
+		return $"--{kebabName}";
+	}
 
 	public static string ToKebabCase(string value)
 	{

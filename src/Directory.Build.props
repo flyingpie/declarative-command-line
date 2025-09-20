@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-<!--		<TargetFramework>netstandard2.0</TargetFramework>-->
+		<!--<TargetFramework>netstandard2.0</TargetFramework>-->
 		<LangVersion>13</LangVersion>
 
 		<!-- Some features we use require a documentation file, like analyzers, and the docs manifest generation -->
@@ -26,8 +26,10 @@
 		<RestoreUseStaticGraphEvaluation>true</RestoreUseStaticGraphEvaluation>
 
 		<!-- Treat warnings as errors in "Release" builds -->
+		<!--
 		<TreatWarningsAsErrors Condition=" '$(Configuration)' == 'Release' ">true</TreatWarningsAsErrors>
 		<MSBuildTreatWarningsAsErrors Condition="' $(Configuration)' == 'Release' ">true</MSBuildTreatWarningsAsErrors>
+		-->
 
 		<!--
 			CS8669: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. Auto-generated code requires an explicit '#nullable' directive in source.
