@@ -1,3 +1,5 @@
 ﻿namespace DeclarativeCommandLine;
 
-public class DefaultRootCommand { }
+public class DefaultRootCommand
+{
+}

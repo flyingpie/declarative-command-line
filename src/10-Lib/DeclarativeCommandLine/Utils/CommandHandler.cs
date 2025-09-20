@@ -2,12 +2,12 @@
 
 namespace DeclarativeCommandLine.Utils;
 
-internal class CommandHandler(CommandDescriptor cmdDescr)
+internal sealed class CommandHandler(CommandDescriptor cmdDescr)
 {
 	private readonly CommandDescriptor _cmdDescr =
 		cmdDescr ?? throw new ArgumentNullException(nameof(cmdDescr));
 
-	public async Task<int> HandlerAsync(object cmdInst, InvocationContext ctx)
+	public async Task<int> HandlerAsync(object cmdInst, ParseResult ctx)
 	{
 		ArgumentNullException.ThrowIfNull(ctx);
 
@@ -31,24 +31,23 @@ internal class CommandHandler(CommandDescriptor cmdDescr)
 		}
 
 		throw new DeclarativeCommandLineException(
-			$"Type '{_cmdDescr.Type.FullName}' does not inherit from interface '{typeof(IAsyncCommand).FullName}'."
-		);
+			$"Type '{_cmdDescr.Type.FullName}' does not inherit from interface '{typeof(IAsyncCommand).FullName}'.");
 	}
 
-	private void HandleArguments(object cmdInst, InvocationContext ctx)
+	private void HandleArguments(object cmdInst, ParseResult ctx)
 	{
 		foreach (var arg in _cmdDescr.Arguments)
 		{
-			var argVal = ctx.ParseResult.GetValueForArgument(arg.Argument);
+			var argVal = ctx.GetValue<object>(arg.Argument.Name); // TODO: Check if works
 			arg.Property.SetValue(cmdInst, argVal);
 		}
 	}
 
-	private void HandleOptions(object cmdInst, InvocationContext ctx)
+	private void HandleOptions(object cmdInst, ParseResult ctx)
 	{
 		foreach (var opt1 in _cmdDescr.Options)
 		{
-			var optVal = ctx.ParseResult.GetValueForOption(opt1.Option);
+			var optVal = ctx.GetValue<object>(opt1.Option.Name); // TODO: Check if works
 			opt1.Property.SetValue(cmdInst, optVal);
 		}
 	}

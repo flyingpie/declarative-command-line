@@ -1,26 +1,10 @@
 ﻿using DeclarativeCommandLine.Attributes;
+using System.Collections.ObjectModel;
 
 namespace DeclarativeCommandLine.Utils;
 
 public class CommandDescriptor
 {
-	public static bool TryCreate(Type type, out CommandDescriptor? cmdDescr)
-	{
-		ArgumentNullException.ThrowIfNull(type);
-
-		cmdDescr = null;
-
-		var cmdAttr = type.GetCustomAttribute<BaseCommandAttribute>(inherit: false);
-
-		if (cmdAttr != null)
-		{
-			cmdDescr = new CommandDescriptor(type, cmdAttr);
-			return true;
-		}
-
-		return false;
-	}
-
 	public CommandDescriptor(Type type, BaseCommandAttribute cmdAttr)
 	{
 		Type = type ?? throw new ArgumentNullException(nameof(type));
@@ -47,11 +31,28 @@ public class CommandDescriptor
 
 	public bool IsRoot { get; }
 
-	public CommandDescriptor Parent { get; set; }
+	public Command? Command { get; set; }
 
-	public Command Command { get; set; }
+	public Command CommandRequired => Command ?? throw new InvalidOperationException($"Expected property '{nameof(Command)}' to be not null, but it was .");
 
-	public List<ArgumentDescriptor> Arguments { get; set; } = new();
+	public Collection<ArgumentDescriptor> Arguments { get; } = [];
 
-	public List<OptionDescriptor> Options { get; set; } = new();
+	public Collection<OptionDescriptor> Options { get; } = [];
+
+	public static bool TryCreate(Type type, [NotNullWhen(true)] out CommandDescriptor? cmdDescr)
+	{
+		ArgumentNullException.ThrowIfNull(type);
+
+		cmdDescr = null;
+
+		var cmdAttr = type.GetCustomAttribute<BaseCommandAttribute>(inherit: false);
+
+		if (cmdAttr != null)
+		{
+			cmdDescr = new CommandDescriptor(type, cmdAttr);
+			return true;
+		}
+
+		return false;
+	}
 }

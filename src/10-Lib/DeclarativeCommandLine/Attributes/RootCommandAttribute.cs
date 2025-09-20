@@ -1,4 +1,6 @@
 ﻿namespace DeclarativeCommandLine.Attributes;
 
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class RootCommandAttribute : BaseCommandAttribute { }
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class RootCommandAttribute : BaseCommandAttribute
+{
+}

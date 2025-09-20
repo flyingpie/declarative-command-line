@@ -6,7 +6,7 @@ public abstract class BaseCommandAttribute : Attribute
 
 	public string? Description { get; set; }
 
-	public bool IsHidden { get; set; }
+	public bool Hidden { get; set; }
 
 	public string? Name { get; set; }
 

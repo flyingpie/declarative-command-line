@@ -1,2 +1,2 @@
-global using System;
 global using DeclarativeCommandLine.Attributes;
+global using System;

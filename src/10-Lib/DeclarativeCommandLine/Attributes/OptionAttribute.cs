@@ -3,7 +3,9 @@
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class OptionAttribute : Attribute
 {
-	public OptionAttribute() { }
+	public OptionAttribute()
+	{
+	}
 
 	public OptionAttribute(string name)
 	{
@@ -16,31 +18,23 @@ public sealed class OptionAttribute : Attribute
 		Aliases = aliases;
 	}
 
-	public string[]? Aliases { get; set; }
+	public string[]? Aliases { get; }
+
+	public string[]? AllowedValues { get; set; }
 
 	public bool AllowMultipleArgumentsPerToken { get; set; }
 
 	public string? ArgumentHelpName { get; set; }
 
-	public ArgumentArity Arity { get; set; }
-
-	public string[]? Completions { get; set; }
-
 	public object? DefaultValue { get; set; }
 
 	public string? Description { get; set; }
 
-	public string[]? FromAmong { get; set; }
+	public bool Hidden { get; set; }
 
-	public bool IsGlobal { get; set; }
+	public string? Name { get; }
 
-	public bool IsHidden { get; set; }
+	public bool Recursive { get; set; }
 
-	public bool IsRequired { get; set; }
-
-	public bool LegalFileNamesOnly { get; set; }
-
-	public bool LegalFilePathsOnly { get; set; }
-
-	public string? Name { get; set; }
+	public bool Required { get; set; }
 }

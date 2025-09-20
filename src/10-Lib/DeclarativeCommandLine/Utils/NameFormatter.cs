@@ -24,7 +24,7 @@ public static class NameFormatter
 
 		var sb = new StringBuilder();
 
-		for (int i = 0; i < value.Length; i++)
+		for (var i = 0; i < value.Length; i++)
 		{
 			var c = value[i];
 

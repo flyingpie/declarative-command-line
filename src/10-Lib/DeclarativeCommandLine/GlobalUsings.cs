@@ -1,7 +1,6 @@
 ﻿global using System;
 global using System.Collections.Generic;
 global using System.CommandLine;
-global using System.CommandLine.Invocation;
 global using System.Diagnostics.CodeAnalysis;
 global using System.Linq;
 global using System.Reflection;

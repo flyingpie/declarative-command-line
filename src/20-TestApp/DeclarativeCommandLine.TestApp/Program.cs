@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using DeclarativeCommandLine.Extensions;
+﻿using DeclarativeCommandLine.Extensions;
 using DeclarativeCommandLine.TestApp.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace DeclarativeCommandLine.TestApp;
 

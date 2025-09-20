@@ -1,8 +1,8 @@
 ﻿namespace DeclarativeCommandLine.Utils;
 
-public class OptionDescriptor
+public class OptionDescriptor(Option option, PropertyInfo prop)
 {
-	public PropertyInfo Property { get; set; }
+	public Option Option { get; } = option ?? throw new ArgumentNullException(nameof(option));
 
-	public Option Option { get; set; }
+	public PropertyInfo Property { get; } = prop ?? throw new ArgumentNullException(nameof(prop));
 }
