@@ -116,10 +116,14 @@ public sealed class Build : NukeBuild
 		.Produces(PackageDirectory)
 		.Executes(() =>
 		{
-			DotNetNuGetPush(p => p
-				.SetApiKey(NuGetApiKey)
-				.SetSource(NuGetSource)
-				.SetTargetPath(PackageDirectory.GlobFiles("*.nupkg").First())
-			);
+			foreach (var nupkg in PackageDirectory.GlobFiles("*.nupkg"))
+			{
+				DotNetNuGetPush(p => p
+					.SetApiKey(NuGetApiKey)
+					.SetSkipDuplicate(true)
+					.SetSource(NuGetSource)
+					.SetTargetPath(nupkg)
+				);
+			}
 		});
 }

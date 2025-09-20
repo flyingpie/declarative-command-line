@@ -60,92 +60,10 @@ public class PropertyView
 
 	private static void ParseArgument(PropertyView view, AttributeData optionAttr)
 	{
-		// view.OptName = optionAttr.ConstructorArguments.FirstOrDefault().Value as string;
-		//
-		// foreach (var constrArg in optionAttr.NamedArguments)
-		// {
-		// 	switch (constrArg.Key)
-		// 	{
-		// 		case "Aliases":
-		// 			{
-		// 				var dbg3 = 3;
-		// 				break;
-		// 			}
-		//
-		// 		case "Description":
-		// 			{
-		// 				view.OptDescription = constrArg.Value.Value as string;
-		// 				break;
-		// 			}
-		//
-		// 		case "Hidden":
-		// 			{
-		// 				var dbg3 = 3;
-		// 				break;
-		// 			}
-		//
-		// 		case "Name":
-		// 			{
-		// 				view.OptName = constrArg.Value.Value as string;
-		// 				break;
-		// 			}
-		//
-		// 		case "Required":
-		// 			{
-		// 				view.OptRequired = (bool)constrArg.Value.Value;
-		// 				break;
-		// 			}
-		//
-		// 		default:
-		// 			break;
-		// 	}
-		// }
 	}
 
 	private static void ParseOption(PropertyView view, AttributeData optionAttr)
 	{
-		// view.OptName = optionAttr.ConstructorArguments.FirstOrDefault().Value as string;
-		//
-		// foreach (var constrArg in optionAttr.NamedArguments)
-		// {
-		// 	switch (constrArg.Key)
-		// 	{
-		// 		case "Aliases":
-		// 			{
-		// 				var dbg3 = 3;
-		// 				break;
-		// 			}
-		//
-		// 		case "Description":
-		// 			{
-		// 				var dbg3 = 3;
-		// 				break;
-		// 			}
-		//
-		// 		case "Hidden":
-		// 			{
-		// 				var dbg3 = 3;
-		// 				break;
-		// 			}
-		//
-		// 		case "Name":
-		// 			{
-		// 				var dbg3 = 3;
-		// 				var n = constrArg.Value.Value as string;
-		// 				view.OptName = n;
-		// 				break;
-		// 			}
-		//
-		// 		case "Required":
-		// 			{
-		// 				view.OptRequired = (bool)constrArg.Value.Value;
-		// 				break;
-		// 			}
-		//
-		// 		default:
-		// 			break;
-		// 	}
-		// }
 	}
 
 	private static void ParseShared(PropertyView view, AttributeData optionAttr)
