@@ -3,7 +3,7 @@
 Description:
 
 Usage:
-  ReSharperTestRunner math add [options]
+  the_executable math add [options]
 
 Options:
   --value-a <value-a> (REQUIRED)  The first value.

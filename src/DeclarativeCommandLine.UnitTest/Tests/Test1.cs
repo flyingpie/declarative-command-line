@@ -89,12 +89,7 @@ public partial class Test1
 		var conf = new ParserConfiguration();
 		var res = CommandLineParser.Parse(cmd, args, conf);
 
-		var invConf = new InvocationConfiguration()
-		{
-			EnableDefaultExceptionHandler = false,
-			Error = outp,
-			Output = outp,
-		};
+		var invConf = new InvocationConfiguration() { EnableDefaultExceptionHandler = false, Error = outp, Output = outp, };
 
 		var result = await res.InvokeAsync(invConf);
 

@@ -15,7 +15,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting"/>
-	</ItemGroup>
+<!--	<ItemGroup>-->
+<!--		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting"/>-->
+<!--	</ItemGroup>-->
 </Project>

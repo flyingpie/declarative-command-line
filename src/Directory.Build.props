@@ -66,11 +66,11 @@
 		<!--		<RunAnalyzers>false</RunAnalyzers>-->
 
 		<!-- MSTest Platform -->
-		<EnableMSTestRunner>true</EnableMSTestRunner>
+		<!-- <EnableMSTestRunner>true</EnableMSTestRunner> -->
 		<IsPackable>false</IsPackable>
-		<IsTestProject>true</IsTestProject>
-		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+		<!-- <IsTestProject>true</IsTestProject> -->
+		<!-- <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport> -->
+		<!-- <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure> -->
 	</PropertyGroup>
 
 	<!-- Versioning -->
@@ -96,9 +96,11 @@
 
 	<!-- Test projects -->
 	<ItemGroup Condition=" $(MSBuildProjectName.EndsWith('Test')) ">
+		<PackageReference Include="Microsoft.NET.Test.Sdk"/>
 		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
 		<PackageReference Include="Moq"/>
-		<PackageReference Include="MSTest"/>
+		<PackageReference Include="MSTest.TestAdapter"/>
+		<PackageReference Include="MSTest.TestFramework"/>
 		<PackageReference Include="Verify.MSTest"/>
 	</ItemGroup>
 </Project>

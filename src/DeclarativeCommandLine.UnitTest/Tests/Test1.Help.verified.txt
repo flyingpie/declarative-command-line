@@ -1,7 +1,7 @@
 ﻿Description:
 
 Usage:
-  ReSharperTestRunner [command] [options]
+  the_executable [command] [options]
 
 Options:
   -?, -h, --help  Show help and usage information
