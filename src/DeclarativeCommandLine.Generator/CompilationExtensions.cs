@@ -1,5 +1,3 @@
-using Microsoft.CodeAnalysis;
-
 namespace DeclarativeCommandLine.Generator;
 
 public static class CompilationExtensions

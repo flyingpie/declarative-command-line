@@ -1,6 +1,3 @@
-using System;
-using System.Text;
-
 namespace DeclarativeCommandLine.Generator;
 
 public static class NameFormatter

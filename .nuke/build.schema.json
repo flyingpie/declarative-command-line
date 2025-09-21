@@ -27,7 +27,8 @@
         "Clean",
         "Pack",
         "Push",
-        "ReportInfo"
+        "ReportInfo",
+        "Test"
       ]
     },
     "Verbosity": {

@@ -8,7 +8,6 @@ using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.DotNet;
 using Serilog;
-using System.Linq;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions(
@@ -88,14 +87,29 @@ public sealed class Build : NukeBuild
 	/// <summary>
 	/// Build NuGet package.
 	/// </summary>
+	private Target Test => _ => _
+		.DependsOn(Clean)
+		.Executes(() =>
+		{
+			DotNetTest(_ => _
+				.SetConfiguration(Configuration)
+				.SetLoggers("console;verbosity=detailed")
+				.SetProjectFile(Solution.DeclarativeCommandLine_UnitTest)
+			);
+		});
+
+	/// <summary>
+	/// Build NuGet package.
+	/// </summary>
 	private Target Pack => _ => _
 		.DependsOn(Clean)
+		// .DependsOn(Test) // Tests don't work in CI yet.
 		.Produces(PackageDirectory)
 		.Executes(() =>
 		{
 			DotNetPack(_ => _
 				.SetConfiguration(Configuration)
-				.SetProject(Solution._0_Lib.DeclarativeCommandLine)
+				.SetProject(Solution.DeclarativeCommandLine)
 				.SetOutputDirectory(PackageDirectory).SetProperty("PublicRelease", PublicReleaseStr)
 			);
 		})
@@ -103,7 +117,7 @@ public sealed class Build : NukeBuild
 		{
 			DotNetPack(_ => _
 				.SetConfiguration(Configuration)
-				.SetProject(Solution._0_Lib.DeclarativeCommandLine_Generator)
+				.SetProject(Solution.DeclarativeCommandLine_Generator)
 				.SetOutputDirectory(PackageDirectory).SetProperty("PublicRelease", PublicReleaseStr)
 			);
 		});

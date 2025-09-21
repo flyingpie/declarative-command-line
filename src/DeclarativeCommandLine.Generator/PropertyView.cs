@@ -1,6 +1,3 @@
-using Microsoft.CodeAnalysis;
-using System.Linq;
-
 namespace DeclarativeCommandLine.Generator;
 
 public class PropertyView
