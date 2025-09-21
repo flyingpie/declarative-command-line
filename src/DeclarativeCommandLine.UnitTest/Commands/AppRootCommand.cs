@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DeclarativeCommandLine.UnitTest.Commands;
 
@@ -14,16 +16,16 @@ public class TextWriterConsole(TextWriter writer) : IConsole
 
 	public void WriteLine(string line)
 	{
-		writer.WriteLine(line);
+		_writer.WriteLine(line);
 	}
 }
 
 [Command]
-public class UnitTestRootCommand
+public class AppRootCommand
 {
 }
 
-[Command(Parent = typeof(UnitTestRootCommand))]
+[Command(Parent = typeof(AppRootCommand))]
 public class MathCommand
 {
 }
@@ -31,10 +33,14 @@ public class MathCommand
 [Command(Parent = typeof(MathCommand))]
 public class AddCommand(IConsole console) : ICommand
 {
-	[Option(Required = true)]
+	[Option(
+		Description = "The first value.",
+		Required = true)]
 	public int ValueA { get; set; }
 
-	[Option(Required = true)]
+	[Option(
+		Description = "The second value.",
+		Required = true)]
 	public int ValueB { get; set; }
 
 	public void Execute()
@@ -44,11 +50,23 @@ public class AddCommand(IConsole console) : ICommand
 }
 
 [Command(Parent = typeof(MathCommand))]
-public class SubtractCommand
+public class SubtractCommand(IConsole console) : IAsyncCommand
 {
+	[Option(Required = true)]
+	public int ValueA { get; set; }
+
+	[Option(Required = true)]
+	public int ValueB { get; set; }
+
+	public Task ExecuteAsync(CancellationToken ct = default)
+	{
+		console.WriteLine($"{ValueA} + {ValueB} = {ValueA + ValueB}");
+
+		return Task.CompletedTask;
+	}
 }
 
-[Command(Parent = typeof(UnitTestRootCommand))]
+[Command(Parent = typeof(AppRootCommand))]
 public class StringCommand
 {
 }

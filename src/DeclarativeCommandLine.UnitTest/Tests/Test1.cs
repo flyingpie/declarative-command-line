@@ -1,4 +1,3 @@
-using DeclarativeCommandLine.Generated;
 using DeclarativeCommandLine.UnitTest.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using System.CommandLine;
@@ -78,7 +77,7 @@ public partial class Test1
 
 		var p = new ServiceCollection()
 			.AddSingleton<IConsole>(new TextWriterConsole(outp))
-			.AddTransient<UnitTestRootCommand>()
+			.AddTransient<AppRootCommand>()
 			.AddTransient<MathCommand>()
 			.AddTransient<AddCommand>()
 			.BuildServiceProvider();

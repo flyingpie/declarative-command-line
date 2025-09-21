@@ -1,5 +1,4 @@
-﻿using DeclarativeCommandLine.Generated;
-using DeclarativeCommandLine.UnitTest.Commands;
+﻿using DeclarativeCommandLine.UnitTest.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ public static class Program
 		var p = new ServiceCollection()
 			.AddTransient<AddCommand>()
 			.AddTransient<MathCommand>()
-			.AddTransient<UnitTestRootCommand>()
+			.AddTransient<AppRootCommand>()
 			.BuildServiceProvider();
 
 		return new CommandBuilder()
