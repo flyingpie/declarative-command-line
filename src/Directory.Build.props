@@ -1,7 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<!--<TargetFramework>netstandard2.0</TargetFramework>-->
-		<LangVersion>13</LangVersion>
+		<TargetFramework>net9.0</TargetFramework>
 
 		<!-- Some features we use require a documentation file, like analyzers, and the docs manifest generation -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -38,7 +37,6 @@
 		<NoWarn>CS8669</NoWarn>
 
 		<!-- Put any generated stuff (including "bin" and  "obj" folders, and NuGet packages) in an "artifacts" folder, instead of spread out across the source. -->
-		<!--		<UseArtifactsOutput>true</UseArtifactsOutput>-->
 		<ArtifactsPath>$(MSBuildThisFileDirectory)/../artifacts</ArtifactsPath>
 	</PropertyGroup>
 
@@ -54,23 +52,9 @@
 		<RunAnalyzers>true</RunAnalyzers>
 		<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
 		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-	</PropertyGroup>
 
-	<!-- Unit Test Projects -->
-	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Test'))">
-		<Nullable>annotations</Nullable>
-
-		<!-- Code analysis -->
-		<!--		<EnableNETAnalyzers>false</EnableNETAnalyzers>-->
-		<!--		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>-->
-		<!--		<RunAnalyzers>false</RunAnalyzers>-->
-
-		<!-- MSTest Platform -->
-		<!-- <EnableMSTestRunner>true</EnableMSTestRunner> -->
+		<!-- Explicitly overridden per project -->
 		<IsPackable>false</IsPackable>
-		<!-- <IsTestProject>true</IsTestProject> -->
-		<!-- <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport> -->
-		<!-- <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure> -->
 	</PropertyGroup>
 
 	<!-- Versioning -->
@@ -97,7 +81,6 @@
 	<!-- Test projects -->
 	<ItemGroup Condition=" $(MSBuildProjectName.EndsWith('Test')) ">
 		<PackageReference Include="Microsoft.NET.Test.Sdk"/>
-		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
 		<PackageReference Include="Moq"/>
 		<PackageReference Include="MSTest.TestAdapter"/>
 		<PackageReference Include="MSTest.TestFramework"/>

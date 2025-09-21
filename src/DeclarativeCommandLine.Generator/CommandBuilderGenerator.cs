@@ -96,11 +96,11 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 					Diagnostic.Create(
 						id: "DECLI0001",
 						category: "Compiler",
-						message: $"Something went wrong while running the DeclarativeCommandLine source generator: {ex}",
+						message: $"Something went wrong while running the DeclarativeCommandLine source generator: {ex} {ex.StackTrace}",
 						severity: DiagnosticSeverity.Error,
 						defaultSeverity: DiagnosticSeverity.Error,
 						isEnabledByDefault: true,
-						warningLevel: 1));
+						warningLevel: 0));
 			}
 		});
 	}
@@ -120,71 +120,73 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			// Child command
 			sb.AppendLine($"{tab}var {cmdVar} = new Command(\"{cmd.CmdName}\");");
 			sb.AppendLine($"{tab}cmd{parent.Index}.Add({cmdVar});");
+		}
+
+		sb.AppendLine($"{tab}{cmdVar}.Hidden = {cmd.CmdHidden.ToCSharpBoolString()};");
+
+		foreach (var opt in cmd.Properties)
+		{
+			var optVar = $"opt{opt.Index}";
+
+			if (opt.ArgumentAttribute != null)
+			{
+				sb.AppendLine($"{tab}// Argument {opt.OptName}");
+				sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
+				sb.AppendLine($"{tab}{{");
+				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+				sb.AppendLine($"{tab}}}");
+			}
+
+			if (opt.OptionAttribute != null)
+			{
+				sb.AppendLine($"{tab}// Option {opt.OptName}");
+				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
+				sb.AppendLine($"{tab}{{");
+				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
+				sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToCSharpBoolString()};");
+				sb.AppendLine($"{tab}}}");
+			}
+		}
+
+		if (cmd.IsExecutable)
+		{
+			sb.AppendLine(
+				$$"""
+				{{tab}}{{cmdVar}}.SetAction(async (parseResult, ct) =>
+				{{tab}}{
+				{{tab}}    var {{cmdVar}}Inst = ({{cmd.FullName}})serviceProvider(typeof({{cmd.FullName}}));
+				""");
 
 			foreach (var opt in cmd.Properties)
 			{
 				var optVar = $"opt{opt.Index}";
-
-				if (opt.ArgumentAttribute != null)
-				{
-					sb.AppendLine($"{tab}// Argument {opt.OptName}");
-					sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
-					sb.AppendLine($"{tab}{{");
-					sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
-					sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
-					sb.AppendLine($"{tab}}}");
-				}
-
-				if (opt.OptionAttribute != null)
-				{
-					sb.AppendLine($"{tab}// Option {opt.OptName}");
-					sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
-					sb.AppendLine($"{tab}{{");
-					sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
-					sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
-					sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToString().ToLowerInvariant()};");
-					sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToString().ToLowerInvariant()};");
-					sb.AppendLine($"{tab}}}");
-				}
+				sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
 			}
 
-			if (cmd.IsExecutable)
-			{
-				sb.AppendLine(
-					$$"""
-					{{tab}}{{cmdVar}}.SetAction(async (parseResult, ct) =>
-					{{tab}}{
-					{{tab}}    var {{cmdVar}}Inst = ({{cmd.FullName}})serviceProvider(typeof({{cmd.FullName}}));
-					""");
+			sb.AppendLine();
 
-				foreach (var opt in cmd.Properties)
-				{
-					var optVar = $"opt{opt.Index}";
-					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
-				}
+			sb.AppendLine(
+				$$"""
+				{{tab}}    if ({{cmdVar}}Inst is IAsyncCommandWithParseResult {{cmdVar}}001)
+				{{tab}}    {
+				{{tab}}        await {{cmdVar}}001.ExecuteAsync(parseResult, ct).ConfigureAwait(false);
+				{{tab}}    }
+				{{tab}}
+				{{tab}}    if ({{cmdVar}}Inst is IAsyncCommand {{cmdVar}}002)
+				{{tab}}    {
+				{{tab}}        await {{cmdVar}}002.ExecuteAsync(ct).ConfigureAwait(false);
+				{{tab}}    }
+				{{tab}}
+				{{tab}}    if ({{cmdVar}}Inst is ICommand {{cmdVar}}003)
+				{{tab}}    {
+				{{tab}}        {{cmdVar}}003.Execute();
+				{{tab}}    }
+				{{tab}}});
 
-				sb.AppendLine();
-
-				sb.AppendLine(
-					$$"""
-					{{tab}}    if ({{cmdVar}}Inst is IAsyncCommandWithParseResult {{cmdVar}}001)
-					{{tab}}    {
-					{{tab}}        await {{cmdVar}}001.ExecuteAsync(parseResult, ct).ConfigureAwait(false);
-					{{tab}}    }
-					{{tab}}
-					{{tab}}    if ({{cmdVar}}Inst is IAsyncCommand {{cmdVar}}002)
-					{{tab}}    {
-					{{tab}}        await {{cmdVar}}002.ExecuteAsync(ct).ConfigureAwait(false);
-					{{tab}}    }
-					{{tab}}
-					{{tab}}    if ({{cmdVar}}Inst is ICommand {{cmdVar}}003)
-					{{tab}}    {
-					{{tab}}        {{cmdVar}}003.Execute();
-					{{tab}}    }
-					{{tab}}});
-
-					""");
-			}
+				""");
 		}
 
 		var children = cmds.Where(c => c.CmdParent?.EqualsNamedSymbol(cmd.Symbol) ?? false).ToList();

@@ -4,6 +4,7 @@
 		<RootNamespace>DeclarativeCommandLine.Generator</RootNamespace>
 
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>13</LangVersion>
 
 		<Authors>Marco van den Oever</Authors>
 		<PackageId>DeclarativeCommandLine.Generator</PackageId>

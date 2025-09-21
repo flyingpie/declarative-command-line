@@ -8,6 +8,8 @@ public static class ModuleInit
 	[ModuleInitializer]
 	public static void Init()
 	{
-		VerifierSettings.AddScrubber(_ => _.Replace("ReSharperTestRunner", "the_executable"));
+		VerifierSettings.AddScrubber(_ => _
+			.Replace("ReSharperTestRunner", "the_executable")
+			.Replace("testhost", "the_executable"));
 	}
 }

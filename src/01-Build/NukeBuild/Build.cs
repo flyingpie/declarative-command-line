@@ -102,8 +102,7 @@ public sealed class Build : NukeBuild
 	/// Build NuGet package.
 	/// </summary>
 	private Target Pack => _ => _
-		.DependsOn(Clean)
-		// .DependsOn(Test) // Tests don't work in CI yet.
+		.DependsOn(Test)
 		.Produces(PackageDirectory)
 		.Executes(() =>
 		{

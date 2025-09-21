@@ -4,26 +4,40 @@ namespace DeclarativeCommandLine.Generator;
 
 public class CommandView
 {
-	public int Index { get; set; } = Counter.Next();
+	public int Index { get; } = Counter.Next();
 
-	public AttributeData Attribute { get; private set; }
+	public AttributeData Attribute { get; private set; } = null!;
 
-	public INamedTypeSymbol Symbol { get; private set; }
+	public INamedTypeSymbol Symbol { get; private set; } = null!;
 
-	public List<PropertyView> Properties { get; set; }
+	public ICollection<PropertyView> Properties { get; private set; } = null!;
 
 	public string FullName => $"global::{Symbol.ToDisplayString()}";
 
 	public string Name => Symbol.Name;
 
-	public string CmdName { get; set; }
+	public string? CmdDescription { get; set; }
+
+	public string CmdName { get; set; } = null!;
 
 	public INamedTypeSymbol? CmdParent { get; set; }
+
+	public bool CmdHidden { get; set; }
 
 	public bool IsExecutable { get; set; }
 
 	public static bool TryParse(DeclContext ctx, TypeDeclarationSyntax decl, out CommandView? view)
 	{
+		if (ctx == null)
+		{
+			throw new ArgumentNullException(nameof(ctx));
+		}
+
+		if (decl == null)
+		{
+			throw new ArgumentNullException(nameof(decl));
+		}
+
 		view = null;
 
 		var model = ctx.Compilation.GetSemanticModel(decl.SyntaxTree);
@@ -43,68 +57,41 @@ public class CommandView
 			return false;
 		}
 
-		view = new()
-		{
-			Attribute = cmdAttr,
-			Symbol = namedSymbol,
-			Properties =
-			[
-				.. namedSymbol
-					.GetMembers()
-					.OfType<IPropertySymbol>()
-					.Select(s => PropertyView.TryParse(ctx, s, out var p) ? p : null)
-					.Where(p => p != null)
-					.Select(p => p!)
-			],
-			IsExecutable = namedSymbol.Interfaces
-				.Any(i => ctx.Types.ExecutableCommandTypeNames.Any(ex => i.OriginalDefinition.EqualsNamedSymbol(ex))),
-		};
+		view = new();
 
-		view.CmdName = cmdAttr.ConstructorArguments.FirstOrDefault().Value as string;
+		// Type info
+		view.Attribute = cmdAttr;
+		view.Symbol = namedSymbol;
 
-		foreach (var constrArg in cmdAttr.NamedArguments)
-		{
-			switch (constrArg.Key)
-			{
-				case "Aliases":
-					{
-						var dbg3 = 3;
-						break;
-					}
+		// Child properties (attributes and options)
+		view.Properties =
+		[
+			.. namedSymbol
+				.GetMembers()
+				.OfType<IPropertySymbol>()
+				.Select(s => PropertyView.TryParse(ctx, s, out var p) ? p : null)
+				.Where(p => p != null)
+				.Select(p => p!)
+		];
 
-				case "Description":
-					{
-						var dbg3 = 3;
-						break;
-					}
+		// IsExecutable
+		view.IsExecutable = namedSymbol.Interfaces
+			.Any(i => ctx.Types.ExecutableCommandTypeNames.Any(ex => i.OriginalDefinition.EqualsNamedSymbol(ex)));
 
-				case "Hidden":
-					{
-						var dbg3 = 3;
-						break;
-					}
+		// Name
+		var cmdNameFromConstrArg = cmdAttr.ConstructorArguments.FirstOrDefault().Value as string;
+		var cmdNameFromNamedArg = cmdAttr.NamedArguments.GetNamedArgument("Name") as string;
+		var cmdNameFromType = NameFormatter.CommandTypeToCommandName(symbol.Name);
+		view.CmdName = cmdNameFromConstrArg ?? cmdNameFromNamedArg ?? cmdNameFromType;
 
-				case "Name":
-					{
-						var dbg3 = 3;
-						var n = constrArg.Value.Value as string;
-						view.CmdName = n;
-						break;
-					}
+		// Description
+		view.CmdDescription = cmdAttr.NamedArguments.GetNamedArgument("Description") as string;
 
-				case "Parent":
-					{
-						var dbg3 = 3;
-						view.CmdParent = constrArg.Value.Value as INamedTypeSymbol;
-						break;
-					}
+		// Hidden
+		view.CmdHidden = cmdAttr.NamedArguments.GetNamedArgument("Hidden") as bool? ?? false;
 
-				default:
-					break;
-			}
-		}
-
-		view.CmdName ??= NameFormatter.CommandTypeToCommandName(symbol.Name);
+		// Parent
+		view.CmdParent = cmdAttr.NamedArguments.GetNamedArgument("Parent") as INamedTypeSymbol;
 
 		return true;
 	}

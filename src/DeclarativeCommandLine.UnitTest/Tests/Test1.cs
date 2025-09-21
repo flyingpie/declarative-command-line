@@ -1,10 +1,7 @@
 using DeclarativeCommandLine.UnitTest.Commands;
-using Microsoft.Extensions.DependencyInjection;
 using System.CommandLine;
 using System.CommandLine.Parsing;
-using System.IO;
 using System.Threading.Tasks;
-using VerifyMSTest;
 using static VerifyMSTest.Verifier;
 
 namespace DeclarativeCommandLine.UnitTest.Tests;
@@ -15,6 +12,15 @@ public partial class Test1
 {
 	[TestMethod]
 	public Task VerifyCheck() => VerifyChecks.Run();
+
+	public static void Test()
+	{
+		var rootCmd = new RootCommand();
+		var cmd = new Command("");
+		var opt = new Option<int>("");
+		var arg = new Argument<int>("");
+		var dir = new Directive("");
+	}
 
 	[TestMethod]
 	public async Task Help()
