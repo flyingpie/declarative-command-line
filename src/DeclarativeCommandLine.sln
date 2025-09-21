@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NukeBuild", "01-Build\NukeB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine.Generator", "10-Lib\DeclarativeCommandLine.Generator\DeclarativeCommandLine.Generator.csproj", "{E119BFB2-AD94-472B-BCFC-A367F655163E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeclarativeCommandLine.UnitTest", "10-Lib\DeclarativeCommandLine.UnitTest\DeclarativeCommandLine.UnitTest.csproj", "{FAC260F0-D9B4-43D4-8E3F-25684C91E90E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E119BFB2-AD94-472B-BCFC-A367F655163E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC260F0-D9B4-43D4-8E3F-25684C91E90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC260F0-D9B4-43D4-8E3F-25684C91E90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC260F0-D9B4-43D4-8E3F-25684C91E90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC260F0-D9B4-43D4-8E3F-25684C91E90E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +72,6 @@ Global
 		{0E0677D6-1C4C-4213-BD2B-5F31B334B1CB} = {B84A79C5-19CB-48CE-8914-3B5E83F83A1B}
 		{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6} = {BF8B0D75-A2E1-4A91-8581-6C218FE73FC0}
 		{E119BFB2-AD94-472B-BCFC-A367F655163E} = {99D3C865-48C1-4931-B248-7E9B26FF1FF8}
+		{FAC260F0-D9B4-43D4-8E3F-25684C91E90E} = {99D3C865-48C1-4931-B248-7E9B26FF1FF8}
 	EndGlobalSection
 EndGlobal

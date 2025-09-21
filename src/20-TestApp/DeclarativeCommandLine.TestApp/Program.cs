@@ -3,21 +3,25 @@ using DeclarativeCommandLine.TestApp.Commands;
 using DeclarativeCommandLine.TestApp.Commands.Math;
 using Microsoft.Extensions.DependencyInjection;
 using System.CommandLine;
+using System.CommandLine.Parsing;
 using System.Threading.Tasks;
 
 namespace DeclarativeCommandLine.TestApp;
 
+// TODO: Test by executing a command and diffing the console output?
+// TODO: IServiceProvider => Func<Type, object>
+// TODO: Partial CommandBuilder, with separate methods per command, for easier extension
 public static class Program
 {
 	public static async Task<int> Main(string[] args)
 	{
 		Console.WriteLine("Hello world!");
 
-		var sc = new ServiceCollection()
+		var p = new ServiceCollection()
 			.AddTransient<AddCommand>()
 			.AddTransient<MathCommand>()
 			.AddTransient<TestRootCommand>()
-			;
+			.BuildServiceProvider();
 
 		// return await new ServiceCollection()
 		// 	.AddDeclarativeCommandLine()
@@ -26,10 +30,17 @@ public static class Program
 		// 	.RunCliAsync(args)
 		// 	.ConfigureAwait(false);
 
-		// await ExecuteCmdAsync(sc.BuildServiceProvider(), args).ConfigureAwait(false);
-		await new CommandBuilder().Build(sc.BuildServiceProvider()).Parse(args).InvokeAsync().ConfigureAwait(false);
+		var builder = new CommandBuilder();
+		var cmd = builder.Build(t => p.GetRequiredService(t));
 
-		return 0;
+		var conf = new ParserConfiguration();
+		var res = CommandLineParser.Parse(cmd, args, conf);
+
+		var invConf = new InvocationConfiguration() { EnableDefaultExceptionHandler = false, };
+
+		return await res.InvokeAsync(invConf);
+
+		// await new CommandBuilder().Build(sc.BuildServiceProvider()).Parse(args).InvokeAsync().ConfigureAwait(false);
 	}
 
 	public static async Task ExecuteCmdAsync(IServiceProvider serviceProvider, string[] args)

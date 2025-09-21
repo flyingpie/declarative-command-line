@@ -96,7 +96,7 @@
 
 	<!-- Test projects -->
 	<ItemGroup Condition=" $(MSBuildProjectName.EndsWith('Test')) ">
-		<PackageReference Include="coverlet.collector"/>
+		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
 		<PackageReference Include="Moq"/>
 		<PackageReference Include="MSTest"/>
 	</ItemGroup>

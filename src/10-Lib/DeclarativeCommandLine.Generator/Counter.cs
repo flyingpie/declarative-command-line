@@ -12,4 +12,6 @@ public static class Counter
 
 		return _num;
 	}
+
+	public static void Reset() => _num = 0;
 }

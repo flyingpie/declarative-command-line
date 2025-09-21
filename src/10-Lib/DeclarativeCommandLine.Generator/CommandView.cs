@@ -15,7 +15,7 @@ public class CommandView
 
 	public List<PropertyView> Properties { get; set; }
 
-	public string FullName => Symbol.ToDisplayString();
+	public string FullName => $"global::{Symbol.ToDisplayString()}";
 
 	public string Name => Symbol.Name;
 

@@ -7,13 +7,15 @@ public static class NameFormatter
 {
 	public static string CommandTypeToCommandName(string typeName)
 	{
-		// ArgumentNullException.ThrowIfNull(type);
+		if (string.IsNullOrWhiteSpace(typeName))
+		{
+			throw new ArgumentNullException(nameof(typeName));
+		}
 
 		var kebabName = ToKebabCase(typeName);
 
 		if (kebabName.EndsWith("command", StringComparison.OrdinalIgnoreCase))
 		{
-			// kebabName = kebabName[..^"command".Length];
 			kebabName = kebabName.Substring(0, kebabName.Length - "command".Length);
 		}
 
@@ -21,18 +23,15 @@ public static class NameFormatter
 
 		return kebabName;
 	}
-	
+
 	public static string PropertyNameToOptionName(string propertyName)
 	{
-		// ArgumentNullException.ThrowIfNull(type);
+		if (string.IsNullOrWhiteSpace(propertyName))
+		{
+			throw new ArgumentNullException(nameof(propertyName));
+		}
 
 		var kebabName = ToKebabCase(propertyName);
-
-		// if (kebabName.EndsWith("command", StringComparison.OrdinalIgnoreCase))
-		// {
-		// 	// kebabName = kebabName[..^"command".Length];
-		// 	kebabName = kebabName.Substring(0, kebabName.Length - "command".Length);
-		// }
 
 		kebabName = kebabName.Trim('-');
 
@@ -41,7 +40,10 @@ public static class NameFormatter
 
 	public static string ToKebabCase(string value)
 	{
-		// ArgumentNullException.ThrowIfNull(value);
+		if (string.IsNullOrWhiteSpace(value))
+		{
+			throw new ArgumentNullException(nameof(value));
+		}
 
 		var sb = new StringBuilder();
 
