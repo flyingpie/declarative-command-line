@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\10-Lib\DeclarativeCommandLine.UnitTest\DeclarativeCommandLine.UnitTest.csproj" />
 		<ProjectReference Include="..\..\10-Lib\DeclarativeCommandLine\DeclarativeCommandLine.csproj" />
 		<ProjectReference Include="..\..\10-Lib\DeclarativeCommandLine.Generator\DeclarativeCommandLine.Generator.csproj" OutputItemType="Analyzer"/>
 	</ItemGroup>

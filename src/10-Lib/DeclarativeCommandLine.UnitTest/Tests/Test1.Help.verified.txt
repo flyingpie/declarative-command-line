@@ -1,0 +1,13 @@
+﻿Description:
+
+Usage:
+  ReSharperTestRunner [command] [options]
+
+Options:
+  -?, -h, --help  Show help and usage information
+  --version       Show version information
+
+Commands:
+  math
+  string
+

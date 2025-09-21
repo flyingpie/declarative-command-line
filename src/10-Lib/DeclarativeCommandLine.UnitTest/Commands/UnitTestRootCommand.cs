@@ -1,8 +1,21 @@
+using System;
+using System.IO;
+
 namespace DeclarativeCommandLine.UnitTest.Commands;
 
 public interface IConsole
 {
 	void WriteLine(string line);
+}
+
+public class TextWriterConsole(TextWriter writer) : IConsole
+{
+	private readonly TextWriter _writer = writer ?? throw new ArgumentNullException(nameof(writer));
+
+	public void WriteLine(string line)
+	{
+		writer.WriteLine(line);
+	}
 }
 
 [Command]
@@ -18,15 +31,15 @@ public class MathCommand
 [Command(Parent = typeof(MathCommand))]
 public class AddCommand(IConsole console) : ICommand
 {
-	[Option]
-	public int Value1 { get; set; }
+	[Option(Required = true)]
+	public int ValueA { get; set; }
 
-	[Option]
-	public int Value2 { get; set; }
+	[Option(Required = true)]
+	public int ValueB { get; set; }
 
 	public void Execute()
 	{
-		console.WriteLine($"{Value1} + {Value2} = {Value1 + Value2}");
+		console.WriteLine($"{ValueA} + {ValueB} = {ValueA + ValueB}");
 	}
 }
 

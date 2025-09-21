@@ -333,3 +333,5 @@ _artifacts
 _output
 
 .vscode
+
+*.received.*

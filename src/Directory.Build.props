@@ -99,5 +99,6 @@
 		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
 		<PackageReference Include="Moq"/>
 		<PackageReference Include="MSTest"/>
+		<PackageReference Include="Verify.MSTest"/>
 	</ItemGroup>
 </Project>

@@ -1,0 +1,13 @@
+﻿Option '--value-a' is required.
+Option '--value-b' is required.
+
+Description:
+
+Usage:
+  ReSharperTestRunner math add [options]
+
+Options:
+  --value-a <value-a> (REQUIRED)
+  --value-b <value-b> (REQUIRED)
+  -?, -h, --help                  Show help and usage information
+
