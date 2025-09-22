@@ -4,17 +4,13 @@ public static class NameFormatter
 {
 	public static string CommandTypeToCommandName(Type type)
 	{
-		if (type == null)
-		{
-			throw new ArgumentNullException(nameof(type));
-		}
+		ArgumentNullException.ThrowIfNull(type);
 
 		var typeName = ToKebabCase(type.Name);
 
 		if (typeName.EndsWith("command", StringComparison.OrdinalIgnoreCase))
 		{
-			// typeName = typeName[..^"command".Length];
-			typeName = typeName.Substring(0, typeName.Length - "command".Length);
+			typeName = typeName[..^"command".Length];
 		}
 
 		typeName = typeName.Trim('-');
@@ -24,10 +20,7 @@ public static class NameFormatter
 
 	public static string ToKebabCase(string value)
 	{
-		if (value == null)
-		{
-			throw new ArgumentNullException(nameof(value));
-		}
+		ArgumentNullException.ThrowIfNull(value);
 
 		var sb = new StringBuilder();
 

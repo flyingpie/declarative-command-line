@@ -6,11 +6,14 @@ namespace DeclarativeCommandLine;
 public class DeclarativeCommandLineFactory(
 	ICommandFactory commandFactory,
 	IServiceProvider serviceProvider,
-	IEnumerable<CommandDescriptor> commandDescriptors)
+	IEnumerable<CommandDescriptor> commandDescriptors
+)
 {
-	private readonly ICommandFactory _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
+	private readonly ICommandFactory _commandFactory =
+		commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
 
-	private readonly IEnumerable<CommandDescriptor> _commandDescriptors = commandDescriptors ?? throw new ArgumentNullException(nameof(commandDescriptors));
+	private readonly IEnumerable<CommandDescriptor> _commandDescriptors =
+		commandDescriptors ?? throw new ArgumentNullException(nameof(commandDescriptors));
 
 	//public RootCommand BuildRootCommand(params Type[] types)
 	//{
@@ -35,14 +38,15 @@ public class DeclarativeCommandLineFactory(
 		{
 			root = new CommandDescriptor(
 				typeof(DefaultRootCommand),
-				new RootCommandAttribute()
-				{
-				});
+				new RootCommandAttribute() { }
+			);
 		}
 
 		if (roots.Count > 1)
 		{
-			throw new InvalidOperationException($"Multiple root commands found: {string.Join(", ", roots.Select(c => c.Type))}.");
+			throw new InvalidOperationException(
+				$"Multiple root commands found: {string.Join(", ", roots.Select(c => c.Type))}."
+			);
 		}
 
 		// Relate non-root commands without a parent command to the root command.
@@ -75,11 +79,17 @@ public class DeclarativeCommandLineFactory(
 	//	return await BuildRootCommand(assemblies).InvokeAsync(args).ConfigureAwait(false);
 	//}
 
-	private Command BuildCommandTree(IEnumerable<CommandDescriptor> cmdDescrs, CommandDescriptor cmdDescr)
+	private Command BuildCommandTree(
+		IEnumerable<CommandDescriptor> cmdDescrs,
+		CommandDescriptor cmdDescr
+	)
 	{
 		var cmd = cmdDescr.IsRoot
 			? new RootCommand()
-			: new Command(cmdDescr.CommandAttribute.Name ?? NameFormatter.CommandTypeToCommandName(cmdDescr.Type));
+			: new Command(
+				cmdDescr.CommandAttribute.Name
+					?? NameFormatter.CommandTypeToCommandName(cmdDescr.Type)
+			);
 
 		cmdDescr.Command = cmd;
 
@@ -120,13 +130,20 @@ public class DeclarativeCommandLineFactory(
 
 		if (cmdDescr.IsExecutable)
 		{
-			cmdDescr.Command.SetHandler(new Func<InvocationContext, Task<int>>(async ctx =>
-			{
-				var cmdInst = _commandFactory.CreateCommand(cmdDescr.Type)
-					?? throw new InvalidOperationException($"Could not create an instance of type '{cmdDescr.Type}'");
+			cmdDescr.Command.SetHandler(
+				new Func<InvocationContext, Task<int>>(async ctx =>
+				{
+					var cmdInst =
+						_commandFactory.CreateCommand(cmdDescr.Type)
+						?? throw new InvalidOperationException(
+							$"Could not create an instance of type '{cmdDescr.Type}'"
+						);
 
-				return await new CommandHandler(cmdDescr).HandlerAsync(cmdInst, ctx).ConfigureAwait(false);
-			}));
+					return await new CommandHandler(cmdDescr)
+						.HandlerAsync(cmdInst, ctx)
+						.ConfigureAwait(false);
+				})
+			);
 		}
 
 		// Child commands
@@ -148,14 +165,17 @@ public class DeclarativeCommandLineFactory(
 	private static void HandleArgument(
 		CommandDescriptor cmdDescr,
 		ArgumentAttribute argAttr,
-		PropertyInfo prop)
+		PropertyInfo prop
+	)
 	{
 		var argName = argAttr.Name ?? NameFormatter.ToKebabCase(prop.Name);
 		var argType = typeof(Argument<>).MakeGenericType(prop.PropertyType);
-		var arg = (Argument)Activator.CreateInstance(
-			argType, // Argument value type
-			argName, // Argument name
-			null)!; // Argument description, we set this later
+		var arg = (Argument)
+			Activator.CreateInstance(
+				argType, // Argument value type
+				argName, // Argument name
+				null
+			)!; // Argument description, we set this later
 
 		// Arity
 		arg.Arity = argAttr.Arity;
@@ -204,24 +224,23 @@ public class DeclarativeCommandLineFactory(
 
 		cmdDescr.Command.AddArgument(arg);
 
-		cmdDescr.Arguments.Add(new ArgumentDescriptor()
-		{
-			Argument = arg,
-			Property = prop,
-		});
+		cmdDescr.Arguments.Add(new ArgumentDescriptor() { Argument = arg, Property = prop });
 	}
 
 	private static void HandleOption(
 		CommandDescriptor cmdDescr,
 		OptionAttribute optAttr,
-		PropertyInfo prop)
+		PropertyInfo prop
+	)
 	{
 		var optName = optAttr.Name ?? $"--{NameFormatter.ToKebabCase(prop.Name)}";
 		var optType = typeof(Option<>).MakeGenericType(prop.PropertyType);
-		var opt = (Option)Activator.CreateInstance(
-			optType, // Option value type
-			optName, // Option name
-			null)!; // Option description, we set this later
+		var opt = (Option)
+			Activator.CreateInstance(
+				optType, // Option value type
+				optName, // Option name
+				null // Option description, we set this later
+			)!;
 
 		// Aliases
 		foreach (var alias in optAttr.Aliases ?? Array.Empty<string>())
@@ -290,10 +309,6 @@ public class DeclarativeCommandLineFactory(
 			cmdDescr.Command.AddOption(opt);
 		}
 
-		cmdDescr.Options.Add(new OptionDescriptor()
-		{
-			Option = opt,
-			Property = prop,
-		});
+		cmdDescr.Options.Add(new OptionDescriptor() { Option = opt, Property = prop });
 	}
 }

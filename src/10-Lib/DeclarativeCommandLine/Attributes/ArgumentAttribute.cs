@@ -3,9 +3,7 @@
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ArgumentAttribute : Attribute
 {
-	public ArgumentAttribute()
-	{
-	}
+	public ArgumentAttribute() { }
 
 	public ArgumentAttribute(string name)
 	{

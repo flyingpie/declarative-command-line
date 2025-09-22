@@ -9,11 +9,16 @@ public static class ServiceCollectionExtensions
 	{
 		return services
 			.AddTransient<DefaultRootCommand>()
-			.AddTransient<ICommandFactory>(p => new DelegatingCommandFactory(type => p.GetRequiredService(type)))
+			.AddTransient<ICommandFactory>(p => new DelegatingCommandFactory(type =>
+				p.GetRequiredService(type)
+			))
 			.AddTransient<DeclarativeCommandLineFactory>();
 	}
 
-	public static IServiceCollection AddAllCommandsFromAssemblies(this IServiceCollection services, params Assembly[] assemblies)
+	public static IServiceCollection AddAllCommandsFromAssemblies(
+		this IServiceCollection services,
+		params Assembly[] assemblies
+	)
 	{
 		var cmds = assemblies
 			.SelectMany(ass => ass.GetTypes())
@@ -23,32 +28,32 @@ public static class ServiceCollectionExtensions
 
 		foreach (var cmd in cmds)
 		{
-			services
-				.AddTransient(cmd.Type)
-				.AddTransient(p => cmd);
+			services.AddTransient(cmd.Type).AddTransient(p => cmd);
 		}
 
 		return services;
 	}
 
-	public static IServiceCollection AddAllCommandsFromAssemblies(this IServiceCollection services, Type type)
+	public static IServiceCollection AddAllCommandsFromAssemblies(
+		this IServiceCollection services,
+		Type type
+	)
 	{
-		return services
-			.AddAllCommandsFromAssemblies(type.Assembly);
+		return services.AddAllCommandsFromAssemblies(type.Assembly);
 	}
 
-	public static IServiceCollection AddAllCommandsFromAssemblies<T>(this IServiceCollection services)
+	public static IServiceCollection AddAllCommandsFromAssemblies<T>(
+		this IServiceCollection services
+	)
 		where T : class
 	{
-		return services
-			.AddAllCommandsFromAssemblies(typeof(T).Assembly);
+		return services.AddAllCommandsFromAssemblies(typeof(T).Assembly);
 	}
 
 	public static IServiceCollection AddCommand<T>(this IServiceCollection services)
 		where T : class
 	{
-		return services
-			.AddCommand(typeof(T));
+		return services.AddCommand(typeof(T));
 	}
 
 	public static IServiceCollection AddCommand(this IServiceCollection services, Type type)
@@ -59,9 +64,7 @@ public static class ServiceCollectionExtensions
 			throw new InvalidOperationException($"Type '{type}' does not appear to be a command.");
 		}
 
-		return services
-			.AddTransient(type)
-			.AddTransient(p => descr);
+		return services.AddTransient(type).AddTransient(p => descr);
 	}
 
 	public static async Task<int> RunCliAsync(this IServiceProvider serviceProvider, string[] args)
