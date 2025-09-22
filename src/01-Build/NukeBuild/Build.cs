@@ -32,8 +32,6 @@ public sealed class Build : NukeBuild
 	[GitRepository] [Required]
 	private readonly GitRepository GitRepository;
 
-	private GitHubActions GitHubActions => GitHubActions.Instance;
-
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
 
@@ -78,7 +76,7 @@ public sealed class Build : NukeBuild
 		});
 
 	/// <summary>
-	/// Build NuGet package.
+	///
 	/// </summary>
 	private Target Test => _ => _
 		.DependsOn(Clean)
