@@ -13,7 +13,7 @@ using System.Linq;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions(
-	"ci",
+	"ci-debug",
 	GitHubActionsImage.UbuntuLatest,
 	FetchDepth = 0,
 	OnPushBranches = ["master"],
