@@ -80,22 +80,22 @@ public sealed class Build : NukeBuild
 	/// <summary>
 	///
 	/// </summary>
-	private Target PreBuild => _ => _
-		.DependsOn(Clean)
-		.Executes(() =>
-		{
-			DotNetTest(_ => _
-				.SetConfiguration(Configuration)
-				.SetLoggers("console;verbosity=detailed")
-				.SetProjectFile(Solution.DeclarativeCommandLine_Generator)
-			);
-		});
+	// private Target PreBuild => _ => _
+	// 	.DependsOn(Clean)
+	// 	.Executes(() =>
+	// 	{
+	// 		DotNetTest(_ => _
+	// 			.SetConfiguration(Configuration)
+	// 			.SetLoggers("console;verbosity=detailed")
+	// 			.SetProjectFile(Solution.DeclarativeCommandLine_Generator)
+	// 		);
+	// 	});
 
 	/// <summary>
 	///
 	/// </summary>
 	private Target Test => _ => _
-		.DependsOn(PreBuild)
+		.DependsOn(Clean)
 		.Executes(() =>
 		{
 			DotNetTest(_ => _
