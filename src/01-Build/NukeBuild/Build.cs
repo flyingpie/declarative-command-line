@@ -14,7 +14,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions(
 	"ci",
-	GitHubActionsImage.WindowsLatest,
+	GitHubActionsImage.UbuntuLatest,
 	FetchDepth = 0,
 	OnPushBranches = ["master"],
 	OnWorkflowDispatchOptionalInputs = ["name"],
@@ -31,13 +31,16 @@ public sealed class Build : NukeBuild
 	[Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
 	private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-	[Required] [GitRepository]
+	[GitRepository]
+	[Required]
 	private readonly GitRepository GitRepository;
 
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
 
-	[Parameter("NuGet API key")] [CanBeNull]
+	[Parameter("NuGet API key")]
+	[Secret]
+	[CanBeNull]
 	private readonly string NuGetApiKey;
 
 	#endregion
