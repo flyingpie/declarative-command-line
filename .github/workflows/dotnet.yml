@@ -34,7 +34,7 @@ jobs:
     - name: Cake Action
       uses: cake-build/cake-action@v1.4.1
       with:
-        target: Default
+        target: Push
         arguments: |
           nugetApiKey: ${{ secrets.NUGET_API_KEY }}
           isPreRelease: ${{ inputs.isPreRelease != 'false' }}
