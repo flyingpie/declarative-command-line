@@ -9,17 +9,17 @@
 #
 #     - To trigger manual generation invoke:
 #
-#         nuke --generate-configuration GitHubActions_ci-debug --host GitHubActions
+#         nuke --generate-configuration GitHubActions_ci-stable --host GitHubActions
 #
 # </auto-generated>
 # ------------------------------------------------------------------------------
 
-name: ci-debug
+name: ci-stable
 
 on:
   push:
     branches:
-      - '*'
+      - master
   workflow_dispatch:
     inputs:
       name:

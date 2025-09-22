@@ -26,11 +26,9 @@
       "enum": [
         "Clean",
         "Pack",
-        "PublishDebug",
-        "PublishRelease",
         "Push",
         "ReportInfo",
-        "SetVersionSuffix"
+        "Test"
       ]
     },
     "Verbosity": {
@@ -124,6 +122,14 @@
         "NuGetSource": {
           "type": "string",
           "description": "NuGet Source"
+        },
+        "PublicRelease": {
+          "type": "boolean",
+          "description": "Public Release"
+        },
+        "PublicReleaseStr": {
+          "type": "string",
+          "description": "Public Release"
         },
         "Solution": {
           "type": "string",

@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>DeclarativeCommandLine.Generator</AssemblyName>
+		<RootNamespace>DeclarativeCommandLine.Generator</RootNamespace>
+
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>13</LangVersion>
+
+		<Authors>Marco van den Oever</Authors>
+		<PackageId>DeclarativeCommandLine.Generator</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>pie.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/flyingpie/declarative-command-line</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>command line parsing declarative attributes</PackageTags>
+		<Description>Abstraction layer on top of the System.CommandLine library, that allows definining commands in a declarative way, using attributes.</Description>
+		<PackageReleaseNotes>
+			2.0.0 Refactor to use a source generator
+			1.0.0 Initial release
+		</PackageReleaseNotes>
+
+		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<OutputItemType>Analyzer</OutputItemType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all"/>
+	</ItemGroup>
+
+	<!-- This ensures the library will be packaged as a source generator when we use `dotnet pack` -->
+	<ItemGroup>
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="../../assets/pie.png" Pack="true" PackagePath=""/>
+		<None Include="../../README.md" Pack="true" PackagePath=""/>
+	</ItemGroup>
+</Project>

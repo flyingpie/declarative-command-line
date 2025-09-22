@@ -1,0 +1,13 @@
+﻿Description:
+
+Usage:
+  the_executable [command] [options]
+
+Options:
+  -?, -h, --help  Show help and usage information
+  --version       Show version information
+
+Commands:
+  math
+  string
+
