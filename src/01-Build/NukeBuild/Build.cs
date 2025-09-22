@@ -32,8 +32,6 @@ public sealed class Build : NukeBuild
 	[GitRepository] [Required]
 	private readonly GitRepository GitRepository;
 
-	private GitHubActions GitHubActions => GitHubActions.Instance;
-
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
 
@@ -76,20 +74,6 @@ public sealed class Build : NukeBuild
 		{
 			OutputDirectory.CreateOrCleanDirectory();
 		});
-
-	/// <summary>
-	///
-	/// </summary>
-	// private Target PreBuild => _ => _
-	// 	.DependsOn(Clean)
-	// 	.Executes(() =>
-	// 	{
-	// 		DotNetTest(_ => _
-	// 			.SetConfiguration(Configuration)
-	// 			.SetLoggers("console;verbosity=detailed")
-	// 			.SetProjectFile(Solution.DeclarativeCommandLine_Generator)
-	// 		);
-	// 	});
 
 	/// <summary>
 	///
