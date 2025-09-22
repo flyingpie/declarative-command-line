@@ -6,14 +6,6 @@
 		<RootNamespace>DeclarativeCommandLine</RootNamespace>
 
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
-		<LangVersion>11.0</LangVersion>
-		<Nullable>enable</Nullable>
-
-		<!-- Code Analysis -->
-		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<AnalysisLevel>latest</AnalysisLevel>
-		<AnalysisMode>all</AnalysisMode>
 
 		<!-- NuGet Package -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -31,22 +23,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="stylecop.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AdditionalFiles Include="stylecop.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="..\pie.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
 	</ItemGroup>
 </Project>

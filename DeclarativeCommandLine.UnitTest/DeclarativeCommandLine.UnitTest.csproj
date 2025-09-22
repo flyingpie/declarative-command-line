@@ -4,7 +4,6 @@
 		<RootNamespace>DeclarativeCommandLine.UnitTest</RootNamespace>
 
 		<TargetFrameworks>net6.0</TargetFrameworks>
-		<LangVersion>11.0</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
