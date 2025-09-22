@@ -1,6 +1,6 @@
 ﻿namespace DeclarativeCommandLine.TestApp.Commands;
 
-[Command<TestRootCommand>]
+[Command]
 public class SubtractCommand
 {
 	[Argument]
