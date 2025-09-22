@@ -10,6 +10,12 @@
 		<!-- NuGet Package -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<DebugType>embedded</DebugType>
+
 		<Authors>Marco van den Oever</Authors>
 		<PackageId>DeclarativeCommandLine</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,6 +26,10 @@
 		<PackageReleaseNotes>
 			1.0.0	Initial release
 		</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 
 	<ItemGroup>

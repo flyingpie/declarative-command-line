@@ -1,0 +1,40 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "master", "build" ]
+
+#  pull_request:
+#    branches: [ "master", "build-1" ]
+
+  workflow_dispatch:
+    inputs:
+      isPreRelease:
+        description: 'Is Pre-Release?'
+        required: false
+        default: 'true'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # A shallow clone breaks the GitVersion task in the Cake build
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Cake Action
+      uses: cake-build/cake-action@v1.4.1
+      with:
+        target: Default
+        arguments: |
+          nugetApiKey: ${{ secrets.NUGET_API_KEY }}
+          isPreRelease: ${{ inputs.isPreRelease != 'false' }}
