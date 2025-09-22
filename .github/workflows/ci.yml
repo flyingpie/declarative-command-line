@@ -19,11 +19,11 @@ name: ci
 on:
   push:
     branches:
-      - master
+      - '*'
   workflow_dispatch:
     inputs:
-      name:
-        description: "name"
+      PublicRelease:
+        description: "Public Release"
         required: false
 
 jobs:
@@ -41,14 +41,14 @@ jobs:
             .nuke/temp
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
-      - name: 'Run: PublishDebug'
-        run: ./src/build.cmd PublishDebug
+      - name: 'Run: Push'
+        run: ./src/build.cmd Push
         env:
-          name: ${{ github.event.inputs.name }}
+          PublicRelease: ${{ github.event.inputs.PublicRelease }}
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Publish: nupkg'
+      - name: 'Publish: package'
         uses: actions/upload-artifact@v4
         with:
-          name: nupkg
-          path: artifacts/nupkg
+          name: package
+          path: artifacts/package

@@ -11,20 +11,11 @@ using Serilog;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions(
-	"ci-debug",
+	"ci",
 	GitHubActionsImage.UbuntuLatest,
 	FetchDepth = 0,
 	OnPushBranches = ["*"],
-	OnWorkflowDispatchOptionalInputs = ["name"],
-	EnableGitHubToken = true,
-	ImportSecrets = ["NUGET_API_KEY"],
-	InvokedTargets = [nameof(Push)])]
-[GitHubActions(
-	"ci-stable",
-	GitHubActionsImage.UbuntuLatest,
-	FetchDepth = 0,
-	OnPushBranches = ["master"],
-	OnWorkflowDispatchOptionalInputs = ["name"],
+	OnWorkflowDispatchOptionalInputs = [nameof(PublicRelease)],
 	EnableGitHubToken = true,
 	ImportSecrets = ["NUGET_API_KEY"],
 	InvokedTargets = [nameof(Push)])]
@@ -40,6 +31,8 @@ public sealed class Build : NukeBuild
 
 	[GitRepository] [Required]
 	private readonly GitRepository GitRepository;
+
+	private GitHubActions GitHubActions => GitHubActions.Instance;
 
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
