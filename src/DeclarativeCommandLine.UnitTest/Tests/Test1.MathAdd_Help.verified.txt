@@ -1,0 +1,10 @@
+﻿Description:
+
+Usage:
+  the_executable math add [options]
+
+Options:
+  --value-a <value-a> (REQUIRED)  The first value.
+  --value-b <value-b> (REQUIRED)  The second value.
+  -?, -h, --help                  Show help and usage information
+
