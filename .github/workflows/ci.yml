@@ -27,9 +27,9 @@ on:
         required: false
 
 jobs:
-  windows-latest:
-    name: windows-latest
-    runs-on: windows-latest
+  ubuntu-latest:
+    name: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,6 +45,7 @@ jobs:
         run: ./src/build.cmd PublishRelease
         env:
           name: ${{ github.event.inputs.name }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Publish: nupkg'
         uses: actions/upload-artifact@v4

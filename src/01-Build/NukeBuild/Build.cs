@@ -19,6 +19,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 	OnPushBranches = ["master"],
 	OnWorkflowDispatchOptionalInputs = ["name"],
 	EnableGitHubToken = true,
+	ImportSecrets = ["NUGET_API_KEY"],
 	InvokedTargets = [nameof(PublishRelease)])]
 [SuppressMessage("Major Bug", "S3903:Types should be defined in named namespaces", Justification = "MvdO: Build script.")]
 public sealed class Build : NukeBuild
@@ -38,10 +39,13 @@ public sealed class Build : NukeBuild
 	[Parameter("GitHub Token")]
 	private readonly string GitHubToken;
 
-	[Parameter("NuGet API key")]
+	[Parameter("NuGet API Key")]
 	[Secret]
 	[CanBeNull]
 	private readonly string NuGetApiKey;
+
+	[Parameter("NuGet Source")]
+	private readonly string NuGetSource = "https://api.nuget.org/v3/index.json";
 
 	#endregion
 
@@ -138,7 +142,7 @@ public sealed class Build : NukeBuild
 		{
 			DotNetNuGetPush(p => p
 				.SetApiKey(NuGetApiKey)
-				.SetSource("nuget.org")
+				.SetSource(NuGetSource)
 				.SetTargetPath(ArtifactsDirectory.GlobFiles("*.nupkg").First())
 			);
 		});
