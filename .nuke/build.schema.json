@@ -26,6 +26,7 @@
       "enum": [
         "Clean",
         "Pack",
+        "PreBuild",
         "Push",
         "ReportInfo",
         "Test"

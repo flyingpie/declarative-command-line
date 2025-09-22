@@ -78,10 +78,24 @@ public sealed class Build : NukeBuild
 		});
 
 	/// <summary>
-	/// Build NuGet package.
+	///
+	/// </summary>
+	private Target PreBuild => _ => _
+		.DependsOn(Clean)
+		.Executes(() =>
+		{
+			DotNetTest(_ => _
+				.SetConfiguration(Configuration)
+				.SetLoggers("console;verbosity=detailed")
+				.SetProjectFile(Solution.DeclarativeCommandLine_Generator)
+			);
+		});
+
+	/// <summary>
+	///
 	/// </summary>
 	private Target Test => _ => _
-		.DependsOn(Clean)
+		.DependsOn(PreBuild)
 		.Executes(() =>
 		{
 			DotNetTest(_ => _
