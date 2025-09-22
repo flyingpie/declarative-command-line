@@ -1,0 +1,8 @@
+{
+	"profiles": {
+		"DeclarativeCommandLine.TestApp": {
+			"commandName": "Project",
+			"commandLineArgs": ""
+		}
+	}
+}
