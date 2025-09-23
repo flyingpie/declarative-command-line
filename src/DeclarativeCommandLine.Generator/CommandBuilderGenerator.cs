@@ -123,6 +123,11 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			sb.AppendLine($"{tab}cmd{parent.Index}.Add({cmdVar});");
 		}
 
+		foreach (var alias in cmd.CmdAliases)
+		{
+			sb.AppendLine($"{tab}{cmdVar}.Aliases.Add(\"{alias}\");");
+		}
+
 		sb.AppendLine($"{tab}{cmdVar}.Hidden = {cmd.CmdHidden.ToCSharpBoolString()};");
 
 		foreach (var opt in cmd.Properties)

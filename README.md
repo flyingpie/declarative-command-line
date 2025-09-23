@@ -173,3 +173,56 @@ namespace MyApp
 }
 ```
 
+## Progress
+
+### Command
+
+- [x] Action
+- [x] Arguments
+- [x] Description
+- [x] Hidden
+- [x] Name
+- [x] Options
+- [x] Subcommands
+- [ ] Aliases
+- [ ] Completions
+- [ ] TreatUnmatchedTokensAsErrors
+- [ ] Validators
+
+### Arguments
+
+- [x] Description
+- [x] Name
+- [ ] AcceptLegalFileNamesOnly
+- [ ] AcceptLegalFilePathsOnly
+- [ ] AcceptOnlyFromAmong
+- [ ] Arity
+- [ ] Completions
+- [ ] Default
+- [ ] HelpName
+- [ ] Hidden
+- [ ] Validators
+
+### Directives
+
+- [ ] dir.Description
+- [ ] dir.Hidden
+- [ ] dir.Name
+
+### Option
+
+- [x] opt.Description
+- [x] opt.Name
+- [x] opt.Required
+- [ ] opt.AcceptLegalFileNamesOnly
+- [ ] opt.AcceptLegalFilePathsOnly
+- [ ] opt.AcceptOnlyFromAmong
+- [ ] opt.Aliases
+- [ ] opt.AllowMultipleArgumentsPerToken
+- [ ] opt.Arity
+- [ ] opt.Completions
+- [ ] opt.DefaultValueFactory
+- [ ] opt.HelpName
+- [ ] opt.Hidden
+- [ ] opt.Recursive
+- [ ] opt.Validators

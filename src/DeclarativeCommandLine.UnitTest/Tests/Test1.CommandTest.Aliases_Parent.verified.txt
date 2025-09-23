@@ -1,0 +1,15 @@
+﻿Required command was not provided.
+
+Description:
+
+Usage:
+  the_executable aliases [command] [options]
+
+Options:
+  -?, -h, --help  Show help and usage information
+
+Commands:
+  aliases-0
+  alias1, aliases-1
+  alias2-1, alias2-2, aliases-2
+

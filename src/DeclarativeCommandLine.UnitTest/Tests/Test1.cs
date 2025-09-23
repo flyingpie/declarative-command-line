@@ -77,12 +77,71 @@ public partial class Test1
 		Assert.AreEqual(0, res.Code);
 	}
 
+	[TestClass]
+	[UsesVerify]
+	public partial class CommandTest
+	{
+		[TestMethod]
+		public async Task Aliases_Parent()
+		{
+			// Act
+			var res = await RunAsync(["aliases"]);
+
+			// Assert
+			await Verify(res.Output);
+			Assert.AreEqual(1, res.Code);
+		}
+
+		[TestMethod]
+		[DataRow("aliases-0")]
+		public async Task Aliases_0(string cmd)
+		{
+			// Act
+			var res = await RunAsync(["aliases", cmd]);
+
+			// Assert
+			await Verify(res.Output);
+			Assert.AreEqual(0, res.Code);
+		}
+
+		[TestMethod]
+		[DataRow("aliases-1")]
+		[DataRow("alias1")]
+		public async Task Aliases_1(string cmd)
+		{
+			// Act
+			var res = await RunAsync(["aliases", cmd]);
+
+			// Assert
+			await Verify(res.Output);
+			Assert.AreEqual(0, res.Code);
+		}
+
+		[TestMethod]
+		[DataRow("aliases-2")]
+		[DataRow("alias2-1")]
+		[DataRow("alias2-2")]
+		public async Task Aliases_2(string cmd)
+		{
+			// Act
+			var res = await RunAsync(["aliases", cmd]);
+
+			// Assert
+			await Verify(res.Output);
+			Assert.AreEqual(0, res.Code);
+		}
+	}
+
 	private static async Task<(int Code, string Output)> RunAsync(string[] args)
 	{
 		var outp = new StringWriter();
 
 		var p = new ServiceCollection()
-			.AddSingleton<IConsole>(new TextWriterConsole(outp))
+			.AddSingleton<IOutput>(new TextWriterOutput(outp))
+			.AddTransient<AliasesCommand>()
+			.AddTransient<AliasesCommand.CommandWithAliases0>()
+			.AddTransient<AliasesCommand.CommandWithAliases1>()
+			.AddTransient<AliasesCommand.CommandWithAliases2>()
 			.AddTransient<AppRootCommand>()
 			.AddTransient<MathCommand>()
 			.AddTransient<AddCommand>()

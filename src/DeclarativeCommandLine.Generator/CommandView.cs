@@ -22,6 +22,8 @@ public class CommandView
 
 	public INamedTypeSymbol? CmdParent { get; set; }
 
+	public string[] CmdAliases { get; set; } = [];
+
 	public bool CmdHidden { get; set; }
 
 	public bool IsExecutable { get; set; }
@@ -83,6 +85,9 @@ public class CommandView
 		var cmdNameFromNamedArg = cmdAttr.NamedArguments.GetNamedArgument("Name") as string;
 		var cmdNameFromType = NameFormatter.CommandTypeToCommandName(symbol.Name);
 		view.CmdName = cmdNameFromConstrArg ?? cmdNameFromNamedArg ?? cmdNameFromType;
+
+		// Aliases
+		view.CmdAliases = [.. cmdAttr.NamedArguments.GetNamedArgumentArray<string>("Aliases").Where(v => v is not null).Select(v => v!)];
 
 		// Description
 		view.CmdDescription = cmdAttr.NamedArguments.GetNamedArgument("Description") as string;
