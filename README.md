@@ -2,7 +2,7 @@
 
 [![WTQ CI](https://github.com/flyingpie/declarative-command-line/actions/workflows/ci.yml/badge.svg)](https://github.com/flyingpie/declarative-command-line/actions/workflows/ci.yml)
 
-[![Nuget](https://img.shields.io/nuget/v/DeclarativeCommandLine.svg)](https://nuget.org/packages/DeclarativeCommandLine)
+[![Nuget](https://img.shields.io/nuget/vpre/DeclarativeCommandLine.svg)](https://nuget.org/packages/DeclarativeCommandLine)
 
 Attribute-driven layer on top of [System.CommandLine](https://github.com/dotnet/command-line-api) to make the most common use cases easier to set up.
 
@@ -172,3 +172,4 @@ namespace MyApp
     }
 }
 ```
+
