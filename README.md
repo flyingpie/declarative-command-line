@@ -8,253 +8,59 @@ Attribute-driven layer on top of System.CommandLine to make the most common use 
 
 ## Minimalistic Example
 
-The very smallest a command can be:
+A minimal example, using DI to instantiate command objects:
+
+### Add NuGet Packages
+
+```xml
+<ItemGroup>
+  <PackageReference Include="DeclarativeCommandLine" Version="2.0.0-g498c5dd86c" />
+  <PackageReference Include="DeclarativeCommandLine.Generator" Version="2.0.0-g498c5dd86c" />
+  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9"/>
+</ItemGroup>
+```
+
+### Program.cs
 
 ```cs
 using DeclarativeCommandLine;
+using Microsoft.Extensions.DependencyInjection;
 
-[Command]
-public class AddNumbersCommand : ICommand
-{
-	[Option]
-	public int NumberA { get; set; }
+namespace MyApp;
 
-	[Option]
-	public int NumberB { get; set; }
-
-	public void Execute()
-	{
-		Console.WriteLine($"{NumberA} + {NumberB} = {NumberA + NumberB}");
-	}
-}
-```
-
-## Contents
-
-- [Commands](#commands)
-- [Arguments](#arguments)
-- [Options](#options)
-- [Command Handlers](#command-handlers)
-- [Command Builders](#command-builders)
-- [Command Inheritance](#command-inheritance)
-- [Dependency Injection](#dependency-injection)
-- [Root Command](#root-command)
-- [Command Hierarchy](#command-hierarchy)
-- [Automatic Naming](#automatic-naming)
-
-## Commands
-
-TODO:
-- Name
-- Aliases
-- Description
-- IsHidden
-- Parent
-- TreatUnmatchedTokensAsErrors
-
-```cs
-public class MyCommand
-{
-
-}
-```
-
-## Arguments
-
-```cs
-[Command]
-public class MyCommand
-{
-	[Argument]
-	public string MyArgument { get; set; }
-}
-```
-
-TODO:
-- Name
-- Description
-- DefaultValue
-- ArgumentArity Arity
-- Completions
-- FromAmong
-- HelpName
-- IsHidden
-- LegalFileNamesOnly
-- LegalFilePathsOnly
-
-## Options
-
-```cs
-[Command]
-public class MyCommand
-{
-	[Option]
-	public string MyOption { get; set; }
-}
-```
-
-TODO:
-- Name
-- Aliases
-- DefaultValue
-- Description
-- ArgumentHelpName
-- AllowMultipleArgumentsPerToken
-- ArgumentArity Arity
-- Completions
-- FromAmong
-- IsRequired
-- IsGlobal
-- IsHidden
-- LegalFileNamesOnly
-- LegalFilePathsOnly
-
-## Command Handlers
-
-TODO
-
-```cs
-[RootCommand]
+[Command(Description = "Math commands")]
 public class AppRootCommand
 {
-	[CommandHandler]
-	public void Handle()
-	{
-	}
 }
-```
 
-## Command Builders
-
-TODO
-
-```cs
-[RootCommand]
-public class AppRootCommand
+[Command(Description = "Add 2 numbers", Parent = typeof(AppRootCommand))]
+public class AddCommand : ICommand
 {
-	[CommandBuilder]
-	public void Handle(System.CommandLine.Command command)
-	{
-	}
+    [Option(Required = true)]
+    public int ValueA { get; set; }
+
+    [Option(Required = true)]
+    public int ValueB { get; set; }
+
+    public void Execute()
+    {
+        Console.WriteLine($"A={ValueA} + {ValueB} = {ValueA + ValueB}");
+    }
 }
-```
 
-## Command Inheritance
-
-TODO
-
-## Dependency Injection
-
-TODO
-
-## Root Command
-Generally, an app has exactly 1 "root command", which handles the case where no explicit command is specified.
-
-For example, with an argument:
-```
-my-app.exe C:/path/to/file.txt
-```
-
-With an option:
-```
-my-app.exe --verbose
-```
-
-Cases like these are handled through the root command. If no root command is defined, an empty default root command is used, to cut down on boilerplate.
-
-But one can be defined explicitly, like this:
-
-```cs
-[RootCommand]
-public class AppRootCommand
+public static class Program
 {
-	[Argument]
-	public string MyFirstArgument { get; set; }
+    public static int Main(string[] args)
+    {
+        var p = new ServiceCollection()
+            .AddTransient<AppRootCommand>()
+            .AddTransient<AddCommand>()
+            .BuildServiceProvider();
 
-	[Option]
-	public bool Verbose { get; set; }
+        return new CommandBuilder()
+            .Build(t => p.GetRequiredService(t))
+            .Parse(args)
+            .Invoke();
+    }
 }
 ```
-
-## Command Hierarchy
-
-Commands can be arranged in a hierarchy, to add structure and share arguments and options.
-
-Here's a couple example commands that illustrate the concept.
-
-```
-my-app.exe file create my-file.txt
-```
-
-```
-my-app.exe dir create my-dir
-```
-
-We could define the commands as:
-
-```cs
-[Command("file")]
-public class FileCommand
-{
-}
-```
-
-```cs
-[Command("create", Parent = typeof(FileCommand))]
-public class CreateFileCommand
-{
-	[Argument]
-	public string FileName { get; set; }
-
-	[CommandHandler]
-	public void Handle()
-	{
-		File.WriteAllText(FileName, string.Empty);
-	}
-}
-```
-
-```cs
-[Command("dir")]
-public class DirCommand
-{
-}
-```
-
-```cs
-[Command("create", Parent = typeof(DirCommand))]
-public class CreateDirCommand
-{
-	[Argument]
-	public string DirName { get; set; }
-
-	[CommandHandler]
-	public void Handle()
-	{
-		Directory.CreateDirectory(DirName);
-	}
-}
-```
-
-We can now add more commands under these, for example:
-
-```cs
-[Command("current", Parent = typeof(DirCommand))]
-public class CurrentDirCommand
-{
-	[CommandHandler]
-	public void Handle()
-	{
-		Console.WriteLine($"CURRENT: {Directory.GetCurrentDirectory()}");
-	}
-}
-```
-
-```
-my-app.exe dir current
-CURRENT: C:\path\to\net6.0
-```
-
-## Automatic Naming
-
-TODO
