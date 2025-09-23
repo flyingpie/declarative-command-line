@@ -1,4 +1,6 @@
-﻿namespace DeclarativeCommandLine;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DeclarativeCommandLine;
 
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class CommandAttribute : Attribute
@@ -18,6 +20,10 @@ public sealed class CommandAttribute : Attribute
 
 	public bool Hidden { get; set; }
 
+	[SuppressMessage(
+		"Design",
+		"CA1019:Define accessors for attribute arguments",
+		Justification = "MvdO: I want to have both options available, either as a constructor argument, or a named one, whatever the user prefers.")]
 	public string? Name { get; set; }
 
 	public Type? Parent { get; set; }

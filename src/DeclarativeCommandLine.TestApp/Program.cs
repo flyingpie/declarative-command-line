@@ -1,4 +1,6 @@
-﻿using DeclarativeCommandLine.UnitTest.Commands;
+﻿using DeclarativeCommandLine.UnitTest;
+using DeclarativeCommandLine.UnitTest.Commands;
+using DeclarativeCommandLine.UnitTest.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
@@ -10,13 +12,7 @@ public static class Program
 	{
 		var p = new ServiceCollection()
 			.AddTransient<IOutput, ConsoleOutput>()
-			.AddTransient<AddCommand>()
-			.AddTransient<MathCommand>()
-			.AddTransient<AppRootCommand>()
-			.AddTransient<AliasesCommand>()
-			.AddTransient<AliasesCommand.CommandWithAliases0>()
-			.AddTransient<AliasesCommand.CommandWithAliases1>()
-			.AddTransient<AliasesCommand.CommandWithAliases2>()
+			.AddCommands()
 			.BuildServiceProvider();
 
 		return new CommandBuilder()

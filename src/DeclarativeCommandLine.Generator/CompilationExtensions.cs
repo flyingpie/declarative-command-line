@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace DeclarativeCommandLine.Generator;
 
 public static class CompilationExtensions
@@ -41,5 +43,9 @@ public static class CompilationExtensions
 		return [.. arg.Value.Values.Select(v => (T?)v.Value)];
 	}
 
+	[SuppressMessage(
+		"Globalization",
+		"CA1308:Normalize strings to uppercase",
+		Justification = "MvdO: We want the version of the boolean as it should appear in C#, so 'true' or 'false'.")]
 	public static string ToCSharpBoolString(this bool b) => b.ToString().ToLowerInvariant();
 }

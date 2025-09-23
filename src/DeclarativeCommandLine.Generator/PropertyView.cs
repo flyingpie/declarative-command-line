@@ -4,26 +4,36 @@ public class PropertyView
 {
 	public int Index { get; set; } = Counter.Next();
 
-	public IPropertySymbol Symbol { get; set; }
+	public IPropertySymbol Symbol { get; private set; } = null!;
 
-	public AttributeData? ArgumentAttribute { get; set; }
+	public AttributeData? ArgumentAttribute { get; private set; }
 
-	public AttributeData? OptionAttribute { get; set; }
+	public AttributeData? OptionAttribute { get; private set; }
 
-	public string? OptName { get; set; }
+	public string? OptName { get; private set; }
 
 	public string PropertyTypeName => Symbol.Type.Name;
 
 	public string PropertyName => Symbol.Name;
 
-	public bool OptHidden { get; set; }
+	public bool OptHidden { get; private set; }
 
-	public bool OptRequired { get; set; }
+	public bool OptRequired { get; private set; }
 
-	public string? OptDescription { get; set; }
+	public string? OptDescription { get; private set; }
 
 	public static bool TryParse(DeclContext ctx, IPropertySymbol symbol, out PropertyView? view)
 	{
+		if (ctx == null)
+		{
+			throw new ArgumentNullException(nameof(ctx));
+		}
+
+		if (symbol == null)
+		{
+			throw new ArgumentNullException(nameof(symbol));
+		}
+
 		view = null;
 
 		var attrs = symbol.GetAttributes();
@@ -73,12 +83,6 @@ public class PropertyView
 		{
 			switch (constrArg.Key)
 			{
-				case "Aliases":
-					{
-						var dbg3 = 3;
-						break;
-					}
-
 				case "Description":
 					{
 						view.OptDescription = constrArg.Value.Value as string;
@@ -87,7 +91,9 @@ public class PropertyView
 
 				case "Hidden":
 					{
+#pragma warning disable CS8605 // Unboxing a possibly null value. // MvdO: TODO: Refactor to extension methods, like for Command
 						view.OptHidden = (bool)constrArg.Value.Value;
+#pragma warning restore CS8605 // Unboxing a possibly null value.
 						break;
 					}
 
@@ -99,12 +105,11 @@ public class PropertyView
 
 				case "Required":
 					{
+#pragma warning disable CS8605 // Unboxing a possibly null value. // MvdO: TODO: Refactor to extension methods, like for Command
 						view.OptRequired = (bool)constrArg.Value.Value;
+#pragma warning restore CS8605 // Unboxing a possibly null value.
 						break;
 					}
-
-				default:
-					break;
 			}
 		}
 	}

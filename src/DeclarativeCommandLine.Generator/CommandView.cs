@@ -16,17 +16,17 @@ public class CommandView
 
 	public string Name => Symbol.Name;
 
-	public string? CmdDescription { get; set; }
+	public string? CmdDescription { get; private set; }
 
-	public string CmdName { get; set; } = null!;
+	public string CmdName { get; private set; } = null!;
 
 	public INamedTypeSymbol? CmdParent { get; set; }
 
-	public string[] CmdAliases { get; set; } = [];
+	public IReadOnlyCollection<string> CmdAliases { get; private set; } = [];
 
-	public bool CmdHidden { get; set; }
+	public bool CmdHidden { get; private set; }
 
-	public bool IsExecutable { get; set; }
+	public bool IsExecutable { get; private set; }
 
 	public static bool TryParse(DeclContext ctx, TypeDeclarationSyntax decl, out CommandView? view)
 	{

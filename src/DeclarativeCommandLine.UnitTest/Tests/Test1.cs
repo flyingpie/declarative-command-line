@@ -1,7 +1,5 @@
-using DeclarativeCommandLine.UnitTest.Commands;
-using System.CommandLine;
-using System.CommandLine.Parsing;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
+using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
 namespace DeclarativeCommandLine.UnitTest.Tests;
@@ -12,15 +10,6 @@ public partial class Test1
 {
 	[TestMethod]
 	public Task VerifyCheck() => VerifyChecks.Run();
-
-	public static void Test()
-	{
-		var rootCmd = new RootCommand();
-		var cmd = new Command("");
-		var opt = new Option<int>("");
-		var arg = new Argument<int>("");
-		var dir = new Directive("");
-	}
 
 	[TestMethod]
 	public async Task Help()
@@ -107,6 +96,7 @@ public partial class Test1
 		[TestMethod]
 		[DataRow("aliases-1")]
 		[DataRow("alias1")]
+		[SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "MvdO: The output is different due to the command used.")]
 		public async Task Aliases_1(string cmd)
 		{
 			// Act
@@ -121,6 +111,7 @@ public partial class Test1
 		[DataRow("aliases-2")]
 		[DataRow("alias2-1")]
 		[DataRow("alias2-2")]
+		[SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "MvdO: The output is different due to the command used.")]
 		public async Task Aliases_2(string cmd)
 		{
 			// Act
@@ -130,37 +121,5 @@ public partial class Test1
 			await Verify(res.Output);
 			Assert.AreEqual(0, res.Code);
 		}
-	}
-
-	private static async Task<(int Code, string Output)> RunAsync(string[] args)
-	{
-		var outp = new StringWriter();
-
-		var p = new ServiceCollection()
-			.AddSingleton<IOutput>(new TextWriterOutput(outp))
-			.AddTransient<AliasesCommand>()
-			.AddTransient<AliasesCommand.CommandWithAliases0>()
-			.AddTransient<AliasesCommand.CommandWithAliases1>()
-			.AddTransient<AliasesCommand.CommandWithAliases2>()
-			.AddTransient<AppRootCommand>()
-			.AddTransient<MathCommand>()
-			.AddTransient<AddCommand>()
-			.BuildServiceProvider();
-
-		var b = new CommandBuilder();
-
-		var cmd = b.Build(t => p.GetRequiredService(t));
-
-		var conf = new ParserConfiguration();
-		var res = CommandLineParser.Parse(cmd, args, conf);
-
-		var invConf = new InvocationConfiguration() { EnableDefaultExceptionHandler = false, Error = outp, Output = outp, };
-
-		var result = await res.InvokeAsync(invConf);
-
-		await outp.FlushAsync();
-		var str = outp.ToString();
-
-		return (result, str);
 	}
 }

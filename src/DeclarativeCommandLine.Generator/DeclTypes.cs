@@ -1,9 +1,25 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace DeclarativeCommandLine.Generator;
 
+[SuppressMessage("ReSharper", "InconsistentNaming", Justification = "MvdO: Named according to the type they represent.")]
 public class DeclTypes
 {
+	private const string ICommandTypeName = "DeclarativeCommandLine.ICommand";
+	private const string IAsyncCommandTypeName = "DeclarativeCommandLine.IAsyncCommand";
+	private const string IAsyncCommandWithParseResultTypeName = "DeclarativeCommandLine.IAsyncCommandWithParseResult";
+
+	private const string CommandAttributeTypeName = "DeclarativeCommandLine.CommandAttribute";
+	private const string ArgumentAttributeTypeName = "DeclarativeCommandLine.ArgumentAttribute";
+	private const string OptionAttributeTypeName = "DeclarativeCommandLine.OptionAttribute";
+
 	public DeclTypes(Compilation compilation)
 	{
+		if (compilation == null)
+		{
+			throw new ArgumentNullException(nameof(compilation));
+		}
+
 		ICommand = compilation.GetTypeByMetadataName(ICommandTypeName)!;
 		IAsyncCommand = compilation.GetTypeByMetadataName(IAsyncCommandTypeName)!;
 		IAsyncCommandWithParseResult = compilation.GetTypeByMetadataName(IAsyncCommandWithParseResultTypeName)!;
@@ -19,22 +35,13 @@ public class DeclTypes
 		OptionAttribute = compilation.GetTypeByMetadataName(OptionAttributeTypeName)!;
 	}
 
-	public const string ICommandTypeName = "DeclarativeCommandLine.ICommand";
-	public const string IAsyncCommandTypeName = "DeclarativeCommandLine.IAsyncCommand";
-	public const string IAsyncCommandWithParseResultTypeName = "DeclarativeCommandLine.IAsyncCommandWithParseResult";
-
-
-	public const string CommandAttributeTypeName = "DeclarativeCommandLine.CommandAttribute";
-	public const string ArgumentAttributeTypeName = "DeclarativeCommandLine.ArgumentAttribute";
-	public const string OptionAttributeTypeName = "DeclarativeCommandLine.OptionAttribute";
-
 	public INamedTypeSymbol ICommand { get; set; }
 
 	public INamedTypeSymbol IAsyncCommand { get; set; }
 
 	public INamedTypeSymbol IAsyncCommandWithParseResult { get; set; }
 
-	public INamedTypeSymbol[] ExecutableCommandTypeNames { get; }
+	public IReadOnlyCollection<INamedTypeSymbol> ExecutableCommandTypeNames { get; }
 
 	public INamedTypeSymbol CommandAttribute { get; set; }
 

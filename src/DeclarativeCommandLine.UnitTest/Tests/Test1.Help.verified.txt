@@ -8,7 +8,7 @@ Options:
   --version       Show version information
 
 Commands:
+  aliases
   math
   string
-  aliases
 

@@ -1,10 +1,12 @@
-using System.Threading;
-
 namespace DeclarativeCommandLine.Generator;
 
+/// <summary>
+/// Used to keep track of unique numeric id's assigned to commands, arguments, directives and options.<br/>
+/// These ids are then used for variable names.
+/// </summary>
 public static class Counter
 {
-	public static int _num;
+	private static int _num;
 
 	public static int Next()
 	{
