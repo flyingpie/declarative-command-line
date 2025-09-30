@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeclarativeCommandLine.TestApp;
 
-public static class Program
+internal static class Program
 {
 	public static Task<int> Main(string[] args)
 	{
