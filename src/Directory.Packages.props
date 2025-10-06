@@ -11,7 +11,7 @@
 		<PackageVersion Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556"/>
 		<PackageVersion Include="System.CommandLine" Version="2.0.0-rc.1.25451.107"/>
 		<!-- Build -->
-		<PackageVersion Include="Nerdbank.GitVersioning" Version="3.7.115"/>
+		<PackageVersion Include="Nerdbank.GitVersioning" Version="3.8.118"/>
 		<PackageVersion Include="Nuke.Common" Version="9.0.4"/>
 		<!-- Generators -->
 		<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0"/>
