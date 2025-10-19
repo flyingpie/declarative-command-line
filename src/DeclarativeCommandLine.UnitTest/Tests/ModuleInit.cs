@@ -10,6 +10,6 @@ public static class ModuleInit
 	{
 		VerifierSettings.AddScrubber(_ => _
 			.Replace("ReSharperTestRunner", "the_executable")
-			.Replace("testhost", "the_executable"));
+			.Replace("DeclarativeCommandLine.UnitTest", "the_executable"));
 	}
 }
