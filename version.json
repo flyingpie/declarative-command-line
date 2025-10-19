@@ -1,8 +1,3 @@
 {
-	"version": "2.0.2",
-	"cloudBuild": {
-		"buildNumber": {
-			"enabled": true
-		}
-	}
+	"version": "2.0.3"
 }

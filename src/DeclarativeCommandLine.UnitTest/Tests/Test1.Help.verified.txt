@@ -9,6 +9,7 @@ Options:
 
 Commands:
   aliases
+  inheritance
   math
   string
 

@@ -1,0 +1,5 @@
+﻿Child command
+- BaseArgumentA:a1
+- BaseOptionA:a2
+- ChildArgumentA:b1
+- ChildOptionA:b2

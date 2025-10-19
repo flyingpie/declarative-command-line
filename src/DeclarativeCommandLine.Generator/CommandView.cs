@@ -69,7 +69,8 @@ public class CommandView
 		view.Properties =
 		[
 			.. namedSymbol
-				.GetMembers()
+				.GetAllTypes()
+				.SelectMany(t => t.GetMembers())
 				.OfType<IPropertySymbol>()
 				.Select(s => PropertyView.TryParse(ctx, s, out var p) ? p : null)
 				.Where(p => p != null)

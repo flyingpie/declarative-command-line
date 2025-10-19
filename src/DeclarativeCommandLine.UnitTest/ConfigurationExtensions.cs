@@ -14,6 +14,10 @@ public static class ConfigurationExtensions
 			.AddTransient<AliasesCommand.CommandWithAliases0>()
 			.AddTransient<AliasesCommand.CommandWithAliases1>()
 			.AddTransient<AliasesCommand.CommandWithAliases2>()
+			.AddTransient<InheritanceCommand>()
+			.AddTransient<InheritanceCommand.CommandBaseClass>()
+			.AddTransient<InheritanceCommand.CommandChildClass>()
+			.AddTransient<InheritanceCommand.CommandGrandChildClass>()
 			.AddTransient<MathCommand>()
 			.AddTransient<MathCommand.AddCommand>()
 			.AddTransient<MathCommand.SubtractCommand>();

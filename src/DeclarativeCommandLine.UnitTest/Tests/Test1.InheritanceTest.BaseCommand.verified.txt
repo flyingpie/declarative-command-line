@@ -1,0 +1,3 @@
+﻿Base command
+- BaseArgumentA:a1
+- BaseOptionA:a2

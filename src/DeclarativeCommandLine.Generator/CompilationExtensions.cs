@@ -6,6 +6,26 @@ public static class CompilationExtensions
 {
 	public static bool EqualsNamedSymbol(this INamedTypeSymbol s1, INamedTypeSymbol s2) => SymbolEqualityComparer.Default.Equals(s1, s2);
 
+	public static IEnumerable<INamedTypeSymbol> GetAllTypes(this INamedTypeSymbol type)
+	{
+		if (type == null)
+		{
+			throw new ArgumentNullException(nameof(type));
+		}
+
+		yield return type;
+
+		if (type.BaseType == null)
+		{
+			yield break;
+		}
+
+		foreach (var res in type.BaseType.GetAllTypes())
+		{
+			yield return res;
+		}
+	}
+
 	public static object? GetNamedArgument(this ICollection<KeyValuePair<string, TypedConstant>> arguments, string name)
 	{
 		if (arguments == null)
