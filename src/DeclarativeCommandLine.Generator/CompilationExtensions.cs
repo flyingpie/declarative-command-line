@@ -8,22 +8,7 @@ public static class CompilationExtensions
 
 	public static IEnumerable<INamedTypeSymbol> GetAllTypes(this INamedTypeSymbol type)
 	{
-		if (type == null)
-		{
-			throw new ArgumentNullException(nameof(type));
-		}
-
-		yield return type;
-
-		if (type.BaseType == null)
-		{
-			yield break;
-		}
-
-		foreach (var res in type.BaseType.GetAllTypes())
-		{
-			yield return res;
-		}
+		return type == null ? throw new ArgumentNullException(nameof(type)) : GetAllTypesInternal(type);
 	}
 
 	public static object? GetNamedArgument(this ICollection<KeyValuePair<string, TypedConstant>> arguments, string name)
@@ -68,4 +53,19 @@ public static class CompilationExtensions
 		"CA1308:Normalize strings to uppercase",
 		Justification = "MvdO: We want the version of the boolean as it should appear in C#, so 'true' or 'false'.")]
 	public static string ToCSharpBoolString(this bool b) => b.ToString().ToLowerInvariant();
+
+	private static IEnumerable<INamedTypeSymbol> GetAllTypesInternal(this INamedTypeSymbol type)
+	{
+		yield return type;
+
+		if (type.BaseType == null)
+		{
+			yield break;
+		}
+
+		foreach (var res in type.BaseType.GetAllTypes())
+		{
+			yield return res;
+		}
+	}
 }
