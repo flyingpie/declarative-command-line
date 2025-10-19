@@ -78,8 +78,9 @@ public class CommandView
 		];
 
 		// IsExecutable
-		view.IsExecutable = namedSymbol.Interfaces
-			.Any(i => ctx.Types.ExecutableCommandTypeNames.Any(ex => i.OriginalDefinition.EqualsNamedSymbol(ex)));
+		view.IsExecutable = namedSymbol
+			.GetAllTypes()
+			.Any(t => t.Interfaces.Any(i => ctx.Types.ExecutableCommandTypeNames.Any(ex => i.OriginalDefinition.EqualsNamedSymbol(ex))));
 
 		// Name
 		var cmdNameFromConstrArg = cmdAttr.ConstructorArguments.FirstOrDefault().Value as string;
