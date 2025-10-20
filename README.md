@@ -14,8 +14,8 @@ A minimal example, using DI to instantiate command objects:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="DeclarativeCommandLine" Version="2.0.0-g498c5dd86c" />
-  <PackageReference Include="DeclarativeCommandLine.Generator" Version="2.0.0-g498c5dd86c" />
+  <PackageReference Include="DeclarativeCommandLine" Version="2.0.3" />
+  <PackageReference Include="DeclarativeCommandLine.Generator" Version="2.0.3" />
   <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9"/>
 </ItemGroup>
 ```
@@ -226,3 +226,4 @@ namespace MyApp
 - [ ] opt.Hidden
 - [ ] opt.Recursive
 - [ ] opt.Validators
+
