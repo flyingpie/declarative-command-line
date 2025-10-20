@@ -9,7 +9,7 @@
 		<PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15"/>
 		<PackageVersion Include="SonarAnalyzer.CSharp" Version="10.15.0.120848"/>
 		<PackageVersion Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556"/>
-		<PackageVersion Include="System.CommandLine" Version="2.0.0-rc.1.25451.107"/>
+		<PackageVersion Include="System.CommandLine" Version="2.0.0-rc.2.25502.107"/>
 		<!-- Build -->
 		<PackageVersion Include="Nerdbank.GitVersioning" Version="3.8.118"/>
 		<PackageVersion Include="Nuke.Common" Version="9.0.4"/>
