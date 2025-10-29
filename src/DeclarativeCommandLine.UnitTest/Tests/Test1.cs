@@ -135,7 +135,7 @@ public partial class Test1
 				[DataRow("--string-opt3-values",		"val-2",	0)]
 				[DataRow("--string-opt3-values",		"val-3",	0)]
 				[DataRow("--string-opt3-values",		"abc",		1)]
-				public async Task NoFromAmong(string arg, string val, int exitCode)
+				public async Task Strings(string arg, string val, int exitCode)
 				{
 					// Act
 					var res = await RunAsync(["test", "from-among", "options", "strings", arg, val]);
