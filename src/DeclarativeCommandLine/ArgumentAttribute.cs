@@ -3,11 +3,7 @@
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ArgumentAttribute : Attribute
 {
-	public ArgumentAttribute()
-	{
-	}
-
-	public string[]? AllowedValues { get; set; }
+	public string[]? FromAmong { get; set; }
 
 	public object? DefaultValue { get; set; }
 

@@ -45,7 +45,21 @@ public static class CompilationExtensions
 			return [];
 		}
 
-		return [.. arg.Value.Values.Select(v => (T?)v.Value).Where(v => v is not null).Select(v => v!)];
+		if (arg.Value.IsNull)
+		{
+			return [];
+		}
+
+		try
+		{
+			return arg.Value.Values.Select(v => (T?)v.Value).Where(v => v is not null).Select(v => v!).ToList();
+		}
+		catch (Exception ex)
+		{
+			var dbg = 2;
+		}
+
+		return [];
 	}
 
 	[SuppressMessage(

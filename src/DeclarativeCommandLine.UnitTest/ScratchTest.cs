@@ -10,30 +10,33 @@ public class ScratchTest
 	{
 		var rootCmd = new RootCommand();
 		rootCmd.Hidden = false;
-		// global::DeclarativeCommandLine.UnitTest.Commands.AliasesCommand
+
+		var cmd1 = new Command("aliases");
+		rootCmd.Add(cmd1);
+		cmd1.Hidden = false;
+
+		var opt1 = new Option<int?>("--int-1");
 		{
-			var cmd1 = new Command("aliases");
-			rootCmd.Add(cmd1);
-			cmd1.Hidden = false;
+			cmd1.Add(opt1);
+			opt1.Required = false;
+			opt1.DefaultValueFactory = argRes => 1234;
 
-			var opt1 = new Option<String>("--grand-child-argument-a");
-			{
-				cmd1.Add(opt1);
-				opt1.Description = "";
-				opt1.Hidden = false;
-				opt1.Required = false;
-				opt1.DefaultValueFactory = argRes => "";
-
-				opt1.AcceptOnlyFromAmong([]);
-				opt1.AcceptLegalFileNamesOnly();
-				opt1.AcceptLegalFilePathsOnly();
-
-			}
-
-			cmd1.SetAction(res =>
-			{
-				var x = res.GetValue(opt1) ?? "abc";
-			});
+			// opt1.AcceptOnlyFromAmong([]);
+			// opt1.AcceptLegalFileNamesOnly();
+			// opt1.AcceptLegalFilePathsOnly();
 		}
+
+		cmd1.SetAction(res =>
+		{
+			var x = res.GetValue(opt1);
+
+			var xx = 2;
+		});
+
+		var res = rootCmd.Parse("aliases");
+
+		res.Invoke();
+
+		var dbg = 2;
 	}
 }
