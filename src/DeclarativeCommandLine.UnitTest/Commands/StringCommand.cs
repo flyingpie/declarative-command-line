@@ -5,17 +5,19 @@ namespace DeclarativeCommandLine.UnitTest.Commands;
 [Command(Parent = typeof(AppRootCommand))]
 public class StringCommand
 {
-	[Command(Parent = typeof(MathCommand))]
+	[Command(Parent = typeof(StringCommand))]
 	public class AddCommand(IOutput output) : ICommand
 	{
 		[Option(
-			AllowedValues = ["value-1", "value-2", "value-3"],
 			Description = "The first value.",
+			DefaultValue = "My Default Value",
+			FromAmong = ["1", "2", "3"],
 			Required = true)]
-		public int ValueA { get; set; }
+		public string ValueA { get; set; }
 
 		[Option(
 			Description = "The second value.",
+			DefaultValue = 1234,
 			Required = true)]
 		public int ValueB { get; set; }
 

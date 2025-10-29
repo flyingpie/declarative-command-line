@@ -20,7 +20,7 @@ public sealed class OptionAttribute : Attribute
 
 	public string[]? Aliases { get; }
 
-	public string[]? AllowedValues { get; set; }
+	public string[]? FromAmong { get; set; }
 
 	public bool AllowMultipleArgumentsPerToken { get; set; }
 

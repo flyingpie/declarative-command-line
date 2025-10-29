@@ -159,6 +159,31 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
 				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
 				sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToCSharpBoolString()};");
+
+				if (opt.OptDefaultValue != null)
+				{
+					if (opt.PropertyTypeName == "String")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
+					}
+					else if (opt.PropertyTypeName == "Int32")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
+					}
+				}
+
+				// opt1.DefaultValueFactory = argRes => "";
+
+				if (opt.OptFromAmong != null && opt.OptFromAmong.Count > 0)
+				{
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
+				}
+
+				// opt1.AcceptOnlyFromAmong([]);
+				// opt1.AcceptLegalFileNamesOnly();
+				// opt1.AcceptLegalFilePathsOnly();
+
 				sb.AppendLine($"{tab}}}");
 			}
 		}
@@ -175,7 +200,15 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			foreach (var opt in cmd.Properties)
 			{
 				var optVar = $"opt{opt.Index}";
-				sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
+
+				if (opt.OptRequired)
+				{
+					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetRequiredValue({optVar});");
+				}
+				else
+				{
+					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
+				}
 			}
 
 			sb.AppendLine();

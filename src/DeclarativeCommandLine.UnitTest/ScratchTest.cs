@@ -27,7 +27,13 @@ public class ScratchTest
 				opt1.AcceptOnlyFromAmong([]);
 				opt1.AcceptLegalFileNamesOnly();
 				opt1.AcceptLegalFilePathsOnly();
+
 			}
+
+			cmd1.SetAction(res =>
+			{
+				var x = res.GetValue(opt1) ?? "abc";
+			});
 		}
 	}
 }
