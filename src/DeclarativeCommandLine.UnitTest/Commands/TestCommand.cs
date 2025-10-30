@@ -14,28 +14,6 @@ public class FromAmongCommand
 	public class ArgumentsCommand
 	{
 		[Command(Parent = typeof(ArgumentsCommand))]
-		public class CharsCommand
-		{
-			[Argument]
-			public char? CharArg { get; set; }
-
-			[Argument(FromAmong = null)]
-			public char? CharArgNull { get; set; }
-
-			[Argument(FromAmong = [])]
-			public char? CharArgEmptyArray { get; set; }
-
-			[Argument(FromAmong = ["true"])]
-			public char? CharArg1Value { get; set; }
-
-			[Argument(FromAmong = ["val-1", "val-2"])]
-			public char? CharArg2Values { get; set; }
-
-			[Argument(FromAmong = ["val-1", "val-2", "val-3"])]
-			public char? CharArg3Values { get; set; }
-		}
-
-		[Command(Parent = typeof(ArgumentsCommand))]
 		public class IntsCommand
 		{
 			[Argument]
@@ -84,29 +62,7 @@ public class FromAmongCommand
 	public class OptionsCommand
 	{
 		[Command(Parent = typeof(OptionsCommand))]
-		public class CharsCommand
-		{
-			[Option]
-			public char? CharOpt { get; set; }
-
-			[Option(FromAmong = null)]
-			public char? CharOptNull { get; set; }
-
-			[Option(FromAmong = [])]
-			public char? CharOptEmptyArray { get; set; }
-
-			[Option(FromAmong = ["a"])]
-			public char? CharOpt1Value { get; set; }
-
-			[Option(FromAmong = ["a", "b"])]
-			public char? CharOpt2Values { get; set; }
-
-			[Option(FromAmong = ["a", "b", "c"])]
-			public char? CharOpt3Values { get; set; }
-		}
-
-		[Command(Parent = typeof(OptionsCommand))]
-		public class IntsCommand
+		public class IntsCommand(IOutput output) : ICommand
 		{
 			[Option]
 			public int? IntOpt { get; set; }
@@ -125,6 +81,16 @@ public class FromAmongCommand
 
 			[Option(FromAmong = ["1", "2", "3"])]
 			public int? IntOpt3Values { get; set; }
+
+			public void Execute()
+			{
+				output.WriteLine($"{nameof(IntOpt)}:.............{IntOpt}");
+				output.WriteLine($"{nameof(IntOptNull)}:.........{IntOptNull}");
+				output.WriteLine($"{nameof(IntOptEmptyArray)}:...{IntOptEmptyArray}");
+				output.WriteLine($"{nameof(IntOpt1Value)}:.......{IntOpt1Value}");
+				output.WriteLine($"{nameof(IntOpt2Values)}:......{IntOpt2Values}");
+				output.WriteLine($"{nameof(IntOpt3Values)}:......{IntOpt3Values}");
+			}
 		}
 
 		[Command(Parent = typeof(OptionsCommand))]

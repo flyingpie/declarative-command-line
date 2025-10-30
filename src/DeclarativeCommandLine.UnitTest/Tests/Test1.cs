@@ -74,22 +74,6 @@ public partial class Test1
 		{
 			[TestClass]
 			[UsesVerify]
-			public partial class CharsTest
-			{
-				[TestMethod]
-				public async Task Help()
-				{
-					// Act
-					var res = await RunAsync(["test", "from-among", "options", "chars", "--help"]);
-
-					// Assert
-					await Verify(res.Output);
-					Assert.AreEqual(0, res.Code);
-				}
-			}
-
-			[TestClass]
-			[UsesVerify]
 			public partial class IntsTest
 			{
 				[TestMethod]
@@ -101,6 +85,32 @@ public partial class Test1
 					// Assert
 					await Verify(res.Output);
 					Assert.AreEqual(0, res.Code);
+				}
+
+				[TestMethod]
+				[DataRow("--int-opt",				"123",		0)]
+				[DataRow("--int-opt-null",			"123",		0)]
+				[DataRow("--int-opt-empty-array",	"123",		0)]
+				//
+				[DataRow("--int-opt1-value",		"1",		0)]
+				[DataRow("--int-opt1-value",		"2",		1)]
+				//
+				[DataRow("--int-opt2-values",		"1",		0)]
+				[DataRow("--int-opt2-values",		"2",		0)]
+				[DataRow("--int-opt2-values",		"3",		1)]
+				//
+				[DataRow("--int-opt3-values",		"1",		0)]
+				[DataRow("--int-opt3-values",		"2",		0)]
+				[DataRow("--int-opt3-values",		"3",		0)]
+				[DataRow("--int-opt3-values",		"4",		1)]
+				public async Task Ints(string arg, string val, int exitCode)
+				{
+					// Act
+					var res = await RunAsync(["test", "from-among", "options", "ints", arg, val]);
+
+					// Assert
+					await Verify(res.Output);
+					Assert.AreEqual(exitCode, res.Code);
 				}
 			}
 
