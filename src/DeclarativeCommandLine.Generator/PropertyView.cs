@@ -72,6 +72,9 @@ public class PropertyView
 		{
 			ParseArgument(view, argumentAttr);
 			ParseShared(view, argumentAttr);
+
+			view.OptDefaultValue = argumentAttr.NamedArguments.GetNamedArgument("DefaultValue");
+			view.OptFromAmong = argumentAttr.NamedArguments.GetNamedArgumentArray<string>("FromAmong");
 		}
 
 		if (optionAttr != null)

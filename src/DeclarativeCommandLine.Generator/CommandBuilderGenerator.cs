@@ -147,6 +147,25 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+
+				if (opt.OptFromAmong.Count > 0)
+				{
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
+				}
+
+				if (opt.OptDefaultValue != null)
+				{
+					if (opt.PropertyTypeName == "String")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
+					}
+					else if (opt.PropertyTypeName == "Int32")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
+					}
+				}
+
 				sb.AppendLine($"{tab}}}");
 			}
 
@@ -171,8 +190,6 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
 				}
-
-				// opt1.DefaultValueFactory = argRes => "";
 
 				if (opt.OptFromAmong.Count > 0)
 				{

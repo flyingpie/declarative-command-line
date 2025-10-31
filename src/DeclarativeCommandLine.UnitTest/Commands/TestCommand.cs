@@ -14,7 +14,7 @@ public class FromAmongCommand
 	public class ArgumentsCommand
 	{
 		[Command(Parent = typeof(ArgumentsCommand))]
-		public class IntsCommand
+		public class IntsCommand(IOutput output) : ICommand
 		{
 			[Argument]
 			public int? IntArg { get; set; }
@@ -33,10 +33,20 @@ public class FromAmongCommand
 
 			[Argument(FromAmong = ["1", "2", "3"])]
 			public int? IntArg3Values { get; set; }
+
+			public void Execute()
+			{
+				output.WriteLine($"{nameof(IntArg)}:.............{IntArg}");
+				output.WriteLine($"{nameof(IntArgNull)}:.........{IntArgNull}");
+				output.WriteLine($"{nameof(IntArgEmptyArray)}:...{IntArgEmptyArray}");
+				output.WriteLine($"{nameof(IntArg1Value)}:.......{IntArg1Value}");
+				output.WriteLine($"{nameof(IntArg2Values)}:......{IntArg2Values}");
+				output.WriteLine($"{nameof(IntArg3Values)}:......{IntArg3Values}");
+			}
 		}
 
 		[Command(Parent = typeof(ArgumentsCommand))]
-		public class StringsCommand
+		public class StringsCommand(IOutput output) : ICommand
 		{
 			[Argument]
 			public string? StringArg { get; set; }
@@ -55,6 +65,16 @@ public class FromAmongCommand
 
 			[Argument(FromAmong = ["val-1", "val-2", "val-3"])]
 			public string? StringArg3Values { get; set; }
+
+			public void Execute()
+			{
+				output.WriteLine($"{nameof(StringArg)}:.............{StringArg}");
+				output.WriteLine($"{nameof(StringArgNull)}:.........{StringArgNull}");
+				output.WriteLine($"{nameof(StringArgEmptyArray)}:...{StringArgEmptyArray}");
+				output.WriteLine($"{nameof(StringArg1Value)}:.......{StringArg1Value}");
+				output.WriteLine($"{nameof(StringArg2Values)}:......{StringArg2Values}");
+				output.WriteLine($"{nameof(StringArg3Values)}:......{StringArg3Values}");
+			}
 		}
 	}
 
