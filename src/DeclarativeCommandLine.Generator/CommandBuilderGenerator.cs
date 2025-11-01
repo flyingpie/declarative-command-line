@@ -148,12 +148,6 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
 
-				if (opt.OptFromAmong.Count > 0)
-				{
-					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
-					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
-				}
-
 				if (opt.OptDefaultValue != null)
 				{
 					if (opt.PropertyTypeName == "String")
@@ -164,6 +158,12 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 					{
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
+				}
+
+				if (opt.OptFromAmong.Count > 0)
+				{
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
 				}
 
 				sb.AppendLine($"{tab}}}");
@@ -196,10 +196,6 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
 					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
 				}
-
-				// opt1.AcceptOnlyFromAmong([]);
-				// opt1.AcceptLegalFileNamesOnly();
-				// opt1.AcceptLegalFilePathsOnly();
 
 				sb.AppendLine($"{tab}}}");
 			}
