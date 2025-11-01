@@ -26,7 +26,7 @@ public static class CompilationExtensions
 		return arguments.FirstOrDefault(a => a.Key.Equals(name, StringComparison.Ordinal)).Value.Value;
 	}
 
-	public static T?[] GetNamedArgumentArray<T>(this ICollection<KeyValuePair<string, TypedConstant>> arguments, string name)
+	public static IReadOnlyCollection<T> GetNamedArgumentArray<T>(this ICollection<KeyValuePair<string, TypedConstant>> arguments, string name)
 	{
 		if (arguments == null)
 		{
@@ -45,7 +45,21 @@ public static class CompilationExtensions
 			return [];
 		}
 
-		return [.. arg.Value.Values.Select(v => (T?)v.Value)];
+		if (arg.Value.IsNull)
+		{
+			return [];
+		}
+
+		try
+		{
+			return arg.Value.Values.Select(v => (T?)v.Value).Where(v => v is not null).Select(v => v!).ToList();
+		}
+		catch (Exception ex)
+		{
+			var dbg = 2;
+		}
+
+		return [];
 	}
 
 	[SuppressMessage(

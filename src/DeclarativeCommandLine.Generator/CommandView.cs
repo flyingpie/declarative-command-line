@@ -89,7 +89,7 @@ public class CommandView
 		view.CmdName = cmdNameFromConstrArg ?? cmdNameFromNamedArg ?? cmdNameFromType;
 
 		// Aliases
-		view.CmdAliases = [.. cmdAttr.NamedArguments.GetNamedArgumentArray<string>("Aliases").Where(v => v is not null).Select(v => v!)];
+		view.CmdAliases = cmdAttr.NamedArguments.GetNamedArgumentArray<string>("Aliases");
 
 		// Description
 		view.CmdDescription = cmdAttr.NamedArguments.GetNamedArgument("Description") as string;
