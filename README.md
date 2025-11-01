@@ -12,10 +12,14 @@ A minimal example, using DI to instantiate command objects:
 
 ### Add NuGet Packages
 
+2 packages are needed:
+- [DeclarativeCommandLine](https://www.nuget.org/packages/DeclarativeCommandLine): Contains attributes used to decorate commands, options and arguments;
+- [DeclarativeCommandLine.Generator](https://www.nuget.org/packages/DeclarativeCommandLine.Generator): The source generator that actually constructs the System.CommandLine client code. Only used on compile time.
+
 ```xml
 <ItemGroup>
-  <PackageReference Include="DeclarativeCommandLine" Version="2.0.3" />
-  <PackageReference Include="DeclarativeCommandLine.Generator" Version="2.0.3" />
+  <PackageReference Include="DeclarativeCommandLine" Version="2.0.4" />
+  <PackageReference Include="DeclarativeCommandLine.Generator" Version="2.0.4" />
   <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9"/>
 </ItemGroup>
 ```
@@ -184,7 +188,7 @@ namespace MyApp
 - [x] Name
 - [x] Options
 - [x] Subcommands
-- [ ] Aliases
+- [x] Aliases
 - [ ] Completions
 - [ ] TreatUnmatchedTokensAsErrors
 - [ ] Validators
@@ -195,10 +199,10 @@ namespace MyApp
 - [x] Name
 - [ ] AcceptLegalFileNamesOnly
 - [ ] AcceptLegalFilePathsOnly
-- [ ] AcceptOnlyFromAmong
+- [x] AcceptOnlyFromAmong
 - [ ] Arity
 - [ ] Completions
-- [ ] Default
+- [x] Default
 - [ ] HelpName
 - [ ] Hidden
 - [ ] Validators
@@ -216,14 +220,13 @@ namespace MyApp
 - [x] opt.Required
 - [ ] opt.AcceptLegalFileNamesOnly
 - [ ] opt.AcceptLegalFilePathsOnly
-- [ ] opt.AcceptOnlyFromAmong
-- [ ] opt.Aliases
+- [x] opt.AcceptOnlyFromAmong
+- [x] opt.Aliases
 - [ ] opt.AllowMultipleArgumentsPerToken
 - [ ] opt.Arity
 - [ ] opt.Completions
-- [ ] opt.DefaultValueFactory
+- [x] opt.DefaultValueFactory
 - [ ] opt.HelpName
 - [ ] opt.Hidden
 - [ ] opt.Recursive
 - [ ] opt.Validators
-
