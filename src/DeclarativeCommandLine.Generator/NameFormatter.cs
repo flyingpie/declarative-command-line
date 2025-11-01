@@ -35,7 +35,7 @@ public static class NameFormatter
 		return $"--{kebabName}";
 	}
 
-	public static string ToKebabCase(string value)
+	private static string ToKebabCase(string value)
 	{
 		if (string.IsNullOrWhiteSpace(value))
 		{
