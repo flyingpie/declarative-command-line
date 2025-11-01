@@ -14,7 +14,7 @@ public class PropertyView
 
 	public string? OptName { get; private set; }
 
-	public string PropertyTypeName { get; private set; }
+	public string PropertyTypeName { get; private set; } = null!;
 
 	public string PropertyTypeNameWithNullable => PropertyIsNullable ? $"{PropertyTypeName}?" : PropertyTypeName;
 
@@ -64,7 +64,7 @@ public class PropertyView
 		{
 			view.PropertyIsNullable = true;
 
-			var innerType = (symbol.Type as INamedTypeSymbol)?.TypeArguments.FirstOrDefault();
+			var innerType = ((INamedTypeSymbol)symbol.Type).TypeArguments.First();
 			view.PropertyTypeName = innerType.Name;
 		}
 

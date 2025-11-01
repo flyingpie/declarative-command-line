@@ -14,7 +14,7 @@ public class DefaultValueCommand
 	public class ArgumentsCommand
 	{
 		[Command(Parent = typeof(ArgumentsCommand))]
-		public class IntsCommand(IOutput output)
+		public class IntsCommand
 		{
 			[Command(Parent = typeof(IntsCommand))]
 			public class IntCommand(IOutput output) : ICommand
@@ -82,7 +82,7 @@ public class FromAmongCommand
 	public class ArgumentsCommand
 	{
 		[Command(Parent = typeof(ArgumentsCommand))]
-		public class IntsCommand(IOutput output)
+		public class IntsCommand
 		{
 			[Command(Parent = typeof(IntsCommand))]
 			public class IntArgCommand(IOutput output) : ICommand
@@ -158,7 +158,7 @@ public class FromAmongCommand
 		}
 
 		[Command(Parent = typeof(ArgumentsCommand))]
-		public class StringsCommand(IOutput output)
+		public class StringsCommand
 		{
 			[Command(Parent = typeof(StringsCommand))]
 			public class StringArgCommand(IOutput output) : ICommand
