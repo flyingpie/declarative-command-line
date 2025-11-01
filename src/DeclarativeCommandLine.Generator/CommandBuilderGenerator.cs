@@ -175,7 +175,15 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			foreach (var opt in cmd.Properties)
 			{
 				var optVar = $"opt{opt.Index}";
-				sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
+
+				if (opt.OptRequired)
+				{
+					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetRequiredValue({optVar});");
+				}
+				else
+				{
+					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
+				}
 			}
 
 			sb.AppendLine();
