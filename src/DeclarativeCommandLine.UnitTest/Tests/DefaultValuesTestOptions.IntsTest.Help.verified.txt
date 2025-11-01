@@ -1,0 +1,11 @@
+﻿Description:
+
+Usage:
+  the_executable test default-value options [options]
+
+Options:
+  --int <int>                    [default: 1001]
+  --int-nullable <int-nullable>  [default: 1002]
+  --string <string>              [default: The Default Value]
+  -?, -h, --help                 Show help and usage information
+

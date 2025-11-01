@@ -1,0 +1,12 @@
+﻿Description:
+
+Usage:
+  the_executable test default-value arguments ints [command] [options]
+
+Options:
+  -?, -h, --help  Show help and usage information
+
+Commands:
+  int <--int>                    [default: 1001]
+  int-nullable <--int-nullable>  [default: 1002]
+
