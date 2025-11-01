@@ -1,0 +1,15 @@
+﻿Argument '3' not recognized. Must be one of:
+	'1'
+	'2'
+
+Description:
+
+Usage:
+  the_executable test from-among arguments ints int-arg2-values [<--int-arg2-values>] [options]
+
+Arguments:
+  <1|2>
+
+Options:
+  -?, -h, --help  Show help and usage information
+

@@ -1,0 +1,16 @@
+﻿Description:
+
+Usage:
+  the_executable test from-among arguments strings [command] [options]
+
+Options:
+  -?, -h, --help  Show help and usage information
+
+Commands:
+  string-arg1-value <val-1>
+  string-arg2-values <val-1|val-2>
+  string-arg3-values <val-1|val-2|val-3>
+  string-arg <--string-arg>
+  string-arg-empty-array <--string-arg-empty-array>
+  string-arg-null <--string-arg-null>
+

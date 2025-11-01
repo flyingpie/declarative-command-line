@@ -24,6 +24,8 @@ public class PropertyView
 
 	public object? OptDefaultValue { get; private set; }
 
+	public IReadOnlyCollection<string> OptFromAmong { get; private set; } = [];
+
 	public bool OptHidden { get; private set; }
 
 	public bool OptRequired { get; private set; }
@@ -72,6 +74,7 @@ public class PropertyView
 			ParseShared(view, argumentAttr);
 
 			view.OptDefaultValue = argumentAttr.NamedArguments.GetNamedArgument("DefaultValue");
+			view.OptFromAmong = argumentAttr.NamedArguments.GetNamedArgumentArray<string>("FromAmong");
 		}
 
 		if (optionAttr != null)
@@ -80,6 +83,7 @@ public class PropertyView
 			ParseShared(view, optionAttr);
 
 			view.OptDefaultValue = optionAttr.NamedArguments.GetNamedArgument("DefaultValue");
+			view.OptFromAmong = optionAttr.NamedArguments.GetNamedArgumentArray<string>("FromAmong");
 		}
 
 		view.OptName ??= NameFormatter.PropertyNameToOptionName(symbol.Name);

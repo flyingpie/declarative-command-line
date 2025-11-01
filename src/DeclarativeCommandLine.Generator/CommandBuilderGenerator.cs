@@ -160,6 +160,12 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 					}
 				}
 
+				if (opt.OptFromAmong.Count > 0)
+				{
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
+				}
+
 				sb.AppendLine($"{tab}}}");
 			}
 
@@ -183,6 +189,12 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 					{
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
+				}
+
+				if (opt.OptFromAmong.Count > 0)
+				{
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
 				}
 
 				sb.AppendLine($"{tab}}}");

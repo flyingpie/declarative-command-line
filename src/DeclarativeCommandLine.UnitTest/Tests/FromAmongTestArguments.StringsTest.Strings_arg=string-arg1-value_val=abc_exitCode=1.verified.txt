@@ -1,0 +1,14 @@
+﻿Argument 'abc' not recognized. Must be one of:
+	'val-1'
+
+Description:
+
+Usage:
+  the_executable test from-among arguments strings string-arg1-value <--string-arg1-value> [options]
+
+Arguments:
+  <val-1>
+
+Options:
+  -?, -h, --help  Show help and usage information
+

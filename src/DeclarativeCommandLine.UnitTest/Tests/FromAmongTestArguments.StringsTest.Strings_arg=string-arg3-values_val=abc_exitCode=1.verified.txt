@@ -1,0 +1,16 @@
+﻿Argument 'abc' not recognized. Must be one of:
+	'val-1'
+	'val-2'
+	'val-3'
+
+Description:
+
+Usage:
+  the_executable test from-among arguments strings string-arg3-values <--string-arg3-values> [options]
+
+Arguments:
+  <val-1|val-2|val-3>
+
+Options:
+  -?, -h, --help  Show help and usage information
+
