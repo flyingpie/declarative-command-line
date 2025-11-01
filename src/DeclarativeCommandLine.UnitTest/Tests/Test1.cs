@@ -88,22 +88,22 @@ public partial class Test1
 				}
 
 				[TestMethod]
-				[DataRow("--int-arg",				"123",		0)]
-				[DataRow("--int-arg-null",			"123",		0)]
-				[DataRow("--int-arg-empty-array",	"123",		0)]
+				[DataRow("int-arg",					"123",		0)]
+				[DataRow("int-arg-null",			"123",		0)]
+				[DataRow("int-arg-empty-array",		"123",		0)]
 				//
-				[DataRow("--int-arg1-value",		"1",		0)]
-				[DataRow("--int-arg1-value",		"2",		1)]
+				[DataRow("int-arg1-value",			"1",		0)]
+				[DataRow("int-arg1-value",			"2",		1)]
 				//
-				[DataRow("--int-arg2-values",		"1",		0)]
-				[DataRow("--int-arg2-values",		"2",		0)]
-				[DataRow("--int-arg2-values",		"3",		1)]
+				[DataRow("int-arg2-values",			"1",		0)]
+				[DataRow("int-arg2-values",			"2",		0)]
+				[DataRow("int-arg2-values",			"3",		1)]
 				//
-				[DataRow("--int-arg3-values",		"1",		0)]
-				[DataRow("--int-arg3-values",		"2",		0)]
-				[DataRow("--int-arg3-values",		"3",		0)]
-				[DataRow("--int-arg3-values",		"4",		1)]
-				public async Task Ints(string arg, string val, int exitCode)
+				[DataRow("int-arg3-values",			"1",		0)]
+				[DataRow("int-arg3-values",			"2",		0)]
+				[DataRow("int-arg3-values",			"3",		0)]
+				[DataRow("int-arg3-values",			"4",		1)]
+				public async Task IntArg(string arg, string val, int exitCode)
 				{
 					// Act
 					var res = await RunAsync(["test", "from-among", "arguments", "ints", arg, val]);
@@ -130,21 +130,21 @@ public partial class Test1
 				}
 
 				[TestMethod]
-				[DataRow("--string-opt",				"abc",		0)]
-				[DataRow("--string-opt-null",			"abc",		0)]
-				[DataRow("--string-opt-empty-array",	"abc",		0)]
+				[DataRow("string-arg",				"abc",		0)]
+				[DataRow("string-arg-null",			"abc",		0)]
+				[DataRow("string-arg-empty-array",	"abc",		0)]
 				//
-				[DataRow("--string-opt1-value",			"val-1",	0)]
-				[DataRow("--string-opt1-value",			"abc",		1)]
+				[DataRow("string-arg1-value",		"val-1",	0)]
+				[DataRow("string-arg1-value",		"abc",		1)]
 				//
-				[DataRow("--string-opt2-values",		"val-1",	0)]
-				[DataRow("--string-opt2-values",		"val-2",	0)]
-				[DataRow("--string-opt2-values",		"abc",		1)]
+				[DataRow("string-arg2-values",		"val-1",	0)]
+				[DataRow("string-arg2-values",		"val-2",	0)]
+				[DataRow("string-arg2-values",		"abc",		1)]
 				//
-				[DataRow("--string-opt3-values",		"val-1",	0)]
-				[DataRow("--string-opt3-values",		"val-2",	0)]
-				[DataRow("--string-opt3-values",		"val-3",	0)]
-				[DataRow("--string-opt3-values",		"abc",		1)]
+				[DataRow("string-arg3-values",		"val-1",	0)]
+				[DataRow("string-arg3-values",		"val-2",	0)]
+				[DataRow("string-arg3-values",		"val-3",	0)]
+				[DataRow("string-arg3-values",		"abc",		1)]
 				public async Task Strings(string arg, string val, int exitCode)
 				{
 					// Act
