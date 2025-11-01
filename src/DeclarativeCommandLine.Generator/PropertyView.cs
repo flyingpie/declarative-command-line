@@ -22,6 +22,8 @@ public class PropertyView
 
 	public string PropertyName => Symbol.Name;
 
+	public object? OptDefaultValue { get; private set; }
+
 	public bool OptHidden { get; private set; }
 
 	public bool OptRequired { get; private set; }
@@ -68,12 +70,16 @@ public class PropertyView
 		{
 			ParseArgument(view, argumentAttr);
 			ParseShared(view, argumentAttr);
+
+			view.OptDefaultValue = argumentAttr.NamedArguments.GetNamedArgument("DefaultValue");
 		}
 
 		if (optionAttr != null)
 		{
 			ParseOption(view, optionAttr);
 			ParseShared(view, optionAttr);
+
+			view.OptDefaultValue = optionAttr.NamedArguments.GetNamedArgument("DefaultValue");
 		}
 
 		view.OptName ??= NameFormatter.PropertyNameToOptionName(symbol.Name);

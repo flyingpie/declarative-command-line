@@ -147,6 +147,19 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+
+				if (opt.OptDefaultValue != null)
+				{
+					if (opt.PropertyTypeName == "String")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
+					}
+					else if (opt.PropertyTypeName == "Int32")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
+					}
+				}
+
 				sb.AppendLine($"{tab}}}");
 			}
 
@@ -159,6 +172,19 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
 				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
 				sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToCSharpBoolString()};");
+
+				if (opt.OptDefaultValue != null)
+				{
+					if (opt.PropertyTypeName == "String")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
+					}
+					else if (opt.PropertyTypeName == "Int32")
+					{
+						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
+					}
+				}
+
 				sb.AppendLine($"{tab}}}");
 			}
 		}

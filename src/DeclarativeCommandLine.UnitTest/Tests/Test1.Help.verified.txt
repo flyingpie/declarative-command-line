@@ -12,4 +12,5 @@ Commands:
   inheritance
   math
   string
+  test
 

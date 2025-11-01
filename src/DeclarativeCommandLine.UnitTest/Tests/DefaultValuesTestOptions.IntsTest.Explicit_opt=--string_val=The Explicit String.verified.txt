@@ -1,0 +1,3 @@
+﻿Int:..........1001
+IntNullable:..1002
+String:.......The Explicit String
