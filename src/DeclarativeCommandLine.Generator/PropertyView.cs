@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace DeclarativeCommandLine.Generator;
 
 public class PropertyView
@@ -12,7 +14,11 @@ public class PropertyView
 
 	public string? OptName { get; private set; }
 
-	public string PropertyTypeName => Symbol.Type.Name;
+	public string PropertyTypeName { get; private set; }
+
+	public string PropertyTypeNameWithNullable => PropertyIsNullable ? $"{PropertyTypeName}?" : PropertyTypeName;
+
+	public bool PropertyIsNullable { get; private set; }
 
 	public string PropertyName => Symbol.Name;
 
@@ -47,6 +53,16 @@ public class PropertyView
 		}
 
 		view = new() { Symbol = symbol, ArgumentAttribute = argumentAttr, OptionAttribute = optionAttr, };
+
+		view.PropertyTypeName = symbol.Type.Name;
+
+		if (symbol.Type.Name.Equals("Nullable", StringComparison.Ordinal))
+		{
+			view.PropertyIsNullable = true;
+
+			var innerType = (symbol.Type as INamedTypeSymbol)?.TypeArguments.FirstOrDefault();
+			view.PropertyTypeName = innerType.Name;
+		}
 
 		if (argumentAttr != null)
 		{

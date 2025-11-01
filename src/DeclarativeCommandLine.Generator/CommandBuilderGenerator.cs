@@ -143,7 +143,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			if (opt.ArgumentAttribute != null)
 			{
 				sb.AppendLine($"{tab}// Argument {opt.OptName}");
-				sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
+				sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
@@ -153,7 +153,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			if (opt.OptionAttribute != null)
 			{
 				sb.AppendLine($"{tab}// Option {opt.OptName}");
-				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeName}>(\"{opt.OptName}\");");
+				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
