@@ -66,7 +66,6 @@ public partial class Test1
 		Assert.AreEqual(0, res.Code);
 	}
 
-
 	[TestClass]
 	[UsesVerify]
 	public partial class CommandTest
