@@ -14,11 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Sln", "00-Sln", "{E5052D
 		build.sh = build.sh
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
-		global.json = global.json
 		..\.editorconfig = ..\.editorconfig
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
 		..\version.json = ..\version.json
+		..\global.json = ..\global.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NukeBuild", "01-Build\NukeBuild\NukeBuild.csproj", "{F5E9B9A6-E85A-4F7E-9E58-83C24B72BEC6}"
