@@ -22,7 +22,7 @@
 		-->
 		<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0"/>
 		<!-- Deliberately kept at a lower version, so we can support older compiler versions -->
-		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0"/>
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0"/>
 		<!--
 			Testing
 		-->
