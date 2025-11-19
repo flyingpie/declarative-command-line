@@ -11,15 +11,6 @@ using Nuke.Common.Tools.DotNet;
 using Serilog;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[GitHubActions(
-	"ci",
-	GitHubActionsImage.Ubuntu2404,
-	FetchDepth = 0,
-	OnPushBranches = ["*"],
-	OnWorkflowDispatchOptionalInputs = [nameof(PublicRelease)],
-	EnableGitHubToken = true,
-	ImportSecrets = ["NUGET_API_KEY"],
-	InvokedTargets = [nameof(Push)])]
 public sealed class Build : NukeBuild
 {
 	[CanBeNull]
