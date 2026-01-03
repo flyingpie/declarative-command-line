@@ -3,7 +3,7 @@
 Description:
 
 Usage:
-  the_executable aliases [command] [options]
+  the_executable test aliases commands [command] [options]
 
 Options:
   -?, -h, --help  Show help and usage information

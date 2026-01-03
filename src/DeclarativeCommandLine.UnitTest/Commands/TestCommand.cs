@@ -8,6 +8,42 @@ public class TestCommand
 }
 
 [Command(Parent = typeof(TestCommand))]
+[SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "MvdO:")]
+public class AliasesCommand
+{
+	[Command(Parent = typeof(AliasesCommand))]
+	public class CommandsCommand
+	{
+		[Command("aliases-0", Aliases = [], Parent = typeof(CommandsCommand))]
+		public class CommandWithAliases0(IOutput output) : ICommand
+		{
+			public void Execute()
+			{
+				output.WriteLine("Command with 0 aliases");
+			}
+		}
+
+		[Command("aliases-1", Aliases = ["alias1"], Parent = typeof(CommandsCommand))]
+		public class CommandWithAliases1(IOutput output) : ICommand
+		{
+			public void Execute()
+			{
+				output.WriteLine("Command with 1 alias");
+			}
+		}
+
+		[Command("aliases-2", Aliases = ["alias2-1", "alias2-2"], Parent = typeof(CommandsCommand))]
+		public class CommandWithAliases2(IOutput output) : ICommand
+		{
+			public void Execute()
+			{
+				output.WriteLine("Command with 2 aliases");
+			}
+		}
+	}
+}
+
+[Command(Parent = typeof(TestCommand))]
 public class DefaultValueCommand
 {
 	[Command(Parent = typeof(DefaultValueCommand))]
