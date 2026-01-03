@@ -4,7 +4,7 @@
 Description:
 
 Usage:
-  the_executable test from-among arguments ints int-arg1-value [<--int-arg1-value>] [options]
+  the_executable test from-among arguments ints int-arg-1-value [<--int-arg-1-value>] [options]
 
 Arguments:
   <1>

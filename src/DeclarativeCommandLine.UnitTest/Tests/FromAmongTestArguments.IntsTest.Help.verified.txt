@@ -7,9 +7,9 @@ Options:
   -?, -h, --help  Show help and usage information
 
 Commands:
-  int-arg1-value <1>
-  int-arg2-values <1|2>
-  int-arg3-values <1|2|3>
+  int-arg-1-value <1>
+  int-arg-2-values <1|2>
+  int-arg-3-values <1|2|3>
   int-arg <--int-arg>
   int-arg-empty-array <--int-arg-empty-array>
   int-arg-null <--int-arg-null>

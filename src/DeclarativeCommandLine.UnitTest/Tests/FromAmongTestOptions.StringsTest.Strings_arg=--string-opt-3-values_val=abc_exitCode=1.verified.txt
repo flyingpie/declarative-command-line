@@ -12,8 +12,8 @@ Options:
   --string-opt <string-opt>
   --string-opt-null <string-opt-null>
   --string-opt-empty-array <string-opt-empty-array>
-  --string-opt1-value <val-1>
-  --string-opt2-values <val-1|val-2>
-  --string-opt3-values <val-1|val-2|val-3>
+  --string-opt-1-value <val-1>
+  --string-opt-2-values <val-1|val-2>
+  --string-opt-3-values <val-1|val-2|val-3>
   -?, -h, --help                                     Show help and usage information
 

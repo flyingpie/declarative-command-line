@@ -25,17 +25,17 @@ public partial class FromAmongTestOptions
 		[DataRow("--int-opt-null",			"123",		0)]
 		[DataRow("--int-opt-empty-array",	"123",		0)]
 		//
-		[DataRow("--int-opt1-value",		"1",		0)]
-		[DataRow("--int-opt1-value",		"2",		1)]
+		[DataRow("--int-opt-1-value",		"1",		0)]
+		[DataRow("--int-opt-1-value",		"2",		1)]
 		//
-		[DataRow("--int-opt2-values",		"1",		0)]
-		[DataRow("--int-opt2-values",		"2",		0)]
-		[DataRow("--int-opt2-values",		"3",		1)]
+		[DataRow("--int-opt-2-values",		"1",		0)]
+		[DataRow("--int-opt-2-values",		"2",		0)]
+		[DataRow("--int-opt-2-values",		"3",		1)]
 		//
-		[DataRow("--int-opt3-values",		"1",		0)]
-		[DataRow("--int-opt3-values",		"2",		0)]
-		[DataRow("--int-opt3-values",		"3",		0)]
-		[DataRow("--int-opt3-values",		"4",		1)]
+		[DataRow("--int-opt-3-values",		"1",		0)]
+		[DataRow("--int-opt-3-values",		"2",		0)]
+		[DataRow("--int-opt-3-values",		"3",		0)]
+		[DataRow("--int-opt-3-values",		"4",		1)]
 		public async Task Ints(string arg, string val, int exitCode)
 		{
 			// Act
@@ -67,17 +67,17 @@ public partial class FromAmongTestOptions
 		[DataRow("--string-opt-null",			"abc",		0)]
 		[DataRow("--string-opt-empty-array",	"abc",		0)]
 		//
-		[DataRow("--string-opt1-value",			"val-1",	0)]
-		[DataRow("--string-opt1-value",			"abc",		1)]
+		[DataRow("--string-opt-1-value",			"val-1",	0)]
+		[DataRow("--string-opt-1-value",			"abc",		1)]
 		//
-		[DataRow("--string-opt2-values",		"val-1",	0)]
-		[DataRow("--string-opt2-values",		"val-2",	0)]
-		[DataRow("--string-opt2-values",		"abc",		1)]
+		[DataRow("--string-opt-2-values",		"val-1",	0)]
+		[DataRow("--string-opt-2-values",		"val-2",	0)]
+		[DataRow("--string-opt-2-values",		"abc",		1)]
 		//
-		[DataRow("--string-opt3-values",		"val-1",	0)]
-		[DataRow("--string-opt3-values",		"val-2",	0)]
-		[DataRow("--string-opt3-values",		"val-3",	0)]
-		[DataRow("--string-opt3-values",		"abc",		1)]
+		[DataRow("--string-opt-3-values",		"val-1",	0)]
+		[DataRow("--string-opt-3-values",		"val-2",	0)]
+		[DataRow("--string-opt-3-values",		"val-3",	0)]
+		[DataRow("--string-opt-3-values",		"abc",		1)]
 		public async Task Strings(string arg, string val, int exitCode)
 		{
 			// Act

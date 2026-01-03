@@ -12,8 +12,8 @@ Options:
   --int-opt <int-opt>
   --int-opt-null <int-opt-null>
   --int-opt-empty-array <int-opt-empty-array>
-  --int-opt1-value <1>
-  --int-opt2-values <1|2>
-  --int-opt3-values <1|2|3>
+  --int-opt-1-value <1>
+  --int-opt-2-values <1|2>
+  --int-opt-3-values <1|2|3>
   -?, -h, --help                               Show help and usage information
 

@@ -48,7 +48,10 @@ public static class NameFormatter
 		{
 			var c = value[i];
 
-			if (i > 0 && char.IsUpper(c))
+			if (
+				i > 0 && // Not at the start of the string
+				(char.IsUpper(c) // Current character is upper case
+				|| (char.IsDigit(c) && !char.IsDigit(sb[sb.Length - 1])))) // OR, current character is a digit, and the previous character was not
 			{
 				sb.Append('-');
 			}
