@@ -1,6 +1,8 @@
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using System;
+global using System.Collections.Generic;
+global using System.Diagnostics.CodeAnalysis;
 global using System.IO;
 global using System.Threading;
 global using System.Threading.Tasks;

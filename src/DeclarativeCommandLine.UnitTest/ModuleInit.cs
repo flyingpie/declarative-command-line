@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using VerifyTests;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest;
 
 public static class ModuleInit
 {

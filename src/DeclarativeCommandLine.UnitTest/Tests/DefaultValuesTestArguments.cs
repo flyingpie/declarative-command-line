@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
