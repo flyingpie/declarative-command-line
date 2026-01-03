@@ -1,0 +1,11 @@
+﻿Description:
+
+Usage:
+  the_executable test aliases options [options]
+
+Options:
+  --aliases-0 <aliases-0>
+  --alias-a-1, --aliases-1 <aliases-1>
+  --alias-b-1, --alias-b-2, --aliases-2 <aliases-2>
+  -?, -h, --help                                     Show help and usage information
+

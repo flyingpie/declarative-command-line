@@ -22,6 +22,8 @@ public class PropertyView
 
 	public string PropertyName => Symbol.Name;
 
+	public IReadOnlyCollection<string> OptAliases { get; private set; }
+
 	public object? OptDefaultValue { get; private set; }
 
 	public IReadOnlyCollection<string> OptFromAmong { get; private set; } = [];
@@ -82,6 +84,7 @@ public class PropertyView
 			ParseOption(view, optionAttr);
 			ParseShared(view, optionAttr);
 
+			view.OptAliases = optionAttr.NamedArguments.GetNamedArgumentArray<string>("Aliases");
 			view.OptDefaultValue = optionAttr.NamedArguments.GetNamedArgument("DefaultValue");
 			view.OptFromAmong = optionAttr.NamedArguments.GetNamedArgumentArray<string>("FromAmong");
 		}

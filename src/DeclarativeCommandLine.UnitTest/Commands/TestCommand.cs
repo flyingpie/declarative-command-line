@@ -11,9 +11,15 @@ public class TestCommand
 [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "MvdO:")]
 public class AliasesCommand
 {
+	/// <summary>
+	/// Alias test at the "command" level.
+	/// </summary>
 	[Command(Parent = typeof(AliasesCommand))]
 	public class CommandsCommand
 	{
+		/// <summary>
+		/// Command with no aliases.
+		/// </summary>
 		[Command("aliases-0", Aliases = [], Parent = typeof(CommandsCommand))]
 		public class CommandWithAliases0(IOutput output) : ICommand
 		{
@@ -23,6 +29,9 @@ public class AliasesCommand
 			}
 		}
 
+		/// <summary>
+		/// Command with 1 alias.
+		/// </summary>
 		[Command("aliases-1", Aliases = ["alias1"], Parent = typeof(CommandsCommand))]
 		public class CommandWithAliases1(IOutput output) : ICommand
 		{
@@ -32,6 +41,9 @@ public class AliasesCommand
 			}
 		}
 
+		/// <summary>
+		/// Command with 2 aliases.
+		/// </summary>
 		[Command("aliases-2", Aliases = ["alias2-1", "alias2-2"], Parent = typeof(CommandsCommand))]
 		public class CommandWithAliases2(IOutput output) : ICommand
 		{
@@ -39,6 +51,38 @@ public class AliasesCommand
 			{
 				output.WriteLine("Command with 2 aliases");
 			}
+		}
+	}
+
+	/// <summary>
+	/// Alias test at the "option" level.
+	/// </summary>
+	[Command(Parent = typeof(AliasesCommand))]
+	public class OptionsCommand(IOutput output) : ICommand
+	{
+		/// <summary>
+		/// Option with no aliases.
+		/// </summary>
+		[Option]
+		public string? Aliases0 { get; set; }
+
+		/// <summary>
+		/// Option with 1 alias.
+		/// </summary>
+		[Option(Aliases = ["--alias-a-1"])]
+		public string? Aliases1 { get; set; }
+
+		/// <summary>
+		/// Option with 2 aliases.
+		/// </summary>
+		[Option(Aliases = ["--alias-b-1", "--alias-b-2"])]
+		public string? Aliases2 { get; set; }
+
+		public void Execute()
+		{
+			output.WriteLine($"Aliases0: {Aliases0}");
+			output.WriteLine($"Aliases1: {Aliases1}");
+			output.WriteLine($"Aliases2: {Aliases2}");
 		}
 	}
 }

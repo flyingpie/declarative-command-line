@@ -179,6 +179,11 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
 				sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToCSharpBoolString()};");
 
+				foreach (var alias in opt.OptAliases)
+				{
+					sb.AppendLine($"{tab}    {optVar}.Aliases.Add(\"{alias}\");");
+				}
+
 				if (opt.OptDefaultValue != null)
 				{
 					if (opt.PropertyTypeName == "String")

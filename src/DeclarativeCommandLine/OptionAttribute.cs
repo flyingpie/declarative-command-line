@@ -18,7 +18,7 @@ public sealed class OptionAttribute : Attribute
 		Aliases = aliases;
 	}
 
-	public string[]? Aliases { get; }
+	public string[]? Aliases { get; set; }
 
 	public string[]? FromAmong { get; set; }
 
