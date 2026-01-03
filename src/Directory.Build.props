@@ -2,6 +2,8 @@
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 
+		<Nullable>enable</Nullable>
+
 		<!-- Some features we use require a documentation file, like analyzers, and the docs manifest generation -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 
@@ -49,8 +51,6 @@
 
 	<!-- Regular Projects -->
 	<PropertyGroup Condition=" !$(MSBuildProjectName.EndsWith('Test')) ">
-		<Nullable>enable</Nullable>
-
 		<!-- Code analysis -->
 		<AnalysisLevel>10.0-all</AnalysisLevel>
 		<AnalysisMode>all</AnalysisMode>
