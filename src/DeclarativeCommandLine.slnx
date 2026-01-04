@@ -1,0 +1,23 @@
+<Solution>
+	<Folder Name="/D00-Sln/">
+		<File Path="../.editorconfig" />
+		<File Path="../.gitattributes" />
+		<File Path="../.gitignore" />
+		<File Path="../global.json" />
+		<File Path="../LICENSE" />
+		<File Path="../README.md" />
+		<File Path="../version.json" />
+		<File Path="build.cmd" />
+		<File Path="build.ps1" />
+		<File Path="build.sh" />
+		<File Path="Directory.Build.props" />
+		<File Path="Directory.Packages.props" />
+	</Folder>
+	<Folder Name="/D01-Build/">
+		<Project Path="01-Build/NukeBuild/NukeBuild.csproj" />
+	</Folder>
+	<Project Path="DeclarativeCommandLine.Generator/DeclarativeCommandLine.Generator.csproj" />
+	<Project Path="DeclarativeCommandLine.TestApp/DeclarativeCommandLine.TestApp.csproj" />
+	<Project Path="DeclarativeCommandLine.UnitTest/DeclarativeCommandLine.UnitTest.csproj" />
+	<Project Path="DeclarativeCommandLine/DeclarativeCommandLine.csproj" />
+</Solution>
