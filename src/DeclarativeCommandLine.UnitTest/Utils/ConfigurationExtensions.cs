@@ -1,7 +1,6 @@
-using DeclarativeCommandLine.UnitTest.Commands;
 using System.Linq;
 
-namespace DeclarativeCommandLine.UnitTest;
+namespace DeclarativeCommandLine.UnitTest.Utils;
 
 public static class ConfigurationExtensions
 {

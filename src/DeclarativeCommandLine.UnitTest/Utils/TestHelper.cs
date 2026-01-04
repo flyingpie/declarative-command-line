@@ -1,4 +1,3 @@
-using DeclarativeCommandLine.UnitTest.Commands;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 

@@ -1,9 +1,9 @@
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.FromAmong.Arguments;
 
 [TestClass]
-public partial class FromAmongTestArguments
+public partial class ArgumentsTest
 {
 	[TestClass]
 	[UsesVerify]

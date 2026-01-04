@@ -1,6 +1,4 @@
-using DeclarativeCommandLine.UnitTest.Utils;
-
-namespace DeclarativeCommandLine.UnitTest.Commands;
+namespace DeclarativeCommandLine.UnitTest.Tests.Inheritance;
 
 [Command(Parent = typeof(AppRootCommand))]
 public class InheritanceCommand

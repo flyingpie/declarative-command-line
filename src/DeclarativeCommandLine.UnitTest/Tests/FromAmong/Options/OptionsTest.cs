@@ -1,9 +1,7 @@
-using DeclarativeCommandLine.UnitTest.Utils;
-
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.FromAmong.Options;
 
 [TestClass]
-public partial class FromAmongTestOptions
+public partial class OptionsTest
 {
 	[TestClass]
 	[UsesVerify]

@@ -1,11 +1,11 @@
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.Aliases.Options;
 
 [TestClass]
 [UsesVerify]
-public partial class AliasesTestOptions
+public partial class OptionsTest
 {
 	[TestMethod]
 	public async Task AliasesHelp()
@@ -20,7 +20,7 @@ public partial class AliasesTestOptions
 
 	[TestMethod]
 	[DataRow("--aliases-0")]
-	public async Task Aliases_0(string option)
+	public async Task Aliases0(string option)
 	{
 		// Act
 		var res = await RunAsync(["test", "aliases", "options", option, "val-1"]);
@@ -33,7 +33,7 @@ public partial class AliasesTestOptions
 	[TestMethod]
 	[DataRow("--aliases-1")]
 	[DataRow("--alias-a-1")]
-	public async Task Aliases_1(string option)
+	public async Task Aliases1(string option)
 	{
 		// Act
 		var res = await RunAsync(["test", "aliases", "options", option, "val-1"]);
@@ -47,7 +47,7 @@ public partial class AliasesTestOptions
 	[DataRow("--aliases-2")]
 	[DataRow("--alias-b-1")]
 	[DataRow("--alias-b-2")]
-	public async Task Aliases_2(string option)
+	public async Task Aliases2(string option)
 	{
 		// Act
 		var res = await RunAsync(["test", "aliases", "options", option, "val-1"]);

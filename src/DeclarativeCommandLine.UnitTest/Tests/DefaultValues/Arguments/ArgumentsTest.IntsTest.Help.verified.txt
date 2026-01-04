@@ -1,7 +1,7 @@
 ﻿Description:
 
 Usage:
-  the_executable test default-value arguments ints [command] [options]
+  the_executable test default-values arguments ints [command] [options]
 
 Options:
   -?, -h, --help  Show help and usage information

@@ -1,5 +1,3 @@
-using DeclarativeCommandLine.UnitTest.Utils;
-
 namespace DeclarativeCommandLine.UnitTest.Commands;
 
 [Command(Parent = typeof(AppRootCommand))]

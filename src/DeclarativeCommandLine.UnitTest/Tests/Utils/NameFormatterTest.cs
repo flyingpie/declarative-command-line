@@ -1,6 +1,6 @@
 using DeclarativeCommandLine.Generator;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.Utils;
 
 [TestClass]
 public class NameFormatterTest

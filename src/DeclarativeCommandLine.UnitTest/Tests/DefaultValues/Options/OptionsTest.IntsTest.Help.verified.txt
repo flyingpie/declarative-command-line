@@ -1,7 +1,7 @@
 ﻿Description:
 
 Usage:
-  the_executable test default-value options [options]
+  the_executable test default-values options [options]
 
 Options:
   --int <int>                    [default: 1001]

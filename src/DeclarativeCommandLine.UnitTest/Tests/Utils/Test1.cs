@@ -1,7 +1,7 @@
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.Utils;
 
 [TestClass]
 [UsesVerify]
@@ -65,41 +65,4 @@ public partial class Test1
 		Assert.AreEqual(0, res.Code);
 	}
 
-	[TestClass]
-	[UsesVerify]
-	public partial class InheritanceTest
-	{
-		[TestMethod]
-		public async Task BaseCommand()
-		{
-			// Act
-			var res = await RunAsync(["inheritance", "inheritance-0", "--base-argument-a", "a1", "--base-option-a", "a2"]);
-
-			// Assert
-			await Verify(res.Output);
-			Assert.AreEqual(0, res.Code);
-		}
-
-		[TestMethod]
-		public async Task ChildCommand()
-		{
-			// Act
-			var res = await RunAsync(["inheritance", "inheritance-1", "--base-argument-a", "a1", "--base-option-a", "a2", "--child-argument-a", "b1", "--child-option-a", "b2"]);
-
-			// Assert
-			await Verify(res.Output);
-			Assert.AreEqual(0, res.Code);
-		}
-
-		[TestMethod]
-		public async Task GrandChildCommand()
-		{
-			// Act
-			var res = await RunAsync(["inheritance", "inheritance-2", "--base-argument-a", "a1", "--base-option-a", "a2", "--child-argument-a", "b1", "--child-option-a", "b2", "--grand-child-argument-a", "c1", "--grand-child-option-a", "c2"]);
-
-			// Assert
-			await Verify(res.Output);
-			Assert.AreEqual(0, res.Code);
-		}
-	}
 }

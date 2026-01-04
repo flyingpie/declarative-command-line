@@ -1,11 +1,11 @@
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.DefaultValues.Options;
 
 [TestClass]
 [UsesVerify]
-public partial class DefaultValuesTestOptions
+public partial class OptionsTest
 {
 	[TestClass]
 	[UsesVerify]
@@ -15,7 +15,7 @@ public partial class DefaultValuesTestOptions
 		public async Task Help()
 		{
 			// Act
-			var res = await RunAsync(["test", "default-value", "options", "--help"]);
+			var res = await RunAsync(["test", "default-values", "options", "--help"]);
 
 			// Assert
 			await Verify(res.Output);
@@ -26,7 +26,7 @@ public partial class DefaultValuesTestOptions
 		public async Task Default()
 		{
 			// Act
-			var res = await RunAsync(["test", "default-value", "options"]);
+			var res = await RunAsync(["test", "default-values", "options"]);
 
 			// Assert
 			await Verify(res.Output);
@@ -40,7 +40,7 @@ public partial class DefaultValuesTestOptions
 		public async Task Explicit(string opt, string val)
 		{
 			// Act
-			var res = await RunAsync(["test", "default-value", "options", opt, val]);
+			var res = await RunAsync(["test", "default-values", "options", opt, val]);
 
 			// Assert
 			await Verify(res.Output);

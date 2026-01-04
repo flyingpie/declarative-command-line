@@ -1,11 +1,11 @@
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.DefaultValues.Arguments;
 
 [TestClass]
 [UsesVerify]
-public partial class DefaultValuesTestArguments
+public partial class ArgumentsTest
 {
 	[TestClass]
 	[UsesVerify]
@@ -15,7 +15,7 @@ public partial class DefaultValuesTestArguments
 		public async Task Help()
 		{
 			// Act
-			var res = await RunAsync(["test", "default-value", "arguments", "ints", "--help"]);
+			var res = await RunAsync(["test", "default-values", "arguments", "ints", "--help"]);
 
 			// Assert
 			await Verify(res.Output);
@@ -30,7 +30,7 @@ public partial class DefaultValuesTestArguments
 		public async Task IntArg(string arg, string[] val)
 		{
 			// Act
-			var args = new List<string>(["test", "default-value", "arguments", "ints", arg]);
+			var args = new List<string>(["test", "default-values", "arguments", "ints", arg]);
 			args.AddRange(val);
 			var res = await RunAsync(args.ToArray());
 

@@ -1,11 +1,11 @@
 using static DeclarativeCommandLine.UnitTest.Utils.TestHelper;
 using static VerifyMSTest.Verifier;
 
-namespace DeclarativeCommandLine.UnitTest.Tests;
+namespace DeclarativeCommandLine.UnitTest.Tests.Aliases.Commands;
 
 [TestClass]
 [UsesVerify]
-public partial class AliasesTestCommands
+public partial class CommandsTest
 {
 	[TestMethod]
 	public async Task Aliases_Parent()
