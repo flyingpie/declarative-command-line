@@ -9,10 +9,7 @@ public static class TestHelper
 	{
 		var outp = new StringWriter();
 
-		var p = new ServiceCollection()
-			.AddSingleton<IOutput>(new TextWriterOutput(outp))
-			.AddCommands()
-			.BuildServiceProvider();
+		var p = new ServiceCollection().AddSingleton<IOutput>(new TextWriterOutput(outp)).AddCommands().BuildServiceProvider();
 
 		var b = new CommandBuilder();
 
@@ -21,7 +18,12 @@ public static class TestHelper
 		var conf = new ParserConfiguration();
 		var res = CommandLineParser.Parse(cmd, args, conf);
 
-		var invConf = new InvocationConfiguration() { EnableDefaultExceptionHandler = false, Error = outp, Output = outp, };
+		var invConf = new InvocationConfiguration()
+		{
+			EnableDefaultExceptionHandler = false,
+			Error = outp,
+			Output = outp,
+		};
 
 		var result = await res.InvokeAsync(invConf);
 

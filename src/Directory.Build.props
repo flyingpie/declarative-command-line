@@ -81,6 +81,10 @@
 		<PackageReference Include="Nerdbank.GitVersioning"								PrivateAssets="All"/>
 	</ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="CSharpier.MSBuild"/>
+	</ItemGroup>
+
 	<!-- Analyzers -->
 	<ItemGroup>
 		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers"			PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"/>

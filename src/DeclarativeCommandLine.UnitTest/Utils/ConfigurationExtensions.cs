@@ -8,11 +8,7 @@ public static class ConfigurationExtensions
 	{
 		ArgumentNullException.ThrowIfNull(services);
 
-		var types = typeof(AppRootCommand)
-			.Assembly
-			.GetTypes()
-			.Where(t => !t.IsAbstract)
-			.ToList();
+		var types = typeof(AppRootCommand).Assembly.GetTypes().Where(t => !t.IsAbstract).ToList();
 
 		foreach (var t in types)
 		{

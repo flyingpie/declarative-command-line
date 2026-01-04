@@ -50,9 +50,7 @@ public class CommandView
 			return false;
 		}
 
-		var cmdAttr = symbol
-			.GetAttributes()
-			.FirstOrDefault(a => a.AttributeClass?.EqualsNamedSymbol(ctx.Types.CommandAttribute) ?? false);
+		var cmdAttr = symbol.GetAttributes().FirstOrDefault(a => a.AttributeClass?.EqualsNamedSymbol(ctx.Types.CommandAttribute) ?? false);
 
 		if (cmdAttr == null)
 		{
@@ -74,7 +72,7 @@ public class CommandView
 				.OfType<IPropertySymbol>()
 				.Select(s => PropertyView.TryParse(ctx, s, out var p) ? p : null)
 				.Where(p => p != null)
-				.Select(p => p!)
+				.Select(p => p!),
 		];
 
 		// IsExecutable

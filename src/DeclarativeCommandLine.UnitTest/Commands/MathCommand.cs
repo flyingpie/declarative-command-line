@@ -6,14 +6,10 @@ public class MathCommand
 	[Command(Parent = typeof(MathCommand))]
 	public class AddCommand(IOutput output) : ICommand
 	{
-		[Option(
-			Description = "The first value.",
-			Required = true)]
+		[Option(Description = "The first value.", Required = true)]
 		public int ValueA { get; set; }
 
-		[Option(
-			Description = "The second value.",
-			Required = true)]
+		[Option(Description = "The second value.", Required = true)]
 		public int ValueB { get; set; }
 
 		public void Execute()

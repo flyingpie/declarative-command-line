@@ -1,6 +1,4 @@
 namespace DeclarativeCommandLine.UnitTest.Tests;
 
 [Command(Parent = typeof(AppRootCommand))]
-public class TestCommand
-{
-}
+public class TestCommand { }

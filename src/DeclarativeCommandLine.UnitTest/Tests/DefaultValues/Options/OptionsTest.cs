@@ -33,10 +33,12 @@ public partial class OptionsTest
 			Assert.AreEqual(0, res.Code);
 		}
 
+		// csharpier-ignore-start
 		[TestMethod]
-		[DataRow("--int",					"123")]
-		[DataRow("--int-nullable",			"123")]
-		[DataRow("--string",				"The Explicit String")]
+		[DataRow("--int",             "123")]
+		[DataRow("--int-nullable",    "123")]
+		[DataRow("--string",          "The Explicit String")]
+		// csharpier-ignore-end
 		public async Task Explicit(string opt, string val)
 		{
 			// Act

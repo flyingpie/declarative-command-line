@@ -64,5 +64,4 @@ public partial class Test1
 		await Verify(res.Output);
 		Assert.AreEqual(0, res.Code);
 	}
-
 }

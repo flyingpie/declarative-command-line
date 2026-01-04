@@ -5,9 +5,7 @@ namespace DeclarativeCommandLine;
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class CommandAttribute : Attribute
 {
-	public CommandAttribute()
-	{
-	}
+	public CommandAttribute() { }
 
 	public CommandAttribute(string name)
 	{
@@ -23,7 +21,8 @@ public sealed class CommandAttribute : Attribute
 	[SuppressMessage(
 		"Design",
 		"CA1019:Define accessors for attribute arguments",
-		Justification = "MvdO: I want to have both options available, either as a constructor argument, or a named one, whatever the user prefers.")]
+		Justification = "MvdO: I want to have both options available, either as a constructor argument, or a named one, whatever the user prefers."
+	)]
 	public string? Name { get; set; }
 
 	public Type? Parent { get; set; }

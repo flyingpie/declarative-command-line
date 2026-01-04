@@ -26,7 +26,10 @@ public static class CompilationExtensions
 		return arguments.FirstOrDefault(a => a.Key.Equals(name, StringComparison.Ordinal)).Value.Value;
 	}
 
-	public static IReadOnlyCollection<T> GetNamedArgumentArray<T>(this ICollection<KeyValuePair<string, TypedConstant>> arguments, string name)
+	public static IReadOnlyCollection<T> GetNamedArgumentArray<T>(
+		this ICollection<KeyValuePair<string, TypedConstant>> arguments,
+		string name
+	)
 	{
 		if (arguments == null)
 		{
@@ -56,7 +59,8 @@ public static class CompilationExtensions
 	[SuppressMessage(
 		"Globalization",
 		"CA1308:Normalize strings to uppercase",
-		Justification = "MvdO: We want the version of the boolean as it should appear in C#, so 'true' or 'false'.")]
+		Justification = "MvdO: We want the version of the boolean as it should appear in C#, so 'true' or 'false'."
+	)]
 	public static string ToCSharpBoolString(this bool b) => b.ToString().ToLowerInvariant();
 
 	private static IEnumerable<INamedTypeSymbol> GetAllTypesInternal(this INamedTypeSymbol type)

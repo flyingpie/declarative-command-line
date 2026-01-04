@@ -23,12 +23,7 @@ public class DeclTypes
 		ICommand = compilation.GetTypeByMetadataName(ICommandTypeName)!;
 		IAsyncCommand = compilation.GetTypeByMetadataName(IAsyncCommandTypeName)!;
 		IAsyncCommandWithParseResult = compilation.GetTypeByMetadataName(IAsyncCommandWithParseResultTypeName)!;
-		ExecutableCommandTypeNames =
-		[
-			ICommand,
-			IAsyncCommand,
-			IAsyncCommandWithParseResult,
-		];
+		ExecutableCommandTypeNames = [ICommand, IAsyncCommand, IAsyncCommandWithParseResult];
 
 		CommandAttribute = compilation.GetTypeByMetadataName(CommandAttributeTypeName)!;
 		ArgumentAttribute = compilation.GetTypeByMetadataName(ArgumentAttributeTypeName)!;

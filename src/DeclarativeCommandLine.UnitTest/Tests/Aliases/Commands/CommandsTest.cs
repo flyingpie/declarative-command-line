@@ -33,7 +33,11 @@ public partial class CommandsTest
 	[TestMethod]
 	[DataRow("aliases-1")]
 	[DataRow("alias1")]
-	[SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "MvdO: The output is different due to the command used.")]
+	[SuppressMessage(
+		"Major Code Smell",
+		"S4144:Methods should not have identical implementations",
+		Justification = "MvdO: The output is different due to the command used."
+	)]
 	public async Task Aliases_1(string cmd)
 	{
 		// Act
@@ -48,7 +52,11 @@ public partial class CommandsTest
 	[DataRow("aliases-2")]
 	[DataRow("alias2-1")]
 	[DataRow("alias2-2")]
-	[SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "MvdO: The output is different due to the command used.")]
+	[SuppressMessage(
+		"Major Code Smell",
+		"S4144:Methods should not have identical implementations",
+		Justification = "MvdO: The output is different due to the command used."
+	)]
 	public async Task Aliases_2(string cmd)
 	{
 		// Act

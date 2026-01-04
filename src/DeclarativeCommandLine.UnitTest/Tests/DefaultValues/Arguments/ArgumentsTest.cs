@@ -22,11 +22,13 @@ public partial class ArgumentsTest
 			Assert.AreEqual(0, res.Code);
 		}
 
+		// csharpier-ignore-start
 		[TestMethod]
-		[DataRow("int",					new string[0])]
-		[DataRow("int",					new[] { "123" })]
-		[DataRow("int-nullable",		new string[0])]
-		[DataRow("int-nullable",		new[] { "123" })]
+		[DataRow("int",             new string[0])]
+		[DataRow("int",             new[] { "123" })]
+		[DataRow("int-nullable",    new string[0])]
+		[DataRow("int-nullable",    new[] { "123" })]
+		// csharpier-ignore-end
 		public async Task IntArg(string arg, string[] val)
 		{
 			// Act

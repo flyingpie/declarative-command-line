@@ -1,6 +1,3 @@
 namespace DeclarativeCommandLine.TestApp;
 
-public class Scratch
-{
-	
-}
+public class Scratch { }

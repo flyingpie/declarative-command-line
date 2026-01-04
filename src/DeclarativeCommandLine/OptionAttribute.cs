@@ -3,9 +3,7 @@
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class OptionAttribute : Attribute
 {
-	public OptionAttribute()
-	{
-	}
+	public OptionAttribute() { }
 
 	public OptionAttribute(string name)
 	{

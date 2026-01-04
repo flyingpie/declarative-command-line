@@ -58,7 +58,12 @@ public class PropertyView
 			return false;
 		}
 
-		view = new() { Symbol = symbol, ArgumentAttribute = argumentAttr, OptionAttribute = optionAttr, };
+		view = new()
+		{
+			Symbol = symbol,
+			ArgumentAttribute = argumentAttr,
+			OptionAttribute = optionAttr,
+		};
 
 		view.PropertyTypeName = symbol.Type.Name;
 
@@ -113,32 +118,32 @@ public class PropertyView
 			switch (constrArg.Key)
 			{
 				case "Description":
-					{
-						view.OptDescription = constrArg.Value.Value as string;
-						break;
-					}
+				{
+					view.OptDescription = constrArg.Value.Value as string;
+					break;
+				}
 
 				case "Hidden":
-					{
+				{
 #pragma warning disable CS8605 // Unboxing a possibly null value. // MvdO: TODO: Refactor to extension methods, like for Command
-						view.OptHidden = (bool)constrArg.Value.Value;
+					view.OptHidden = (bool)constrArg.Value.Value;
 #pragma warning restore CS8605 // Unboxing a possibly null value.
-						break;
-					}
+					break;
+				}
 
 				case "Name":
-					{
-						view.OptName = constrArg.Value.Value as string;
-						break;
-					}
+				{
+					view.OptName = constrArg.Value.Value as string;
+					break;
+				}
 
 				case "Required":
-					{
+				{
 #pragma warning disable CS8605 // Unboxing a possibly null value. // MvdO: TODO: Refactor to extension methods, like for Command
-						view.OptRequired = (bool)constrArg.Value.Value;
+					view.OptRequired = (bool)constrArg.Value.Value;
 #pragma warning restore CS8605 // Unboxing a possibly null value.
-						break;
-					}
+					break;
+				}
 			}
 		}
 	}
