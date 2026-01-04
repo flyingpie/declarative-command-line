@@ -1,0 +1,14 @@
+﻿Description:
+
+Usage:
+  the_executable test allow-multiple-arguments-per-token options [options]
+
+Options:
+  --int <int>
+  --int-nullable <int-nullable>
+  --int-array <int-array>
+  --int-array-nullable <int-array-nullable>
+  --string <string>
+  --string-array <string-array>
+  -?, -h, --help                             Show help and usage information
+

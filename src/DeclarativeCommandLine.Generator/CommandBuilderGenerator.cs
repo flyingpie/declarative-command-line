@@ -183,6 +183,9 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+				sb.AppendLine(
+					$"{tab}    {optVar}.AllowMultipleArgumentsPerToken = {opt.OptAllowMultipleArgumentsPerToken.ToCSharpBoolString()};"
+				);
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
 				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
 				sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToCSharpBoolString()};");

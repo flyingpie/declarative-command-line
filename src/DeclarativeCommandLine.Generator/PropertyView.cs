@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace DeclarativeCommandLine.Generator;
 
 public class PropertyView
@@ -16,7 +14,25 @@ public class PropertyView
 
 	public string PropertyTypeName { get; private set; } = null!;
 
-	public string PropertyTypeNameWithNullable => PropertyIsNullable ? $"{PropertyTypeName}?" : PropertyTypeName;
+	public string PropertyTypeNameWithNullable
+	{
+		get
+		{
+			if (PropertyIsArray)
+			{
+				return $"{PropertyTypeName}[]";
+			}
+
+			if (PropertyIsNullable)
+			{
+				return $"{PropertyTypeName}?";
+			}
+
+			return PropertyTypeName;
+		}
+	}
+
+	public bool PropertyIsArray { get; private set; }
 
 	public bool PropertyIsNullable { get; private set; }
 
@@ -27,6 +43,8 @@ public class PropertyView
 	public object? OptDefaultValue { get; private set; }
 
 	public IReadOnlyCollection<string> OptFromAmong { get; private set; } = [];
+
+	public bool OptAllowMultipleArgumentsPerToken { get; private set; }
 
 	public bool OptHidden { get; private set; }
 
@@ -67,12 +85,20 @@ public class PropertyView
 
 		view.PropertyTypeName = symbol.Type.Name;
 
+		// For generic types, pull out the type argument.
 		if (symbol.Type.Name.Equals("Nullable", StringComparison.Ordinal))
 		{
 			view.PropertyIsNullable = true;
 
-			var innerType = ((INamedTypeSymbol)symbol.Type).TypeArguments.First();
+			var innerType = ((INamedTypeSymbol)symbol.Type).TypeArguments.FirstOrDefault();
 			view.PropertyTypeName = innerType.Name;
+		}
+
+		// Array types.
+		if (symbol.Type is IArrayTypeSymbol arr)
+		{
+			view.PropertyIsArray = true;
+			view.PropertyTypeName = arr.ElementType.ToString();
 		}
 
 		if (argumentAttr != null)
@@ -117,6 +143,14 @@ public class PropertyView
 		{
 			switch (constrArg.Key)
 			{
+				case "AllowMultipleArgumentsPerToken":
+				{
+#pragma warning disable CS8605 // Unboxing a possibly null value. // MvdO: TODO: Refactor to extension methods, like for Command
+					view.OptAllowMultipleArgumentsPerToken = (bool)constrArg.Value.Value;
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+					break;
+				}
+
 				case "Description":
 				{
 					view.OptDescription = constrArg.Value.Value as string;
