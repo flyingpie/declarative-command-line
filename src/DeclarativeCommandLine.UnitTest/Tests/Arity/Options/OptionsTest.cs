@@ -1,6 +1,3 @@
 namespace DeclarativeCommandLine.UnitTest.Tests.Arity.Options;
 
-public class OptionsTest
-{
-	
-}
+public class OptionsTest { }

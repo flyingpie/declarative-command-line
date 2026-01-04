@@ -18,9 +18,13 @@ public sealed class OptionAttribute : Attribute
 
 	public string[]? Aliases { get; set; }
 
-	public string[]? FromAmong { get; set; }
+	public int? ArityMin { get; set; }
+
+	public int? ArityMax { get; set; }
 
 	public bool AllowMultipleArgumentsPerToken { get; set; }
+
+	public string[]? FromAmong { get; set; }
 
 	public string? ArgumentHelpName { get; set; }
 

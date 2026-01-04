@@ -3,6 +3,10 @@ namespace DeclarativeCommandLine;
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ArgumentAttribute : Attribute
 {
+	public int? ArityMin { get; set; }
+
+	public int? ArityMax { get; set; }
+
 	public object? DefaultValue { get; set; }
 
 	public string? Description { get; set; }
