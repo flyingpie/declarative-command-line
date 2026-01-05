@@ -148,26 +148,36 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 		{
 			var optVar = $"opt{opt.Index}";
 
+			///////////////////////////////
+			// Arguments
+			///////////////////////////////
 			if (opt.ArgumentAttribute != null)
 			{
 				sb.AppendLine($"{tab}// Argument {opt.OptName}");
 				sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+
+				// Description
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
 
+				// Default value
 				if (opt.OptDefaultValue != null)
 				{
+					// String values
 					if (opt.PropertyTypeName == "String")
 					{
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
 					}
-					else if (opt.PropertyTypeName == "Int32")
+					// Value types
+					// TODO: Add tests for more types
+					else
 					{
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
 				}
 
+				// From among
 				if (opt.OptFromAmong.Count > 0)
 				{
 					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
@@ -177,36 +187,53 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				sb.AppendLine($"{tab}}}");
 			}
 
+			///////////////////////////////
+			// Options
+			///////////////////////////////
 			if (opt.OptionAttribute != null)
 			{
 				sb.AppendLine($"{tab}// Option {opt.OptName}");
 				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
+
+				// Multiple arguments per token
 				sb.AppendLine(
 					$"{tab}    {optVar}.AllowMultipleArgumentsPerToken = {opt.OptAllowMultipleArgumentsPerToken.ToCSharpBoolString()};"
 				);
+
+				// Description
 				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+
+				// Hidden
 				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
+
+				// Required
 				sb.AppendLine($"{tab}    {optVar}.Required = {opt.OptRequired.ToCSharpBoolString()};");
 
+				// Aliases
 				foreach (var alias in opt.OptAliases)
 				{
 					sb.AppendLine($"{tab}    {optVar}.Aliases.Add(\"{alias}\");");
 				}
 
+				// Default value
 				if (opt.OptDefaultValue != null)
 				{
+					// String values
 					if (opt.PropertyTypeName == "String")
 					{
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
 					}
-					else if (opt.PropertyTypeName == "Int32")
+					// Value types
+					// TODO: Add tests for more types
+					else
 					{
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
 				}
 
+				// From among
 				if (opt.OptFromAmong.Count > 0)
 				{
 					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
@@ -217,6 +244,9 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			}
 		}
 
+		///////////////////////////////
+		// Command execution
+		///////////////////////////////
 		if (cmd.IsExecutable)
 		{
 			sb.AppendLine(
@@ -227,14 +257,17 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				"""
 			);
 
+			// Assign parsed value to property
 			foreach (var opt in cmd.Properties)
 			{
 				var optVar = $"opt{opt.Index}";
 
+				// Required tokens
 				if (opt.OptRequired)
 				{
 					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetRequiredValue({optVar});");
 				}
+				// Non-required tokens
 				else
 				{
 					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
@@ -243,6 +276,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 
 			sb.AppendLine();
 
+			// Call relevant method body
 			sb.AppendLine(
 				$$"""
 				{{tab}}    if ({{cmdVar}}Inst is IAsyncCommandWithParseResult {{cmdVar}}001)
@@ -265,6 +299,9 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			);
 		}
 
+		///////////////////////////////
+		// Child command
+		///////////////////////////////
 		var children = cmds.Where(c => c.CmdParent?.EqualsNamedSymbol(cmd.Symbol) ?? false).ToList();
 		if (children.Count > 0)
 		{
