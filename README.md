@@ -182,27 +182,27 @@ namespace MyApp
 ### Command
 
 - [x] Action
+- [x] Aliases
 - [x] Arguments
 - [x] Description
 - [x] Hidden
 - [x] Name
 - [x] Options
 - [x] Subcommands
-- [x] Aliases
 - [ ] Completions
 - [ ] TreatUnmatchedTokensAsErrors
 - [ ] Validators
 
 ### Arguments
 
+- [x] AcceptOnlyFromAmong
+- [x] Default
 - [x] Description
 - [x] Name
 - [ ] AcceptLegalFileNamesOnly
 - [ ] AcceptLegalFilePathsOnly
-- [x] AcceptOnlyFromAmong
 - [ ] Arity
 - [ ] Completions
-- [x] Default
 - [ ] HelpName
 - [ ] Hidden
 - [ ] Validators
@@ -215,18 +215,18 @@ namespace MyApp
 
 ### Option
 
+- [x] opt.AcceptOnlyFromAmong
+- [x] opt.Aliases
+- [x] opt.DefaultValueFactory
 - [x] opt.Description
+- [x] opt.Hidden
 - [x] opt.Name
 - [x] opt.Required
 - [ ] opt.AcceptLegalFileNamesOnly
 - [ ] opt.AcceptLegalFilePathsOnly
-- [x] opt.AcceptOnlyFromAmong
-- [x] opt.Aliases
 - [ ] opt.AllowMultipleArgumentsPerToken
 - [ ] opt.Arity
 - [ ] opt.Completions
-- [x] opt.DefaultValueFactory
 - [ ] opt.HelpName
-- [ ] opt.Hidden
 - [ ] opt.Recursive
 - [ ] opt.Validators
