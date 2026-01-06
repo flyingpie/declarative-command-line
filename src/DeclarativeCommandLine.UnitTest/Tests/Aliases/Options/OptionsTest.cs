@@ -33,6 +33,11 @@ public partial class OptionsTest
 	[TestMethod]
 	[DataRow("--aliases-1")]
 	[DataRow("--alias-a-1")]
+	[SuppressMessage(
+		"Major Code Smell",
+		"S4144:Methods should not have identical implementations",
+		Justification = "MvdO: The output is different due to the command used."
+	)]
 	public async Task Aliases1(string option)
 	{
 		// Act
@@ -47,6 +52,11 @@ public partial class OptionsTest
 	[DataRow("--aliases-2")]
 	[DataRow("--alias-b-1")]
 	[DataRow("--alias-b-2")]
+	[SuppressMessage(
+		"Major Code Smell",
+		"S4144:Methods should not have identical implementations",
+		Justification = "MvdO: The output is different due to the command used."
+	)]
 	public async Task Aliases2(string option)
 	{
 		// Act

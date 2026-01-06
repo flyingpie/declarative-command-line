@@ -35,7 +35,7 @@ public class ArgumentsCommand
 	public class StringsCommand(IOutput output) : ICommand
 	{
 		[Argument(DefaultValue = "The Default Value")]
-		public string String { get; set; }
+		public string? String { get; set; }
 
 		public void Execute()
 		{

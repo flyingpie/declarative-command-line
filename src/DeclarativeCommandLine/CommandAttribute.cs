@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace DeclarativeCommandLine;
 
 /// <summary>
@@ -41,10 +39,14 @@ public sealed class CommandAttribute : Attribute
 	/// </summary>
 	public string? Description { get; set; }
 
-	/// <inheritdoc cref="Command.Hidden" />
+	/// <summary>
+	/// Whether to hide the command from the --help text.
+	/// </summary>
 	public bool Hidden { get; set; }
 
-	/// <inheritdoc cref="Command.Name" />
+	/// <summary>
+	/// The name of the command, i.e. how it can be used through the cli.
+	/// </summary>
 	[SuppressMessage(
 		"Design",
 		"CA1019:Define accessors for attribute arguments",

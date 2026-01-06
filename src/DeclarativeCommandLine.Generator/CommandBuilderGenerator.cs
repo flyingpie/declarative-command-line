@@ -173,15 +173,15 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				// Default value
 				if (opt.OptDefaultValue != null)
 				{
-					// String values
 					if (opt.PropertyTypeName == "String")
 					{
+						// String values
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
 					}
-					// Value types
-					// TODO: Add tests for more types
 					else
 					{
+						// Value types
+						// TODO: Add tests for more types
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
 				}
@@ -229,15 +229,15 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				// Default value
 				if (opt.OptDefaultValue != null)
 				{
-					// String values
 					if (opt.PropertyTypeName == "String")
 					{
+						// String values
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => \"{opt.OptDefaultValue}\";");
 					}
-					// Value types
-					// TODO: Add tests for more types
 					else
 					{
+						// Value types
+						// TODO: Add tests for more types
 						sb.AppendLine($"{tab}    {optVar}.DefaultValueFactory = argRes => {opt.OptDefaultValue};");
 					}
 				}
@@ -271,14 +271,14 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			{
 				var optVar = $"opt{opt.Index}";
 
-				// Required tokens
 				if (opt.OptRequired)
 				{
+					// Required tokens
 					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetRequiredValue({optVar});");
 				}
-				// Non-required tokens
 				else
 				{
+					// Non-required tokens
 					sb.AppendLine($"{tab}    {cmdVar}Inst.{opt.PropertyName} = parseResult.GetValue({optVar});");
 				}
 			}

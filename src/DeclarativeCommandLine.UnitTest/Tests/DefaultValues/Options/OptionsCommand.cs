@@ -10,7 +10,7 @@ public class OptionsCommand(IOutput output) : ICommand
 	public int? IntNullable { get; set; }
 
 	[Option(DefaultValue = "The Default Value")]
-	public string String { get; set; }
+	public string? String { get; set; }
 
 	public void Execute()
 	{

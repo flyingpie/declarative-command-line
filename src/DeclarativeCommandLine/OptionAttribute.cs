@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace DeclarativeCommandLine;
+﻿namespace DeclarativeCommandLine;
 
 /// <summary>
 /// An option is a named parameter that can be passed to a command. POSIX CLIs typically prefix the option name with two hyphens (--).
@@ -87,10 +85,14 @@ public sealed class OptionAttribute : Attribute
 	/// <inheritdoc cref="Option.HelpName" />
 	public string? HelpName { get; set; }
 
-	/// <inheritdoc cref="Option.Hidden" />
+	/// <summary>
+	/// Whether to hide the option from the --help text.
+	/// </summary>
 	public bool Hidden { get; set; }
 
-	/// <inheritdoc cref="Option.Name" />
+	/// <summary>
+	/// The name of the option, i.e. how it can be used through the cli.
+	/// </summary>
 	public string? Name { get; }
 
 	/// <inheritdoc cref="Option.Recursive" />

@@ -24,8 +24,10 @@ public partial class ArgumentsTest
 
 		// csharpier-ignore-start
 		[TestMethod]
+		// int
 		[DataRow("int",             new string[0])]
 		[DataRow("int",             new[] { "123" })]
+		// int-nullable
 		[DataRow("int-nullable",    new string[0])]
 		[DataRow("int-nullable",    new[] { "123" })]
 		// csharpier-ignore-end

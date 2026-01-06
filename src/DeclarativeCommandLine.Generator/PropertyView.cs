@@ -38,7 +38,7 @@ public class PropertyView
 
 	public string PropertyName => Symbol.Name;
 
-	public IReadOnlyCollection<string> OptAliases { get; private set; }
+	public IReadOnlyCollection<string> OptAliases { get; private set; } = [];
 
 	public object? OptDefaultValue { get; private set; }
 
@@ -90,7 +90,7 @@ public class PropertyView
 		{
 			view.PropertyIsNullable = true;
 
-			var innerType = ((INamedTypeSymbol)symbol.Type).TypeArguments.FirstOrDefault();
+			var innerType = ((INamedTypeSymbol)symbol.Type).TypeArguments.First();
 			view.PropertyTypeName = innerType.Name;
 		}
 

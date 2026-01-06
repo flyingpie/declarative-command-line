@@ -24,25 +24,25 @@ public partial class OptionsTest
 	[DataRow(0, new[] { "--int", "123", "--int", "321" })]
 	[DataRow(1, new[] { "--int", "123", "321", "231" })]
 	[DataRow(0, new[] { "--int", "123", "--int", "321", "--int", "231" })]
-	//
+	// --int-nullable
 	[DataRow(0, new[] { "--int-nullable", "123" })]
 	[DataRow(1, new[] { "--int-nullable", "123", "321" })]
 	[DataRow(0, new[] { "--int-nullable", "123", "--int-nullable", "321" })]
 	[DataRow(1, new[] { "--int-nullable", "123", "321", "231" })]
 	[DataRow(0, new[] { "--int-nullable", "123", "--int-nullable", "321", "--int-nullable", "231" })]
-	//
+	// --int-array
 	[DataRow(0, new[] { "--int-array", "123" })]
 	[DataRow(0, new[] { "--int-array", "123", "321" })]
 	[DataRow(0, new[] { "--int-array", "123", "--int-array", "321" })]
 	[DataRow(0, new[] { "--int-array", "123", "321", "231" })]
 	[DataRow(0, new[] { "--int-array", "123", "--int-array", "321", "--int-array", "231" })]
-	//
+	// --int-array-nullable
 	[DataRow(0, new[] { "--int-array-nullable", "123" })]
 	[DataRow(0, new[] { "--int-array-nullable", "123", "321" })]
 	[DataRow(0, new[] { "--int-array-nullable", "123", "--int-array-nullable", "321" })]
 	[DataRow(0, new[] { "--int-array-nullable", "123", "321", "231" })]
 	[DataRow(0, new[] { "--int-array-nullable", "123", "--int-array-nullable", "321", "--int-array-nullable", "231" })]
-	//
+	// --string
 	[DataRow(0, new[] { "--string", "The First String" })]
 	[DataRow(1, new[] { "--string", "The First String", "The Second String" })]
 	[DataRow(0, new[] { "--string", "The First String", "--string", "The Second String" })]

@@ -44,12 +44,25 @@ public sealed class ArgumentAttribute : Attribute
 	/// </summary>
 	public string[]? FromAmong { get; set; }
 
-	/// <inheritdoc cref="Argument.HelpName" />
+	/// <summary>
+	/// How the argument should be named in the --help text.<br/>
+	/// Note that this is only used for the --help text, not for parsing.
+	/// </summary>
 	public string? HelpName { get; set; }
 
-	/// <inheritdoc cref="Argument.Hidden" />
+	/// <summary>
+	/// Whether to hide the argument from the --help text.
+	/// </summary>
 	public bool Hidden { get; set; }
 
-	/// <inheritdoc cref="Argument.Name" />
+	/// <summary>
+	/// The name of the argument. Note that this is only used to refer to the argument during parsing,
+	/// as arguments are not named when used through the cli.
+	/// </summary>
+	[SuppressMessage(
+		"Design",
+		"CA1019:Define accessors for attribute arguments",
+		Justification = "MvdO: I want to have both options available, either as a constructor argument, or a named one, whatever the user prefers."
+	)]
 	public string? Name { get; }
 }

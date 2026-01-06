@@ -9,10 +9,10 @@ public class InheritanceCommand
 		private readonly IOutput _output = output ?? throw new ArgumentNullException(nameof(output));
 
 		[Option]
-		public string BaseArgumentA { get; set; }
+		public string? BaseArgumentA { get; set; }
 
 		[Option]
-		public string BaseOptionA { get; set; }
+		public string? BaseOptionA { get; set; }
 
 		public virtual void Execute()
 		{
@@ -28,10 +28,10 @@ public class InheritanceCommand
 		private readonly IOutput _output = output ?? throw new ArgumentNullException(nameof(output));
 
 		[Option]
-		public string ChildArgumentA { get; set; }
+		public string? ChildArgumentA { get; set; }
 
 		[Option]
-		public string ChildOptionA { get; set; }
+		public string? ChildOptionA { get; set; }
 
 		public override void Execute()
 		{
@@ -49,10 +49,10 @@ public class InheritanceCommand
 		private readonly IOutput _output1 = output ?? throw new ArgumentNullException(nameof(output));
 
 		[Option]
-		public string GrandChildArgumentA { get; set; }
+		public string? GrandChildArgumentA { get; set; }
 
 		[Option]
-		public string GrandChildOptionA { get; set; }
+		public string? GrandChildOptionA { get; set; }
 
 		public override void Execute()
 		{

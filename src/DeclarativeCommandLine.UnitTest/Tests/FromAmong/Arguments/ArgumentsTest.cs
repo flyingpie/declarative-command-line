@@ -22,17 +22,18 @@ public partial class ArgumentsTest
 
 		// csharpier-ignore-start
 		[TestMethod]
+		// int-arg
 		[DataRow("int-arg",                 "123",  0)]
 		[DataRow("int-arg-null",            "123",  0)]
 		[DataRow("int-arg-empty-array",     "123",  0)]
-		//
+		// int-arg-1-value
 		[DataRow("int-arg-1-value",         "1",    0)]
 		[DataRow("int-arg-1-value",         "2",    1)]
-		//
+		// int-arg-2-value
 		[DataRow("int-arg-2-values",        "1",    0)]
 		[DataRow("int-arg-2-values",        "2",    0)]
 		[DataRow("int-arg-2-values",        "3",    1)]
-		//
+		// int-arg-3-value
 		[DataRow("int-arg-3-values",        "1",    0)]
 		[DataRow("int-arg-3-values",        "2",    0)]
 		[DataRow("int-arg-3-values",        "3",    0)]
@@ -66,17 +67,18 @@ public partial class ArgumentsTest
 
 		// csharpier-ignore-start
 		[TestMethod]
+		// string-arg
 		[DataRow("string-arg",              "abc",    0)]
 		[DataRow("string-arg-null",         "abc",    0)]
 		[DataRow("string-arg-empty-array",  "abc",    0)]
-		//
+		// string-arg-1-value
 		[DataRow("string-arg-1-value",      "val-1",  0)]
 		[DataRow("string-arg-1-value",      "abc",    1)]
-		//
+		// string-arg-2-value
 		[DataRow("string-arg-2-values",     "val-1",  0)]
 		[DataRow("string-arg-2-values",     "val-2",  0)]
 		[DataRow("string-arg-2-values",     "abc",    1)]
-		//
+		// string-arg-3-value
 		[DataRow("string-arg-3-values",     "val-1",  0)]
 		[DataRow("string-arg-3-values",     "val-2",  0)]
 		[DataRow("string-arg-3-values",     "val-3",  0)]

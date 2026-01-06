@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DeclarativeCommandLine.UnitTest;
-using DeclarativeCommandLine.UnitTest.Commands;
 using DeclarativeCommandLine.UnitTest.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
