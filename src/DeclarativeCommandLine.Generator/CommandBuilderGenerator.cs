@@ -125,6 +125,10 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 		var tab = new string(' ', indent);
 		var cmdVar = $"cmd{cmd.Index}";
 
+		///////////////////////////////
+		// Command
+		///////////////////////////////
+
 		if (parent == null)
 		{
 			// Root command
@@ -137,11 +141,16 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			sb.AppendLine($"{tab}cmd{parent.Index}.Add({cmdVar});");
 		}
 
+		// Aliases
 		foreach (var alias in cmd.CmdAliases)
 		{
 			sb.AppendLine($"{tab}{cmdVar}.Aliases.Add(\"{alias}\");");
 		}
 
+		// Description
+		sb.AppendLine($"{tab}{cmdVar}.Description = \"{cmd.CmdDescription}\";");
+
+		// Hidden
 		sb.AppendLine($"{tab}{cmdVar}.Hidden = {cmd.CmdHidden.ToCSharpBoolString()};");
 
 		foreach (var opt in cmd.Properties)
