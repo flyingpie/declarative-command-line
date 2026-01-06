@@ -1,4 +1,5 @@
 ﻿Description:
+  The DCL test app root command.
 
 Usage:
   the_executable [command] [options]
@@ -9,7 +10,7 @@ Options:
 
 Commands:
   inheritance
-  math
-  string
-  test
+  math         Math-related commands.
+  string       String-related commands.
+  test         Commands used by the test suite.
 

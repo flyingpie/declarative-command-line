@@ -1,4 +1,4 @@
 namespace DeclarativeCommandLine.UnitTest;
 
-[Command]
+[Command(Description = "The DCL test app root command.")]
 public class AppRootCommand { }

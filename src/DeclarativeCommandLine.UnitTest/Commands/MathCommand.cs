@@ -1,6 +1,6 @@
 namespace DeclarativeCommandLine.UnitTest.Commands;
 
-[Command(Parent = typeof(AppRootCommand))]
+[Command(Parent = typeof(AppRootCommand), Description = "Math-related commands.")]
 public class MathCommand
 {
 	[Command(Parent = typeof(MathCommand))]
