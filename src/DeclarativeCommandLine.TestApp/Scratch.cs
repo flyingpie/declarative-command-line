@@ -1,4 +1,4 @@
-#pragma warning ignore
+#pragma warning disable
 
 using System;
 using System.CommandLine;
