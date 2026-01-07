@@ -4,7 +4,7 @@ namespace DeclarativeCommandLine.UnitTest.Tests.Descriptions.Options;
 /// Description test at the "option" level.
 /// </summary>
 [Command(Parent = typeof(DescriptionsCommand))]
-public class OptionsCommand(IOutput output)
+public class OptionsCommand
 {
 	[Option(Description = "A regular string")]
 	public string? RegularString { get; set; }
