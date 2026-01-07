@@ -6,7 +6,7 @@
 Description:
 
 Usage:
-  the_executable test from-among arguments ints int-arg-3-values [<--int-arg-3-values>] [options]
+  the_executable test from-among arguments ints int-arg-3-values [<int-arg-3-values>] [options]
 
 Arguments:
   <1|2|3>

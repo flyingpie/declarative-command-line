@@ -1,0 +1,18 @@
+﻿Description:
+
+Usage:
+  the_executable test descriptions arguments <regular-string> <regular-string-multi-line> <raw-string-literal> <raw-string-literal-multi-line> [options]
+
+Arguments:
+  <regular-string>                 A regular string
+  <regular-string-multi-line>      A regular string
+                                   But with multiple
+                                   lines
+  <raw-string-literal>             A raw string literal
+  <raw-string-literal-multi-line>  A raw string literal
+                                   But with multiple
+                                   lines
+
+Options:
+  -?, -h, --help  Show help and usage information
+

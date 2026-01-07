@@ -2,6 +2,16 @@ namespace DeclarativeCommandLine.Generator;
 
 public static class NameFormatter
 {
+	public static string PropertyNameToArgumentName(string propertyName)
+	{
+		if (string.IsNullOrWhiteSpace(propertyName))
+		{
+			throw new ArgumentNullException(nameof(propertyName));
+		}
+
+		return ToKebabCase(propertyName).Trim('-');
+	}
+
 	public static string CommandTypeToCommandName(string typeName)
 	{
 		if (string.IsNullOrWhiteSpace(typeName))

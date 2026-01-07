@@ -7,6 +7,6 @@ Options:
   -?, -h, --help  Show help and usage information
 
 Commands:
-  int <--int>                    [default: 1001]
-  int-nullable <--int-nullable>  [default: 1002]
+  int <int>                    [default: 1001]
+  int-nullable <int-nullable>  [default: 1002]
 

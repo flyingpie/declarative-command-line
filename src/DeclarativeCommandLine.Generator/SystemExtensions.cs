@@ -1,0 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
+
+namespace DeclarativeCommandLine.Generator;
+
+public static class SystemExtensions
+{
+	public static string NewLinesToLiterals(this string source) =>
+		source == null ? throw new ArgumentNullException(nameof(source)) : source.Replace("\n", "\\n");
+
+	[SuppressMessage(
+		"Globalization",
+		"CA1308:Normalize strings to uppercase",
+		Justification = "MvdO: We want the version of the boolean as it should appear in C#, so 'true' or 'false'."
+	)]
+	public static string ToCSharpBoolString(this bool b) => b.ToString().ToLowerInvariant();
+}

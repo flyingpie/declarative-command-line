@@ -108,6 +108,7 @@ public class PropertyView
 
 			view.OptDefaultValue = argumentAttr.NamedArguments.GetNamedArgument("DefaultValue");
 			view.OptFromAmong = argumentAttr.NamedArguments.GetNamedArgumentArray<string>("FromAmong");
+			view.OptName ??= NameFormatter.PropertyNameToArgumentName(symbol.Name);
 		}
 
 		if (optionAttr != null)
@@ -118,9 +119,8 @@ public class PropertyView
 			view.OptAliases = optionAttr.NamedArguments.GetNamedArgumentArray<string>("Aliases");
 			view.OptDefaultValue = optionAttr.NamedArguments.GetNamedArgument("DefaultValue");
 			view.OptFromAmong = optionAttr.NamedArguments.GetNamedArgumentArray<string>("FromAmong");
+			view.OptName ??= NameFormatter.PropertyNameToOptionName(symbol.Name);
 		}
-
-		view.OptName ??= NameFormatter.PropertyNameToOptionName(symbol.Name);
 
 		return true;
 	}
@@ -137,8 +137,6 @@ public class PropertyView
 
 	private static void ParseShared(PropertyView view, AttributeData optionAttr)
 	{
-		view.OptName = optionAttr.ConstructorArguments.FirstOrDefault().Value as string;
-
 		foreach (var constrArg in optionAttr.NamedArguments)
 		{
 			switch (constrArg.Key)
@@ -153,7 +151,7 @@ public class PropertyView
 
 				case "Description":
 				{
-					view.OptDescription = constrArg.Value.Value as string;
+					view.OptDescription = (constrArg.Value.Value as string)?.NewLinesToLiterals();
 					break;
 				}
 
@@ -162,12 +160,6 @@ public class PropertyView
 #pragma warning disable CS8605 // Unboxing a possibly null value. // MvdO: TODO: Refactor to extension methods, like for Command
 					view.OptHidden = (bool)constrArg.Value.Value;
 #pragma warning restore CS8605 // Unboxing a possibly null value.
-					break;
-				}
-
-				case "Name":
-				{
-					view.OptName = constrArg.Value.Value as string;
 					break;
 				}
 

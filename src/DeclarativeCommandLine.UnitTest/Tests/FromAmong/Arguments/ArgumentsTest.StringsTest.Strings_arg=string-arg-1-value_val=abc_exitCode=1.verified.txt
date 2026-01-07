@@ -4,7 +4,7 @@
 Description:
 
 Usage:
-  the_executable test from-among arguments strings string-arg-1-value <--string-arg-1-value> [options]
+  the_executable test from-among arguments strings string-arg-1-value <string-arg-1-value> [options]
 
 Arguments:
   <val-1>

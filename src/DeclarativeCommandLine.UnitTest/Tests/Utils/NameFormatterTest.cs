@@ -6,6 +6,14 @@ namespace DeclarativeCommandLine.UnitTest.Tests.Utils;
 public class NameFormatterTest
 {
 	[TestMethod]
+	[DataRow("ArgumentName", "argument-name")]
+	[DataRow("ArgumentName01", "argument-name-01")]
+	public void PropertyNameToArgumentName(string propertyName, string expectedArgumentName)
+	{
+		Assert.AreEqual(expectedArgumentName, NameFormatter.PropertyNameToArgumentName(propertyName));
+	}
+
+	[TestMethod]
 	[DataRow("TypeName", "type-name")]
 	[DataRow("TypeName01", "type-name-01")]
 	public void CommandTypeToCommandNameTest(string commandTypeName, string expectedCommandName)

@@ -1,0 +1,20 @@
+﻿Required command was not provided.
+
+Description:
+
+Usage:
+  the_executable test descriptions commands [command] [options]
+
+Options:
+  -?, -h, --help  Show help and usage information
+
+Commands:
+  raw-string-literal             A raw string literal
+  raw-string-literal-multi-line  A raw string literal
+                                 But with multiple
+                                 lines
+  regular-string                 A regular string
+  regular-string-multi-line      A regular string
+                                 But with multiple
+                                 lines
+

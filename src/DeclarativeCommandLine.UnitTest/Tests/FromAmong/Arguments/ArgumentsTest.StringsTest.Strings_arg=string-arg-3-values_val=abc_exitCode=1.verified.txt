@@ -6,7 +6,7 @@
 Description:
 
 Usage:
-  the_executable test from-among arguments strings string-arg-3-values <--string-arg-3-values> [options]
+  the_executable test from-among arguments strings string-arg-3-values <string-arg-3-values> [options]
 
 Arguments:
   <val-1|val-2|val-3>

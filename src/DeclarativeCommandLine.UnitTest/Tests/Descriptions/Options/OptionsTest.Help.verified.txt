@@ -1,0 +1,16 @@
+﻿Description:
+
+Usage:
+  the_executable test descriptions options [options]
+
+Options:
+  --regular-string <regular-string>                                A regular string
+  --regular-string-multi-line <regular-string-multi-line>          A regular string
+                                                                   But with multiple
+                                                                   lines
+  --raw-string-literal <raw-string-literal>                        A raw string literal
+  --raw-string-literal-multi-line <raw-string-literal-multi-line>  A raw string literal
+                                                                   But with multiple
+                                                                   lines
+  -?, -h, --help                                                   Show help and usage information
+
