@@ -4,8 +4,8 @@ namespace DeclarativeCommandLine.Generator;
 
 public static class SystemExtensions
 {
-	public static string NewLinesToLiterals(this string source) =>
-		source == null ? throw new ArgumentNullException(nameof(source)) : source.Replace("\n", "\\n");
+	public static string ToEscapedCSharpString(this string source) =>
+		source == null ? throw new ArgumentNullException(nameof(source)) : source.Replace(@"\", @"\\").Replace("\n", "\\n");
 
 	[SuppressMessage(
 		"Globalization",

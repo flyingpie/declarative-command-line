@@ -151,7 +151,7 @@ public class PropertyView
 
 				case "Description":
 				{
-					view.OptDescription = (constrArg.Value.Value as string)?.NewLinesToLiterals();
+					view.OptDescription = (constrArg.Value.Value as string)?.ToEscapedCSharpString();
 					break;
 				}
 

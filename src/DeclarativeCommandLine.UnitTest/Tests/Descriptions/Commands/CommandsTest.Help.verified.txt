@@ -9,6 +9,12 @@ Options:
   -?, -h, --help  Show help and usage information
 
 Commands:
+  escaping                       ________  _________ .____
+                                 \______ \ \_   ___ \|    |
+                                  |    |  \/    \  \/|    |
+                                  |    `   \     \___|    |___
+                                 /_______  /\______  /_______ \
+                                         \/        \/        \/
   raw-string-literal             A raw string literal
   raw-string-literal-multi-line  A raw string literal
                                  But with multiple

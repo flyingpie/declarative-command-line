@@ -24,4 +24,17 @@ public class CommandsCommand
 			"""
 	)]
 	public class RawStringLiteralMultiLineCommand { }
+
+	[Command(
+		Parent = typeof(CommandsCommand),
+		Description = """
+			________  _________ .____
+			\______ \ \_   ___ \|    |
+			 |    |  \/    \  \/|    |
+			 |    `   \     \___|    |___
+			/_______  /\______  /_______ \
+			        \/        \/        \/
+			"""
+	)]
+	public class EscapingCommand { }
 }
