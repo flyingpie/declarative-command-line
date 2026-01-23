@@ -5,7 +5,7 @@ namespace DeclarativeCommandLine.Generator;
 
 public static class SystemExtensions
 {
-	public static string ToEscapedCSharpString(this string source) =>
+	public static string Lit(this string source) =>
 		source == null
 			? throw new ArgumentNullException(nameof(source))
 			: SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(source)).ToFullString();

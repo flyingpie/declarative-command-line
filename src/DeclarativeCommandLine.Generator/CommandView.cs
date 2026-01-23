@@ -90,7 +90,7 @@ public class CommandView
 		view.CmdAliases = cmdAttr.NamedArguments.GetNamedArgumentArray<string>("Aliases");
 
 		// Description
-		view.CmdDescription = (cmdAttr.NamedArguments.GetNamedArgument("Description") as string)?.ToEscapedCSharpString();
+		view.CmdDescription = cmdAttr.NamedArguments.GetNamedArgument("Description") as string;
 
 		// Hidden
 		view.CmdHidden = cmdAttr.NamedArguments.GetNamedArgument("Hidden") as bool? ?? false;
