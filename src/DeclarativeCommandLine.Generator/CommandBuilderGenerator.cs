@@ -137,18 +137,18 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 		else
 		{
 			// Child command
-			sb.AppendLine($"{tab}var {cmdVar} = new Command(\"{cmd.CmdName}\");");
+			sb.AppendLine($"{tab}var {cmdVar} = new Command({cmd.CmdName.Lit()});");
 			sb.AppendLine($"{tab}cmd{parent.Index}.Add({cmdVar});");
 		}
 
 		// Aliases
 		foreach (var alias in cmd.CmdAliases)
 		{
-			sb.AppendLine($"{tab}{cmdVar}.Aliases.Add(\"{alias}\");");
+			sb.AppendLine($"{tab}{cmdVar}.Aliases.Add({alias.Lit()});");
 		}
 
 		// Description
-		sb.AppendLine($"{tab}{cmdVar}.Description = \"{cmd.CmdDescription}\";");
+		sb.AppendLine($"{tab}{cmdVar}.Description = {cmd.CmdDescription?.Lit() ?? "null"};");
 
 		// Hidden
 		sb.AppendLine($"{tab}{cmdVar}.Hidden = {cmd.CmdHidden.ToCSharpBoolString()};");
@@ -163,12 +163,12 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			if (opt.ArgumentAttribute != null)
 			{
 				sb.AppendLine($"{tab}// Argument {opt.OptName}");
-				sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
+				sb.AppendLine($"{tab}var {optVar} = new Argument<{opt.PropertyTypeNameWithNullable}>({opt.OptName.Lit()});");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 
 				// Description
-				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+				sb.AppendLine($"{tab}    {optVar}.Description = {opt.OptDescription?.Lit() ?? "null"};");
 
 				// Default value
 				if (opt.OptDefaultValue != null)
@@ -189,7 +189,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				// From among
 				if (opt.OptFromAmong.Count > 0)
 				{
-					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => o.Lit()));
 					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
 				}
 
@@ -202,7 +202,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 			if (opt.OptionAttribute != null)
 			{
 				sb.AppendLine($"{tab}// Option {opt.OptName}");
-				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeNameWithNullable}>(\"{opt.OptName}\");");
+				sb.AppendLine($"{tab}var {optVar} = new Option<{opt.PropertyTypeNameWithNullable}>({opt.OptName.Lit()});");
 				sb.AppendLine($"{tab}{{");
 				sb.AppendLine($"{tab}    {cmdVar}.Add({optVar});");
 
@@ -212,7 +212,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				);
 
 				// Description
-				sb.AppendLine($"{tab}    {optVar}.Description = \"{opt.OptDescription}\";");
+				sb.AppendLine($"{tab}    {optVar}.Description = {opt.OptDescription?.Lit() ?? "null"};");
 
 				// Hidden
 				sb.AppendLine($"{tab}    {optVar}.Hidden = {opt.OptHidden.ToCSharpBoolString()};");
@@ -223,7 +223,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				// Aliases
 				foreach (var alias in opt.OptAliases)
 				{
-					sb.AppendLine($"{tab}    {optVar}.Aliases.Add(\"{alias}\");");
+					sb.AppendLine($"{tab}    {optVar}.Aliases.Add({alias.Lit()});");
 				}
 
 				// Default value
@@ -245,7 +245,7 @@ public class CommandBuilderGenerator : IIncrementalGenerator
 				// From among
 				if (opt.OptFromAmong.Count > 0)
 				{
-					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => $"\"{o}\""));
+					var allowedValues = string.Join(", ", opt.OptFromAmong.Select(o => o.Lit()));
 					sb.AppendLine($"{tab}    {optVar}.AcceptOnlyFromAmong([{allowedValues}]);");
 				}
 

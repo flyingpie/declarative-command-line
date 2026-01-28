@@ -10,7 +10,7 @@ public class PropertyView
 
 	public AttributeData? OptionAttribute { get; private set; }
 
-	public string? OptName { get; private set; }
+	public string OptName { get; private set; } = null!;
 
 	public string PropertyTypeName { get; private set; } = null!;
 
@@ -151,7 +151,7 @@ public class PropertyView
 
 				case "Description":
 				{
-					view.OptDescription = (constrArg.Value.Value as string)?.ToEscapedCSharpString();
+					view.OptDescription = constrArg.Value.Value as string;
 					break;
 				}
 

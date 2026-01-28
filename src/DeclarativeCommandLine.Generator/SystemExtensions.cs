@@ -1,11 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace DeclarativeCommandLine.Generator;
 
 public static class SystemExtensions
 {
-	public static string ToEscapedCSharpString(this string source) =>
-		source == null ? throw new ArgumentNullException(nameof(source)) : source.Replace(@"\", @"\\").Replace("\n", "\\n");
+	public static string Lit(this string source) =>
+		source == null
+			? throw new ArgumentNullException(nameof(source))
+			: SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(source)).ToFullString();
 
 	[SuppressMessage(
 		"Globalization",
