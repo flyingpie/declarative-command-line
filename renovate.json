@@ -1,0 +1,13 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"enabledManagers": [
+		"github-actions",
+		"nuget"
+	],
+	"packageRules": [
+		{
+			"groupName": "NuGet",
+			"matchDatasources": "nuget"
+		}
+	]
+}
