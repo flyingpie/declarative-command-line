@@ -70,6 +70,11 @@
 		<EnableMSTestRunner>true</EnableMSTestRunner>
 
 		<!--
+			Using Microsoft Test Platform, which can embed the test runner in the test DLL.
+		-->
+		<OutputType>Exe</OutputType>
+
+		<!--
 			Show failure per test instead of grouped together.
 			https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-integration-dotnet-test
 		-->
