@@ -3,19 +3,19 @@
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
-		<PackageVersion Include="System.CommandLine" Version="2.0.1" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+		<PackageVersion Include="System.CommandLine" Version="2.0.5" />
 		<!--
 			Analyzers
 		-->
 		<PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15" />
-		<PackageVersion Include="SonarAnalyzer.CSharp" Version="10.20.0.135146" />
+		<PackageVersion Include="SonarAnalyzer.CSharp" Version="10.21.0.135717" />
 		<PackageVersion Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" />
 		<!--
 			Build
 		-->
-		<PackageVersion Include="CSharpier.MSBuild" Version="1.2.5" />
+		<PackageVersion Include="CSharpier.MSBuild" Version="1.2.6" />
 		<PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
 		<PackageVersion Include="Nuke.Common" Version="10.1.0" />
 		<!--
