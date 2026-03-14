@@ -5,9 +5,18 @@
 		"nuget"
 	],
 	"packageRules": [
+		// Group all NuGet updates together in a single PR.
 		{
 			"groupName": "NuGet",
 			"matchDatasources": "nuget"
+		},
+		// Deliberately kept at a lower version, so we can support older compiler versions.
+		// This doesn't pose a security risk, as this is a private asset (i.e., not shipped, but provided by the consuming project).
+		{
+			"matchDepNames": [
+				"Microsoft.CodeAnalysis.CSharp"
+			],
+			"allowedVersions": "/^4.7.0$/"
 		}
 	]
 }
