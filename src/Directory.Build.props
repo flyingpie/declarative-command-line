@@ -79,6 +79,8 @@
 			https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-integration-dotnet-test
 		-->
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+
+		<IsTestingPlatformApplication>true</IsTestingPlatformApplication>
 	</PropertyGroup>
 
 	<!-- Versioning -->
