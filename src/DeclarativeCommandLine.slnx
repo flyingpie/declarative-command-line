@@ -13,9 +13,6 @@
 		<File Path="Directory.Build.props" />
 		<File Path="Directory.Packages.props" />
 	</Folder>
-	<Folder Name="/D01-Build/">
-		<Project Path="01-Build/NukeBuild/NukeBuild.csproj" />
-	</Folder>
 	<Project Path="DeclarativeCommandLine.Generator/DeclarativeCommandLine.Generator.csproj" />
 	<Project Path="DeclarativeCommandLine.TestApp/DeclarativeCommandLine.TestApp.csproj" />
 	<Project Path="DeclarativeCommandLine.UnitTest/DeclarativeCommandLine.UnitTest.csproj" />

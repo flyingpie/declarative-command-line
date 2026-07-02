@@ -6,8 +6,8 @@ on:
       - '*'
   workflow_dispatch:
     inputs:
-      PublicRelease:
-        description: "Public Release"
+      PreRelease:
+        description: "PreRelease"
         required: false
 
 jobs:
@@ -21,19 +21,10 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
-      - name: 'Cache: .nuke/temp, ~/.nuget/packages'
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nuke/temp
-            ~/.nuget/packages
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
-      - name: 'Run: Push'
-        run: ./src/build.cmd Push
+      - name: 'Build, test, pack'
+        run: ./src/build.sh
         env:
-          PublicRelease: ${{ github.event.inputs.PublicRelease }}
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PreRelease: ${{ github.event.inputs.PreRelease }}
       - name: 'Publish: package'
         uses: actions/upload-artifact@v4
         with:
