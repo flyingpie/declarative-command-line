@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-OUTPUT=artifacts/pkg
+OUTPUT=artifacts/package
 PRERELEASE=${PRERELEASE:-TRUE}
 PRERELEASE=${PRERELEASE^^}
 CONF=${CONF:-release}
