@@ -15,22 +15,35 @@ jobs:
     name: ubuntu-24_04
     runs-on: ubuntu-24.04
     steps:
+      # Clone
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # Install .Net
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "10.0.x"
-      - name: NuGet Login
-        uses: NuGet/login@v1
-        with:
-          user: my-nuget-username
+
+      # Build
       - name: "Build, test, pack"
         run: ./src/build.sh
         env:
           PreRelease: ${{ github.event.inputs.PreRelease }}
+
+      # Publish GitHub artifact
       - name: "Publish: package"
         uses: actions/upload-artifact@v4
         with:
           name: package
           path: artifacts/package
+
+      # NuGet login
+      - name: NuGet Login
+        uses: NuGet/login@v1
+        with:
+          user: Flyingpie
+
+      # Push the package
+      - name: NuGet push
+        run: dotnet nuget push artifacts/my-sdk.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
