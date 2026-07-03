@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - '*'
+      - "*"
   workflow_dispatch:
     inputs:
       PreRelease:
@@ -20,12 +20,16 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.0.x'
-      - name: 'Build, test, pack'
+          dotnet-version: "10.0.x"
+      - name: NuGet Login
+        uses: NuGet/login@v1
+        with:
+          user: my-nuget-username
+      - name: "Build, test, pack"
         run: ./src/build.sh
         env:
           PreRelease: ${{ github.event.inputs.PreRelease }}
-      - name: 'Publish: package'
+      - name: "Publish: package"
         uses: actions/upload-artifact@v4
         with:
           name: package
