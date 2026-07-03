@@ -8,7 +8,7 @@ PRERELEASE=${PRERELEASE^^}
 CONF=${CONF:-release}
 VERSIONSUFFIX=""
 if [[ "$PRERELEASE" != "FALSE" ]]; then
-	VERSIONSUFFIX="$(git rev-parse --short=8 HEAD)"
+	VERSIONSUFFIX="pre-$(git rev-parse --short=8 HEAD)"
 fi
 
 echo "#######################################"
