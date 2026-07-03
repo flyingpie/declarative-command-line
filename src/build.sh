@@ -32,5 +32,3 @@ dotnet pack "./src/DeclarativeCommandLine.Generator" \
 	--configuration $CONF \
 	--output "$OUTPUT" \
 	/p:VersionSuffix="$VERSIONSUFFIX"
-
-dotnet nuget push "$OUTPUT/*" --api-key pat --source nuget.org
