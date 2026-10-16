@@ -31,7 +31,7 @@ jobs:
       - name: "Build, test, pack"
         run: ./src/build.sh
         env:
-          PreRelease: ${{ github.event.inputs.PreRelease }}
+          PRERELEASE: ${{ github.event.inputs.PreRelease }}
 
       # Publish GitHub artifact
       - name: "Publish: package"
