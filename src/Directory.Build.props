@@ -50,6 +50,10 @@
 
 		<!-- Explicitly overridden per project -->
 		<IsPackable>false</IsPackable>
+
+		<!-- Verify Open Source Maintenance Fee -->
+		<Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
+		<Verify_SponsorshipExemptionUntil>2027-10</Verify_SponsorshipExemptionUntil>
 	</PropertyGroup>
 
 	<!-- Regular Projects -->
