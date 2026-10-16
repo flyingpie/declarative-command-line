@@ -1,22 +1,26 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"config:recommended"
+	],
 	"enabledManagers": [
 		"github-actions",
 		"nuget"
 	],
 	"packageRules": [
-		// Group all NuGet updates together in a single PR.
 		{
-			"groupName": "NuGet",
-			"matchDatasources": "nuget"
+			"groupName": "DotNet",
+			"matchDatasources": [
+				"nuget",
+				"dotnet-version"
+			]
 		},
-		// Deliberately kept at a lower version, so we can support older compiler versions.
-		// This doesn't pose a security risk, as this is a private asset (i.e., not shipped, but provided by the consuming project).
 		{
-			"matchDepNames": [
-				"Microsoft.CodeAnalysis.CSharp"
-			],
-			"allowedVersions": "/^4.7.0$/"
+			"groupName": "GitHub Actions",
+			"matchManagers": [
+				"github-actions"
+			]
 		}
-	]
+	],
+	"prConcurrentLimit": 10
 }
