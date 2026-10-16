@@ -24,7 +24,7 @@
 		-->
 		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
 		<PackageVersion Include="Moq" Version="4.21.0" />
-		<PackageVersion Include="MSTest" Version="4.2.3" />
-		<PackageVersion Include="Verify.MSTest" Version="31.28.0" />
+		<PackageVersion Include="MSTest" Version="4.5.1" />
+		<PackageVersion Include="Verify.MSTest" Version="33.3.4" />
 	</ItemGroup>
 </Project>
