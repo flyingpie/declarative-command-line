@@ -18,7 +18,7 @@
 			Deliberately kept at a lower version, so we can support older compiler versions.
 			This doesn't pose a security risk, as this is a private asset (i.e., not shipped, but provided by the consuming project).
 		-->
-		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
 		<!--
 			Testing
 		-->
