@@ -3,9 +3,9 @@
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.13" />
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.13" />
-		<PackageVersion Include="System.CommandLine" Version="2.0.13" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.14" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
+		<PackageVersion Include="System.CommandLine" Version="2.0.14" />
 		<!--
 			Analyzers
 		-->
@@ -18,13 +18,13 @@
 			Deliberately kept at a lower version, so we can support older compiler versions.
 			This doesn't pose a security risk, as this is a private asset (i.e., not shipped, but provided by the consuming project).
 		-->
-		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
 		<!--
 			Testing
 		-->
 		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
 		<PackageVersion Include="Moq" Version="4.21.0" />
-		<PackageVersion Include="MSTest" Version="4.5.1" />
+		<PackageVersion Include="MSTest" Version="4.5.2" />
 		<PackageVersion Include="Verify.MSTest" Version="33.3.4" />
 	</ItemGroup>
 </Project>
